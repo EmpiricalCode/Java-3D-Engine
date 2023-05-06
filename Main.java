@@ -5,6 +5,6 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         // Creating the main window
-        MainWindow mainWindow = new MainWindow();
+        new MainWindow();
     }
 }
