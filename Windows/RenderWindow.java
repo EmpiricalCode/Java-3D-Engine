@@ -1,6 +1,7 @@
 package Windows;
 
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JPanel;
 
@@ -11,7 +12,7 @@ public class RenderWindow extends Window {
 
     private RenderPanel renderPanel;
     
-    public RenderWindow(int quality) {
+    public RenderWindow(int quality) throws InterruptedException {
         super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 528, 551);
 
         setResizable(false);
@@ -19,6 +20,12 @@ public class RenderWindow extends Window {
         // Creating render panel
         this.renderPanel = new RenderPanel(quality);
         add(this.renderPanel);
+
+        while (true) {
+            TimeUnit.MILLISECONDS.sleep(15);
+
+            this.renderPanel.render(null);
+        }
     }
 }
 
@@ -44,8 +51,6 @@ class RenderPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        System.out.println("dd");
 
         for (int r = 0; r < dimensions; r++) {
             for (int c = 0; c < dimensions; c++) {
