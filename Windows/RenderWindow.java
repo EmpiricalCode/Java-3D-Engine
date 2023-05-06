@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JPanel;
 
 import Structures.Window;
-import Utility.ColorRGB;
 
 public class RenderWindow extends Window {
 
@@ -22,8 +21,6 @@ public class RenderWindow extends Window {
         add(this.renderPanel);
 
         while (true) {
-            TimeUnit.MILLISECONDS.sleep(15);
-
             this.renderPanel.render(null);
         }
     }
@@ -34,7 +31,7 @@ class RenderPanel extends JPanel {
     private int pixelSize;
     private int dimensions;
 
-    private ColorRGB[][] colorGrid;
+    private int[][] colorMatrix;
 
     public RenderPanel(int quality) {
         this.dimensions = (int) Math.pow(2, quality);
@@ -43,8 +40,8 @@ class RenderPanel extends JPanel {
         setPreferredSize(new Dimension(pixelSize * dimensions + 20, pixelSize * dimensions + 10));
     }
 
-    public void render(ColorRGB[][] cGrid) {
-        this.colorGrid = cGrid;
+    public void render(int[][] cMatrix) {
+        this.colorMatrix = cMatrix;
         repaint();
     }
 
