@@ -12,6 +12,7 @@ public class MainWindow extends Window {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // Creating render window
         RenderWindow renderWindow = new RenderWindow(8);
     }
 }
