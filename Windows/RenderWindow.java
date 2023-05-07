@@ -3,6 +3,7 @@ package Windows;
 import java.awt.*;
 
 import Windows.Panels.RenderPanel;
+import Windows.Structures.Window;
 
 public class RenderWindow extends Window {
 

@@ -3,6 +3,8 @@ package Windows;
 import java.awt.*;
 import javax.swing.JFrame;
 
+import Windows.Structures.Window;
+
 public class MainWindow extends Window {
     
     // Main constructor

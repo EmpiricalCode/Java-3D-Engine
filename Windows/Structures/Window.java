@@ -1,4 +1,4 @@
-package Windows;
+package Windows.Structures;
 
 import java.awt.LayoutManager;
 
