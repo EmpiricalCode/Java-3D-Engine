@@ -1,4 +1,4 @@
-package Windows.Panels;
+package Interface.Panels;
 
 import java.awt.*;
 import javax.swing.*;

@@ -1,9 +1,9 @@
-package Windows;
+package Interface.Windows;
 
 import java.awt.*;
 
-import Windows.Panels.RenderPanel;
-import Windows.Structures.Window;
+import Interface.Panels.RenderPanel;
+import Interface.Structures.Window;
 
 public class RenderWindow extends Window {
 
