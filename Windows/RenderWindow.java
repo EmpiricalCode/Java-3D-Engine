@@ -21,7 +21,7 @@ public class RenderWindow extends Window {
 
         // Rendering
         while (true) {
-            this.renderPanel.render(null);
+            this.renderPanel.draw(null);
         }
     }
 }

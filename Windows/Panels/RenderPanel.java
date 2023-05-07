@@ -22,7 +22,7 @@ public class RenderPanel extends JPanel {
 
     // Updates the matrix of pixel colors and 
     // calls for the panel to be repainted
-    public void render(int[][] cMatrix) {
+    public void draw(int[][] cMatrix) {
         this.colorMatrix = cMatrix;
         repaint();
     }
