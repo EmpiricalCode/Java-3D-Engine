@@ -1,13 +1,13 @@
-package Core.WorldObjects;
+package Core.Structures;
 
 import Core.Utility.Vector3D;
 
-public class WorldObject {
+public class Entity {
 
     private Vector3D position;
 
     // Main constructor
-    public WorldObject(Vector3D pos) {
+    public Entity(Vector3D pos) {
         this.position = pos;
     }
 

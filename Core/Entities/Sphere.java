@@ -1,4 +1,4 @@
-package Core.WorldObjects;
+package Core.Entities;
 
 public class Sphere {
     
