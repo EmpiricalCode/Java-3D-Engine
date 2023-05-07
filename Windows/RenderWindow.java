@@ -9,7 +9,7 @@ public class RenderWindow extends Window {
     private RenderPanel renderPanel;
     
     // Main constructor
-    public RenderWindow(int quality) throws InterruptedException {
+    public RenderWindow(int quality) {
 
         // Setting up the window
         super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 528, 551);

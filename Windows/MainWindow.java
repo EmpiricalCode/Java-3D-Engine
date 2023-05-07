@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 public class MainWindow extends Window {
     
     // Main constructor
-    public MainWindow() throws InterruptedException {
+    public MainWindow()  {
 
         // Setting up the window
         super("Main Window", true, new BorderLayout(), 500, 500);
