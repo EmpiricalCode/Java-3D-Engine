@@ -8,6 +8,7 @@ public class RenderWindow extends Window {
 
     private RenderPanel renderPanel;
     
+    // Main constructor
     public RenderWindow(int quality) throws InterruptedException {
 
         // Setting up the window

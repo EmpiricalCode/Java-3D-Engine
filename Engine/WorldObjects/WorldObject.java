@@ -6,6 +6,7 @@ public class WorldObject {
 
     private Vector3D position;
 
+    // Main constructor
     public WorldObject(Vector3D pos) {
         this.position = pos;
     }

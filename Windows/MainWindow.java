@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 public class MainWindow extends Window {
     
+    // Main constructor
     public MainWindow() throws InterruptedException {
 
         // Setting up the window
