@@ -1,6 +1,6 @@
-package Engine.WorldObjects;
+package Core.WorldObjects;
 
-import Engine.Utility.Vector3D;
+import Core.Utility.Vector3D;
 
 public class WorldObject {
 

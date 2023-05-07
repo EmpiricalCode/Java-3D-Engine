@@ -1,8 +1,8 @@
-package Engine;
+package Core;
 
 import java.util.ArrayList;
 
-import Engine.WorldObjects.WorldObject;
+import Core.WorldObjects.WorldObject;
 
 public class World {
     
