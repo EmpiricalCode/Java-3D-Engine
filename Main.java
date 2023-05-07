@@ -1,4 +1,4 @@
-import Windows.MainWindow;
+import Interface.Windows.MainWindow;
 
 public class Main {
 
