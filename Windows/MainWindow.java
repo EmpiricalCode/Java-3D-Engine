@@ -2,8 +2,6 @@ package Windows;
 
 import java.awt.*;
 
-import Structures.Window;
-
 public class MainWindow extends Window {
     
     public MainWindow() throws InterruptedException {
