@@ -1,4 +1,4 @@
-package Engine.WorldObject;
+package Engine.WorldObjects;
 
 import Engine.Utility.Vector3D;
 

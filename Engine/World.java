@@ -2,7 +2,7 @@ package Engine;
 
 import java.util.ArrayList;
 
-import Engine.WorldObject.WorldObject;
+import Engine.WorldObjects.WorldObject;
 
 public class World {
     
