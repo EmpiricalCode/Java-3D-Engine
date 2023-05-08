@@ -2,6 +2,8 @@ package Interface.Windows;
 
 import java.awt.*;
 
+import Core.Environment;
+import Core.Structures.Entity;
 import Interface.Panels.RenderPanel;
 import Interface.Structures.Window;
 
@@ -29,6 +31,15 @@ public class RenderWindow extends Window {
         // Rendering
         while (true) {
             this.renderPanel.draw(null);
+        }
+    }
+
+    // Renders an environment of objects
+    public void render(Environment environment) {
+        
+        for (Entity entity : environment.getEntities()) {
+
+            // TODO: Render each entity
         }
     }
 }
