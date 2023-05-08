@@ -6,7 +6,7 @@ import Core.Structures.Entity;
 
 public class Environment {
     
-    private ArrayList<Entity> worldObjects;
+    private ArrayList<Entity> entities;
 
     public Environment() {
         
@@ -14,6 +14,6 @@ public class Environment {
 
     // Adds a world object
     public void addObject(Entity object) {
-        worldObjects.add(object);
+        entities.add(object);
     }
 }
