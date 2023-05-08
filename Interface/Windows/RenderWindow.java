@@ -8,13 +8,18 @@ import Interface.Structures.Window;
 public class RenderWindow extends Window {
 
     private RenderPanel renderPanel;
+    private Insets insets;
     
     // Main constructor
     public RenderWindow(int quality) {
 
         // Setting up the window
-        super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 528, 551);
+        super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);
 
+        insets = this.getInsets();
+
+        // Resizing the window to account for the insets (the content must be 512px by 512px, not the window itself)
+        setSize(512 + insets.left + insets.right, 512 + insets.top + insets.bottom);
         setResizable(false);
 
         // Creating render panel
