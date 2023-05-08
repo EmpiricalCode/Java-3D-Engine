@@ -12,8 +12,13 @@ public class Environment {
         
     }
 
+    // Gets the environment's entities
+    public ArrayList<Entity> getEntities() {
+        return this.entities;
+    }
+
     // Adds a world object
-    public void addObject(Entity object) {
-        entities.add(object);
+    public void addEntity(Entity entity) {
+        entities.add(entity);
     }
 }
