@@ -13,7 +13,7 @@ public class MainWindow extends Window {
         // Setting up the window
         super("Main Window", true, new BorderLayout(), 500, 500);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Creating render window
         new RenderWindow(3);

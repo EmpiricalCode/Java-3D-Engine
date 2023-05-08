@@ -17,7 +17,7 @@ public class RenderPanel extends JPanel {
         this.pixelSize = 512 / dimensions;
 
         // Setting size
-        setPreferredSize(new Dimension(pixelSize * dimensions + 20, pixelSize * dimensions + 10));
+        this.setPreferredSize(new Dimension(pixelSize * dimensions + 20, pixelSize * dimensions + 10));
     }
 
     // Updates the matrix of pixel colors and 

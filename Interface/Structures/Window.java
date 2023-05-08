@@ -12,9 +12,9 @@ public class Window extends JFrame {
         // Setting up window 
         super(title);
 
-        setVisible(initiallyVisible);
-        setLayout(layout);
-        setSize(width, height);
+        this.setVisible(initiallyVisible);
+        this.setLayout(layout);
+        this.setSize(width, height);
     }
 
     // Alternative constructor with initiallyVisible defaulted to true

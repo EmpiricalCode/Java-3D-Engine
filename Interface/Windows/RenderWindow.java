@@ -19,12 +19,12 @@ public class RenderWindow extends Window {
         insets = this.getInsets();
 
         // Resizing the window to account for the insets (the content must be 512px by 512px, not the window itself)
-        setSize(512 + insets.left + insets.right, 512 + insets.top + insets.bottom);
-        setResizable(false);
+        this.setSize(512 + insets.left + insets.right, 512 + insets.top + insets.bottom);
+        this.setResizable(false);
 
         // Creating render panel
         this.renderPanel = new RenderPanel(quality);
-        add(this.renderPanel);
+        this.add(this.renderPanel);
 
         // Rendering
         while (true) {
