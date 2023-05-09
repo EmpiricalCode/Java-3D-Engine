@@ -2,6 +2,9 @@ package Core.Utility;
 
 public class Vector3D {
 
+    // FOR REFERENCE:
+    // x and y are planar coordinates (2D)
+    // z represents depth/height
     private double x;
     private double y;
     private double z;
@@ -38,8 +41,27 @@ public class Vector3D {
         this.z *= distance / currentDistance;
     }
 
+    // For debugging reasons
+    public String toString() {
+        return this.x + " " + this.y + " " + this.z;
+    }
+
     // Subtracts two vectors
     public static Vector3D subtract(Vector3D a, Vector3D b) {
         return new Vector3D(a.getX() - b.getX(), a.getY() - b.getY(), a.getZ() - b.getZ());
+    }
+
+    // Adds two vectors
+    public static Vector3D add(Vector3D a, Vector3D b) {
+        return new Vector3D(a.getX() + b.getX(), a.getY() + b.getY(), a.getZ() + b.getZ());
+    }
+
+    // Finds the cross product between two vectors
+    public static Vector3D cross(Vector3D a, Vector3D b) {
+        double nx = a.getY() * b.getZ() - a.getZ() * b.getY();
+        double ny = a.getZ() * b.getX() - a.getX() * b.getZ();
+        double nz = a.getX() * b.getY() - a.getY() * b.getX();
+
+        return new Vector3D(nx, ny, nz);
     }
 }
