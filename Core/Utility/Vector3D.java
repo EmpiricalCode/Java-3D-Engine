@@ -64,4 +64,9 @@ public class Vector3D {
 
         return new Vector3D(nx, ny, nz);
     }
+
+    // Multiplies each coordinate of a vector by a scalar value
+    public static Vector3D multiply(Vector3D vector, double scalar) {
+        return new Vector3D(vector.getX() * scalar, vector.getY() * scalar, vector.getZ() * scalar);
+    }
 }
