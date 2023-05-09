@@ -7,6 +7,7 @@ public class RenderPanel extends JPanel {
 
     private int pixelSize;
     private int dimensions;
+    private int quality;
 
     private int[][] colorMatrix;
 
@@ -15,6 +16,7 @@ public class RenderPanel extends JPanel {
         // Calculating dimensions and pixel size
         this.dimensions = (int) Math.pow(2, quality);
         this.pixelSize = 512 / dimensions;
+        this.quality = quality;
 
         // Setting size
         this.setPreferredSize(new Dimension(pixelSize * dimensions + 20, pixelSize * dimensions + 10));

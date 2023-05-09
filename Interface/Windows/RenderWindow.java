@@ -11,16 +11,13 @@ public class RenderWindow extends Window {
 
     private RenderPanel renderPanel;
     private Insets insets;
-    private int quality;
     
     // Main constructor
     public RenderWindow(int quality) {
 
         // Setting up the window
         super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);
-
-        this.quality = quality;
-
+        
         insets = this.getInsets();
 
         // Resizing the window to account for the insets (the content must be 512px by 512px, not the window itself)
