@@ -2,29 +2,29 @@ package Core.Utility;
 
 public class Vector3D {
 
-    private int x;
-    private int y;
-    private int z;
+    private double x;
+    private double y;
+    private double z;
     
     // Main constructor
-    public Vector3D(int x, int y, int z) {
+    public Vector3D(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
     // Returns the x coordinate
-    public int getX() {
+    public double getX() {
         return this.x;
     }
 
     // Returns the y coordinate
-    public int getY() {
+    public double getY() {
         return this.y;
     }
 
     // Returns the z coordinate
-    public int getZ() {
+    public double getZ() {
         return this.z;
     }
 }
