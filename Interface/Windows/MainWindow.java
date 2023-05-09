@@ -3,6 +3,7 @@ package Interface.Windows;
 import java.awt.*;
 import javax.swing.JFrame;
 
+import Core.Environment;
 import Interface.Structures.Window;
 
 public class MainWindow extends Window {
@@ -16,6 +17,6 @@ public class MainWindow extends Window {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Creating render window
-        new RenderWindow(3);
+        new RenderWindow(new Environment(), 1);
     }
 }

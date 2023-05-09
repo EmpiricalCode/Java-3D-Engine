@@ -3,29 +3,44 @@ package Interface.Panels;
 import java.awt.*;
 import javax.swing.*;
 
+import Core.Environment;
+import Core.Structures.Entity;
+
 public class RenderPanel extends JPanel {
 
     private int pixelSize;
     private int dimensions;
     private int quality;
 
-    private int[][] colorMatrix;
+    private int[][][] colorMatrix;
 
-    public RenderPanel(int quality) {
+    private Environment environment;
+
+    // Main constructor
+    public RenderPanel(Environment environment, int quality) {
+
+        this.environment = environment;
 
         // Calculating dimensions and pixel size
         this.dimensions = (int) Math.pow(2, quality);
         this.pixelSize = 512 / dimensions;
         this.quality = quality;
 
+        // Setting up color matrix
+        this.colorMatrix = new int[dimensions][dimensions][3];
+
         // Setting size
-        this.setPreferredSize(new Dimension(pixelSize * dimensions + 20, pixelSize * dimensions + 10));
+        this.setPreferredSize(new Dimension(pixelSize * dimensions, pixelSize * dimensions));
     }
 
-    // Updates the matrix of pixel colors and 
-    // calls for the panel to be repainted
-    public void draw(int[][] cMatrix) {
-        this.colorMatrix = cMatrix;
+    // Renders the environment
+    // Fills the colorMatrix variable and calls repaint() to display it 
+    public void render() {
+
+        for (Entity entity : this.environment.getEntities()) {
+            // TODO: render each entity
+        }
+
         repaint();
     }
 
@@ -37,7 +52,7 @@ public class RenderPanel extends JPanel {
 
         for (int r = 0; r < dimensions; r++) {
             for (int c = 0; c < dimensions; c++) {
-                g.setColor(new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255)));
+                g.setColor(new Color(colorMatrix[r][c][0], colorMatrix[r][c][1], colorMatrix[r][c][2]));
                 g.fillRect(r * pixelSize, c * pixelSize, pixelSize, pixelSize);
             }
         }
