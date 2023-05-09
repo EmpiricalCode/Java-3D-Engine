@@ -1,5 +1,6 @@
 package Core.Structures;
 
+import Core.Utility.Ray;
 import Core.Utility.Vector3D;
 
 public class Entity {
@@ -18,7 +19,7 @@ public class Entity {
 
     // Returns the hit of the object from a raycast
     // TODO: Placeholder, also put a raycast object in the arguments
-    public Vector3D getHit() {
+    public Vector3D getHit (Ray ray) {
         return null;
     }
 }
