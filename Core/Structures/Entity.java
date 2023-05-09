@@ -18,7 +18,6 @@ public class Entity {
     }
 
     // Returns the hit of the object from a raycast
-    // TODO: Placeholder, also put a raycast object in the arguments
     public Vector3D getHit (Ray ray) {
         return null;
     }
