@@ -3,7 +3,7 @@ package Core.Structures;
 import Core.Utility.Ray;
 import Core.Utility.Vector3D;
 
-public class Entity {
+public abstract class Entity {
 
     private Vector3D position;
 
@@ -18,7 +18,5 @@ public class Entity {
     }
 
     // Returns the hit of the object from a raycast
-    public Vector3D getHit (Ray ray) {
-        return null;
-    }
+    abstract public Vector3D getHit (Ray ray);
 }

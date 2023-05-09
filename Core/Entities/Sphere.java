@@ -1,7 +1,7 @@
 package Core.Entities;
 
 import Core.Structures.Entity;
-import Core.Utility.Vector3D;
+import Core.Utility.*;
 
 public class Sphere extends Entity {
     
@@ -13,5 +13,10 @@ public class Sphere extends Entity {
         super(position);
 
         this.radius = radius;
+    }
+
+    // Returns the hit of the object from a raycast
+    public Vector3D getHit (Ray ray) {
+        return null;
     }
 }
