@@ -27,4 +27,19 @@ public class Vector3D {
     public double getZ() {
         return this.z;
     }
+
+    // Clamps the vector down to a certain distance
+    public void clamp(double distance) {
+
+        double currentDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+
+        this.x *= distance / currentDistance;
+        this.y *= distance / currentDistance;
+        this.z *= distance / currentDistance;
+    }
+
+    // Subtracts two vectors
+    public static Vector3D subtract(Vector3D a, Vector3D b) {
+        return new Vector3D(a.getX() - b.getX(), a.getY() - b.getY(), a.getZ() - b.getZ());
+    }
 }
