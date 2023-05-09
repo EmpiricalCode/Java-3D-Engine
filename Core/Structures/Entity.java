@@ -7,8 +7,8 @@ public class Entity {
     private Vector3D position;
 
     // Main constructor
-    public Entity(Vector3D pos) {
-        this.position = pos;
+    public Entity(Vector3D position) {
+        this.position = position;
     }
 
     // Returns the position of the object
