@@ -1,10 +1,11 @@
 package Interface.Panels;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 import Core.Environment;
-import Core.Structures.Entity;
+import Core.Utility.Vector3D;
 
 public class RenderPanel extends JPanel {
 
@@ -37,9 +38,18 @@ public class RenderPanel extends JPanel {
     // Fills the colorMatrix variable and calls repaint() to display it 
     public void render() {
 
-        for (Entity entity : this.environment.getEntities()) {
-            // TODO: render each entity
-        }
+        Vector3D camVector = this.environment.getCamera().getDirection();
+        Vector3D camVectorLeft = new Vector3D(-camVector.getY(), camVector.getX(), 0);
+        Vector3D camVectorUp = Vector3D.cross(camVector, camVectorLeft);
+
+        Vector3D topLeft;
+
+        // Clamping calculated vectors to unit vectors
+        camVectorLeft.clamp(1);
+        camVectorUp.clamp(1);
+
+        System.out.println(camVectorLeft);
+        System.out.println(camVectorUp);
 
         repaint();
     }

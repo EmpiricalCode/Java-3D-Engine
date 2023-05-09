@@ -19,6 +19,8 @@ public class MainWindow extends Window {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Creating render window
-        new RenderWindow(new Environment(new Camera(new Vector3D(0, 0, 0), new Vector3D(1, 0, 0))), 1);
+        RenderWindow renderWindow = new RenderWindow(new Environment(new Camera(new Vector3D(0, 0, 0), new Vector3D(1, 2, 1))), 1);
+
+        renderWindow.render();
     }
 }
