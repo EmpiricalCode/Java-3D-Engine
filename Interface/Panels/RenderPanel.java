@@ -83,8 +83,8 @@ public class RenderPanel extends JPanel {
                 // Ray depth = quality 
                 // TODO: change depth = quality
                 colorMatrix[j][i][0] = rayColor.getRed();
-                colorMatrix[j][i][1] = rayColor.getBlue();
-                colorMatrix[j][i][2] = rayColor.getGreen();
+                colorMatrix[j][i][1] = rayColor.getGreen();
+                colorMatrix[j][i][2] = rayColor.getBlue();
             }
         }
 
