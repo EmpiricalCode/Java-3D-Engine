@@ -55,6 +55,11 @@ public class Vector3D {
         this.z += vector.getZ();
     }
 
+    // Finds the dot product with another vector
+    public double dot(Vector3D vector) {
+        return this.x * vector.getX() + this.y * vector.getY() + this.z * vector.getZ();
+    }
+ 
     // Gets the magnitude of the vector
     public double getMagnitude() {
         return Math.sqrt(Math.pow(this.getX(), 2) + Math.pow(this.getY(), 2) + Math.pow(this.getZ(), 2));

@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 import Core.Environment;
+import Core.Entities.Sphere;
 import Core.Utility.Camera;
 import Core.Utility.Vector3D;
 import Interface.Structures.Window;
@@ -19,7 +20,12 @@ public class MainWindow extends Window {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Creating render window
-        RenderWindow renderWindow = new RenderWindow(new Environment(new Camera(new Vector3D(0, 0, 0), new Vector3D(1, 2, 1))), 2);
+        Environment environment = new Environment(new Camera(new Vector3D(0, 0, 0), new Vector3D(1, 2, 1)));
+
+        environment.addEntity(new Sphere(new Vector3D(12, 22, 10), new Color(200, 200, 200), 5));
+        // environment.addEntity(new Sphere(new Vector3D(12, 22, 5), new Color(200, 200, 200), 5));
+        
+        RenderWindow renderWindow = new RenderWindow(environment, 2);
 
         renderWindow.render();
     }

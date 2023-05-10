@@ -57,6 +57,7 @@ public class RenderPanel extends JPanel {
         Vector3D currentVector;
 
         Ray tempRay;
+        Color rayColor;
 
         // Clamping calculated vectors to unit vectors
         camVectorLeft.clamp(1);
@@ -77,12 +78,13 @@ public class RenderPanel extends JPanel {
                 currentVector.add(Vector3D.multiply(camVectorUp, -5.0/this.dimensions));
 
                 tempRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
+                rayColor = tempRay.getColor(1);
 
                 // Ray depth = quality 
                 // TODO: change depth = quality
-                colorMatrix[i][j][0] = tempRay.getColor(0).getRed();
-                colorMatrix[i][j][1] = tempRay.getColor(0).getBlue();
-                colorMatrix[i][j][2] = tempRay.getColor(0).getGreen();
+                colorMatrix[j][i][0] = rayColor.getRed();
+                colorMatrix[j][i][1] = rayColor.getBlue();
+                colorMatrix[j][i][2] = rayColor.getGreen();
             }
         }
 
