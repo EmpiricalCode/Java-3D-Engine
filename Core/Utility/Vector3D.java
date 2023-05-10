@@ -34,16 +34,40 @@ public class Vector3D {
     // Clamps the vector down to a certain distance
     public void clamp(double distance) {
 
-        double currentDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        double magnitude = this.getMagnitude();
 
-        this.x *= distance / currentDistance;
-        this.y *= distance / currentDistance;
-        this.z *= distance / currentDistance;
+        this.x *= distance / magnitude;
+        this.y *= distance / magnitude;
+        this.z *= distance / magnitude;
+    }
+
+    // Subtracts an external vector from this vector
+    public void subtract(Vector3D vector) {
+        this.x -= vector.getX();
+        this.y -= vector.getY();
+        this.z -= vector.getZ();
+    }
+
+    // Adds an external vector to this vector
+    public void add(Vector3D vector) {
+        this.x += vector.getX();
+        this.y += vector.getY();
+        this.z += vector.getZ();
+    }
+
+    // Gets the magnitude of the vector
+    public double getMagnitude() {
+        return Math.sqrt(Math.pow(this.getX(), 2) + Math.pow(this.getY(), 2) + Math.pow(this.getZ(), 2));
+    }
+
+    // Gets the distance between this vector and another vector
+    public double getDistance(Vector3D vector) {
+        return Vector3D.subtract(vector, this).getMagnitude();
     }
 
     // For debugging reasons
     public String toString() {
-        return this.x + " " + this.y + " " + this.z;
+        return Math.round(this.x * 100) / 100.0 + ", " + Math.round(this.y * 100) / 100.0 + ", " + Math.round(this.z * 100) / 100.0;
     }
 
     // Subtracts two vectors

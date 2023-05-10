@@ -3,6 +3,7 @@ package Core.Utility;
 import java.awt.Color;
 
 import Core.Environment;
+import Core.Structures.Entity;
 
 public class Ray {
 
@@ -32,7 +33,40 @@ public class Ray {
     }
 
     // Returns the color accumulated by "tracing" this ray through the environment
-    public Color getColor() {
-        return Environment.getAmbientColor(this.direction);
+    public Color getColor(int depth) {
+
+        RayHit hit;
+        double minDistance;
+        Color returnColor;
+        Entity nearestHitEntity;
+
+        if (depth > 0) {
+
+            minDistance = -1;
+            nearestHitEntity = null;
+            
+            for (Entity entity : this.environment.getEntities()) {
+
+                hit = entity.getHit(this);
+
+                if (hit != null && (hit.getPosition().getDistance(this.origin) < minDistance || minDistance < 0)) {
+                    minDistance = hit.getPosition().getDistance(this.origin);
+                    nearestHitEntity = entity;
+                }
+            }
+
+            if (minDistance >= 0) {
+                // TODO: Create reflection ray
+
+                returnColor = new Color((int) (nearestHitEntity.getColor().getRed() * 0.5), (int) (nearestHitEntity.getColor().getRed() * 0.5), (int) (nearestHitEntity.getColor().getRed() * 0.5));
+
+                return returnColor;
+            } else {
+                return Environment.getAmbientColor(this.direction);
+            }
+
+        } else {
+            return new Color(0, 0, 0);
+        }
     }
 }

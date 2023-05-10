@@ -17,6 +17,7 @@ public class Environment {
     // Main constructor
     public Environment(Camera camera) {
         this.camera = camera;
+        this.entities = new ArrayList<Entity>();
     }
 
     // Getter method for the camera

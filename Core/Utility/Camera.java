@@ -10,8 +10,8 @@ public class Camera {
         this.origin = origin;
         this.direction = Vector3D.subtract(destination, origin);
 
-        // Clamping direction to a unit vector
-        this.direction.clamp(1);
+        // Clamping direction to a magnitude of 10
+        this.direction.clamp(10);
     }
 
     // Getter method for origin
