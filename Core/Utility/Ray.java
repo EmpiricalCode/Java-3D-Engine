@@ -33,17 +33,16 @@ public class Ray {
     }
 
     // Returns the color accumulated by "tracing" this ray through the environment
-    public Color getColor(int depth) {
+    public ColorRGB getColor(int depth) {
 
         RayHit hit;
-        double minDistance;
-        Color returnColor;
-        Entity nearestHitEntity;
+        double minDistance = -1;
+        RayHit nearestHit = null;
+        Entity nearestHitEntity = null;
+
+        ColorRGB returnColor;
 
         if (depth > 0) {
-
-            minDistance = -1;
-            nearestHitEntity = null;
             
             for (Entity entity : this.environment.getEntities()) {
 
@@ -51,6 +50,7 @@ public class Ray {
 
                 if (hit != null && (hit.getPosition().getDistance(this.origin) < minDistance || minDistance < 0)) {
                     minDistance = hit.getPosition().getDistance(this.origin);
+                    nearestHit = hit;
                     nearestHitEntity = entity;
                 }
             }
@@ -58,7 +58,7 @@ public class Ray {
             if (minDistance >= 0) {
                 // TODO: Create reflection ray
 
-                returnColor = new Color((int) (nearestHitEntity.getColor().getRed() * 0.5), (int) (nearestHitEntity.getColor().getRed() * 0.5), (int) (nearestHitEntity.getColor().getRed() * 0.5));
+                returnColor = new ColorRGB((int) (nearestHitEntity.getColor().getR() * 0.5), (int) (nearestHitEntity.getColor().getG() * 0.5), (int) (nearestHitEntity.getColor().getB() * 0.5));
 
                 return returnColor;
             } else {
@@ -66,7 +66,7 @@ public class Ray {
             }
 
         } else {
-            return new Color(0, 0, 0);
+            return new ColorRGB(0, 0, 0);
         }
     }
 }

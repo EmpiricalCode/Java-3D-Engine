@@ -10,7 +10,7 @@ public class Sphere extends Entity {
     private double radius;
 
     // Main constructor
-    public Sphere(Vector3D position, Color color, double radius) {
+    public Sphere(Vector3D position, ColorRGB color, double radius) {
 
         super(position, color);
 
@@ -22,11 +22,10 @@ public class Sphere extends Entity {
         return this.radius;
     }
 
-    // Returns the hit of the object from a raycast
+    // Returns the hit of the sphere from a raycast
     public RayHit getHit (Ray ray) {
         
-        Vector3D hitLocation;
-        RayHit hit;
+        Vector3D hitPosition;
         double hitDistance;
         double hitDistancePrime;
         double perpendicularDistance;
@@ -41,10 +40,10 @@ public class Sphere extends Entity {
             if (perpendicularDistance <= this.radius) {
 
                 hitDistancePrime = Math.sqrt(Math.pow(this.radius, 2) - Math.pow(perpendicularDistance, 2));
+                hitDistance = Math.sqrt(Math.pow(distanceVector.getMagnitude(), 2) - Math.pow(perpendicularDistance, 2)) - hitDistancePrime;
+                hitPosition = Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), hitDistance));
 
-                System.out.println(hitDistancePrime);
-
-                return new RayHit(distanceVector, distanceVector);
+                return new RayHit(hitPosition, this.getNormal(ray, hitPosition));
             }
             
             return null;
@@ -52,5 +51,14 @@ public class Sphere extends Entity {
         } else {
             return null;
         }
+    }
+
+    // Returns a normal vector of the sphere given a position
+    public Vector3D getNormal(Ray ray, Vector3D hitPosition) {
+
+        Vector3D normal = Vector3D.subtract(hitPosition, this.getPosition());
+        normal.clamp(1);
+
+        return normal;
     }
 }

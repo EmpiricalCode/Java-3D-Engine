@@ -4,9 +4,8 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 import Core.Environment;
-import Core.Entities.Sphere;
-import Core.Utility.Camera;
-import Core.Utility.Vector3D;
+import Core.Entities.*;
+import Core.Utility.*;
 import Interface.Structures.Window;
 
 public class MainWindow extends Window {
@@ -22,10 +21,10 @@ public class MainWindow extends Window {
         // Creating render window
         Environment environment = new Environment(new Camera(new Vector3D(0, 0, 0), new Vector3D(1, 2, 1)));
 
-        environment.addEntity(new Sphere(new Vector3D(12, 22, 10), new Color(200, 200, 200), 5));
-        // environment.addEntity(new Sphere(new Vector3D(12, 22, 5), new Color(200, 200, 200), 5));
+        environment.addEntity(new Sphere(new Vector3D(12, 22, 10), new ColorRGB(200, 200, 200), 5));
+        environment.addEntity(new Sphere(new Vector3D(12, 22, 5), new ColorRGB(200, 200, 200), 5));
         
-        RenderWindow renderWindow = new RenderWindow(environment, 2);
+        RenderWindow renderWindow = new RenderWindow(environment, 9);
 
         renderWindow.render();
     }
