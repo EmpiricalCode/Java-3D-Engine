@@ -42,4 +42,9 @@ public class ColorRGB {
     public static ColorRGB multiply(ColorRGB a, double scalar) {
         return new ColorRGB((int) (a.getR() * scalar), (int) (a.getG() * scalar), (int) (a.getB() * scalar));
     }
+
+    // For debugging reasons
+    public String toString() {
+        return Math.round(this.r * 100) / 100.0 + ", " + Math.round(this.g * 100) / 100.0 + ", " + Math.round(this.b * 100) / 100.0;
+    }
 }
