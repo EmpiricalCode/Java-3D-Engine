@@ -45,6 +45,6 @@ public class ColorRGB {
 
     // For debugging reasons
     public String toString() {
-        return Math.round(this.r * 100) / 100.0 + ", " + Math.round(this.g * 100) / 100.0 + ", " + Math.round(this.b * 100) / 100.0;
+        return this.r + ", " + this.g + ", " + this.b;
     }
 }
