@@ -50,6 +50,8 @@ public class RenderPanel extends JPanel {
         // Unit vector pointing left relative to the camera direction
         Vector3D camVectorLeft = new Vector3D(-camDirection.getY(), camDirection.getX(), 0);
 
+        
+
         // Unit vector pointing up relative to the camera direction
         Vector3D camVectorUp = Vector3D.cross(camDirection, camVectorLeft);
 
@@ -78,7 +80,7 @@ public class RenderPanel extends JPanel {
                 currentVector.add(Vector3D.multiply(camVectorUp, -5.0/this.dimensions));
 
                 tempRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
-                rayColor = tempRay.getColor(1);
+                rayColor = tempRay.getColor(quality);
 
                 // Ray depth = quality 
                 // TODO: change depth = quality

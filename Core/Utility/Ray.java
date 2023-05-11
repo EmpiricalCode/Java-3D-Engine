@@ -59,9 +59,11 @@ public class Ray {
                 // TODO: Create reflection ray
 
                 returnColor = ColorRGB.multiply(nearestHitEntity.getColor(), 0.5);
+                returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), nearestHit.getNormal(), environment)).getColor(depth-1), 0.5));
 
                 return returnColor;
             } else {
+                // System.out.println(Environment.getAmbientColor(this.direction));
                 return Environment.getAmbientColor(this.direction);
             }
 

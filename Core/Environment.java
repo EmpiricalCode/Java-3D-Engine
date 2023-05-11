@@ -38,11 +38,15 @@ public class Environment {
         this.entities.add(entity);
     }
 
+    public void setCamera(Camera cam) {
+        this.camera = cam;
+    }
+
     // Returns the ambient color of the environment given a 
     // unit vector away from the origin
     public static ColorRGB getAmbientColor(Vector3D direction) {
 
-        ColorRGB residualColor = new ColorRGB(200, 240, 255);
+        ColorRGB residualColor = new ColorRGB(200, 250, 255);
         ColorRGB colorDifference = ColorRGB.subtract(residualColor, Environment.AMBIENT_COLOR);
 
         double directionAxisAngle = Math.atan(Math.abs(direction.getZ()) / Math.max(0.01, Math.sqrt(Math.pow(direction.getX(), 2) + Math.pow(direction.getY(), 2))));
