@@ -60,7 +60,7 @@ public class Ray {
                 
                 returnColor = new ColorRGB(0, 0, 0);
 
-                // for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < 4; i++) {
                     // TODO: Create reflection ray
                     diffuseOrigin = Vector3D.add(nearestHit.getPosition(), nearestHit.getNormal());
                     diffuseOffset = new Vector3D(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1);
@@ -69,10 +69,11 @@ public class Ray {
                     diffuseReflectionDirection = Vector3D.subtract(Vector3D.add(diffuseOrigin, diffuseOffset), nearestHit.getPosition());
                     diffuseReflectionDirection.clamp(1);
 
-                    returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), diffuseReflectionDirection, environment)).getColor(depth-1), 0.3));
-                // }
+                    returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), diffuseReflectionDirection, environment)).getColor(depth-1), 0.5));
+                }
 
-                returnColor = ColorRGB.add(returnColor, ColorRGB.multiply(nearestHitEntity.getColor(), 0.7));
+                returnColor = ColorRGB.multiply(returnColor, 0.25);
+                // returnColor = ColorRGB.add(returnColor, ColorRGB.multiply(nearestHitEntity.getColor(), 0.5));
                 
                 return returnColor;
             } else {

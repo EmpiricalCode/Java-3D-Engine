@@ -43,7 +43,9 @@ public class Sphere extends Entity {
                 hitDistance = Math.sqrt(Math.pow(distanceVector.getMagnitude(), 2) - Math.pow(perpendicularDistance, 2)) - hitDistancePrime;
                 hitPosition = Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), hitDistance));
 
-                return new RayHit(hitPosition, this.getNormal(ray, hitPosition));
+                if (Vector3D.subtract(hitPosition, ray.getOrigin()).getMagnitude() >= 0.01) {
+                    return new RayHit(hitPosition, this.getNormal(ray, hitPosition));
+                } 
             }
             
             return null;
