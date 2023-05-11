@@ -14,6 +14,7 @@ public class RenderPanel extends JPanel {
     private int quality;
 
     private int[][][] colorMatrix;
+    private int[][][] renderMatrix;
 
     private Environment environment;
 
@@ -29,6 +30,7 @@ public class RenderPanel extends JPanel {
 
         // Setting up color matrix
         this.colorMatrix = new int[dimensions][dimensions][3];
+        this.renderMatrix = new int[dimensions*2][dimensions*2][3];
 
         // Setting size
         this.setPreferredSize(new Dimension(pixelSize * dimensions, pixelSize * dimensions));
@@ -50,8 +52,6 @@ public class RenderPanel extends JPanel {
         // Unit vector pointing left relative to the camera direction
         Vector3D camVectorLeft = new Vector3D(-camDirection.getY(), camDirection.getX(), 0);
 
-        
-
         // Unit vector pointing up relative to the camera direction
         Vector3D camVectorUp = Vector3D.cross(camDirection, camVectorLeft);
 
@@ -69,24 +69,28 @@ public class RenderPanel extends JPanel {
         topLeft.add(Vector3D.multiply(camVectorLeft, 5));
         topLeft.add(Vector3D.multiply(camVectorUp, 5));
 
-        for (int i = 0; i < this.dimensions; i++) {
-            for (int j = 0; j < this.dimensions; j++) {
+        for (int i = 0; i < this.dimensions*2; i++) {
+            for (int j = 0; j < this.dimensions*2; j++) {
 
-                currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * 10.0/this.dimensions));
-                currentVector.add(Vector3D.multiply(camVectorUp, -i * 10.0/this.dimensions));
+                currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * 10.0/(this.dimensions*2)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -i * 10.0/(this.dimensions*2)));
 
                 // Temp until antialiasing works
-                currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/this.dimensions));
-                currentVector.add(Vector3D.multiply(camVectorUp, -5.0/this.dimensions));
+                currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/(this.dimensions*2)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(this.dimensions*2)));
 
                 tempRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
-                rayColor = tempRay.getColor(quality);
+                rayColor = tempRay.getColor(50);
 
-                // Ray depth = quality 
-                // TODO: change depth = quality
-                colorMatrix[j][i][0] = rayColor.getR();
-                colorMatrix[j][i][1] = rayColor.getG();
-                colorMatrix[j][i][2] = rayColor.getB();
+                renderMatrix[j][i][0] = rayColor.getR();
+                renderMatrix[j][i][1] = rayColor.getG();
+                renderMatrix[j][i][2] = rayColor.getB();
+
+                if (j % 2 == 1 && i % 2 == 1) {
+                    colorMatrix[j/2][i/2][0] = (renderMatrix[j][i][0] + renderMatrix[j][i-1][0] + renderMatrix[j-1][i][0] + renderMatrix[j-1][i-1][0]) / 4;
+                    colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
+                    colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
+                }
             }
         }
 
