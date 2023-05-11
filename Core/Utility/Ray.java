@@ -58,7 +58,7 @@ public class Ray {
             if (minDistance >= 0) {
                 // TODO: Create reflection ray
 
-                returnColor = new ColorRGB((int) (nearestHitEntity.getColor().getR() * 0.5), (int) (nearestHitEntity.getColor().getG() * 0.5), (int) (nearestHitEntity.getColor().getB() * 0.5));
+                returnColor = ColorRGB.multiply(nearestHitEntity.getColor(), 0.5);
 
                 return returnColor;
             } else {
