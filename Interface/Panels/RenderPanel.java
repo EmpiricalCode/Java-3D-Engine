@@ -79,14 +79,14 @@ public class RenderPanel extends JPanel {
 
                 ColorRGB finalColor = new ColorRGB(0, 0, 0);
 
-                for (int p = 0; p < 50; p++) {
+                for (int p = 0; p < 100; p++) {
                     sampleRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
                     rayColor = sampleRay.getColor(5);
 
                     finalColor = ColorRGB.add(finalColor, rayColor);    
                 }
 
-                finalColor = ColorRGB.multiply(finalColor, 0.02);
+                finalColor = ColorRGB.multiply(finalColor, 0.01);
                 
                 renderMatrix[j][i][0] = finalColor.getR();
                 renderMatrix[j][i][1] = finalColor.getG();
@@ -96,6 +96,11 @@ public class RenderPanel extends JPanel {
                     colorMatrix[j/2][i/2][0] = (renderMatrix[j][i][0] + renderMatrix[j][i-1][0] + renderMatrix[j-1][i][0] + renderMatrix[j-1][i-1][0]) / 4;
                     colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
                     colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
+
+
+                    colorMatrix[j/2][i/2][0] = (int) (Math.pow((colorMatrix[j/2][i/2][0] / 255.0), 0.5) * 255);
+                    colorMatrix[j/2][i/2][1] = (int) (Math.pow((colorMatrix[j/2][i/2][1] / 255.0), 0.5) * 255);
+                    colorMatrix[j/2][i/2][2] = (int) (Math.pow((colorMatrix[j/2][i/2][2] / 255.0), 0.5) * 255);
                 }
             }
 
