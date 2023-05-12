@@ -80,7 +80,7 @@ public class RenderPanel extends JPanel {
                 currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(this.dimensions*2)));
 
                 tempRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
-                rayColor = tempRay.getColor(4);
+                rayColor = tempRay.getColor(3);
 
                 renderMatrix[j][i][0] = rayColor.getR();
                 renderMatrix[j][i][1] = rayColor.getG();
