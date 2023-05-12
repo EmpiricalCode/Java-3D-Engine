@@ -2,6 +2,7 @@ package Core.Utility;
 
 import Core.Environment;
 import Core.Structures.Entity;
+import Core.Utility.Enum.*;
 
 public class Ray {
 
@@ -37,7 +38,7 @@ public class Ray {
         RayHit hit;
         RayHit nearestHit = null;
         Entity nearestHitEntity = null;
-        Vector3D reflectionDirection;
+        Vector3D reflectionDirection = null;
 
         ColorRGB returnColor;
 
@@ -58,9 +59,12 @@ public class Ray {
                 
                 returnColor = new ColorRGB(0, 0, 0);
 
-                // TODO: Create reflection ray
-                // reflectionDirection = Ray.getDiffuseReflection(nearestHit);
-                reflectionDirection = Ray.getSpecularReflection(nearestHit);
+                // TODO: Create reflection ray                
+                if (nearestHitEntity.getReflectiontype() == ReflectionType.DIFFUSE) {
+                    reflectionDirection = getDiffuseReflection(nearestHit);
+                } else {
+                    reflectionDirection = getSpecularReflection(nearestHit);
+                }
                 
 
                 returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1), 0.5));

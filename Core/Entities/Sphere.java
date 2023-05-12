@@ -2,16 +2,16 @@ package Core.Entities;
 
 import Core.Structures.Entity;
 import Core.Utility.*;
+import Core.Utility.Enum.ReflectionType;
 
 public class Sphere extends Entity {
     
     private double radius;
 
     // Main constructor
-    public Sphere(Vector3D position, ColorRGB color, double radius) {
+    public Sphere(Vector3D position, ColorRGB color, ReflectionType reflectionType, double radius) {
 
-        super(position, color);
-
+        super(position, color, reflectionType);
         this.radius = radius;
     }
 
