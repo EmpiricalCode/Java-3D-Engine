@@ -98,6 +98,8 @@ public class RenderPanel extends JPanel {
                     colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
                 }
             }
+
+            System.out.println(i / (this.dimensions * 2.0));
         }
 
         repaint();

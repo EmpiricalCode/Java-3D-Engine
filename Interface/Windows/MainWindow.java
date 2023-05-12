@@ -25,7 +25,7 @@ public class MainWindow extends Window {
         environment.addEntity(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(0, 0, 0), ReflectionType.DIFFUSE, 5));
         environment.addEntity(new Sphere(new Vector3D(25, 0, 0), new ColorRGB(0, 0, 0), ReflectionType.SPECULAR, 5));
         environment.addEntity(new Sphere(new Vector3D(22, 0, 10), new ColorRGB(0, 0, 0), ReflectionType.SPECULAR, 5));
-        environment.addEntity(new Sphere(new Vector3D(10, 0, -205), new ColorRGB(0, 0, 0), ReflectionType.SPECULAR, 200));
+        environment.addEntity(new Sphere(new Vector3D(10, 0, -205), new ColorRGB(0, 0, 0), ReflectionType.DIFFUSE, 200));
         
         RenderWindow renderWindow = new RenderWindow(environment, 9);
         renderWindow.render();
