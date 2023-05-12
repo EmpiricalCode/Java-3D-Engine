@@ -37,9 +37,7 @@ public class Ray {
         RayHit hit;
         RayHit nearestHit = null;
         Entity nearestHitEntity = null;
-        Vector3D diffuseOrigin;
-        Vector3D diffuseOffset;
-        Vector3D diffuseReflectionDirection;
+        Vector3D reflectionDirection;
 
         ColorRGB returnColor;
 
@@ -61,14 +59,11 @@ public class Ray {
                 returnColor = new ColorRGB(0, 0, 0);
 
                 // TODO: Create reflection ray
-                diffuseOrigin = Vector3D.add(nearestHit.getPosition(), nearestHit.getNormal());
-                diffuseOffset = new Vector3D(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1);
+                // reflectionDirection = Ray.getDiffuseReflection(nearestHit);
+                reflectionDirection = Ray.getSpecularReflection(nearestHit);
+                
 
-                // System.out.println(diffuseOffset);
-                diffuseReflectionDirection = Vector3D.subtract(Vector3D.add(diffuseOrigin, diffuseOffset), nearestHit.getPosition());
-                diffuseReflectionDirection.clamp(1);
-
-                returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), diffuseReflectionDirection, environment)).getColor(depth-1), 0.5));
+                returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1), 0.5));
 
                 
                 return returnColor;
@@ -80,5 +75,19 @@ public class Ray {
         } else {
             return new ColorRGB(0, 0, 0);
         }
+    }
+
+    public static Vector3D getDiffuseReflection(RayHit hit) {
+        Vector3D diffuseOrigin = Vector3D.add(hit.getPosition(), hit.getNormal());
+        Vector3D diffuseOffset = new Vector3D(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1);
+
+        Vector3D diffuseReflectionDirection = Vector3D.subtract(Vector3D.add(diffuseOrigin, diffuseOffset), hit.getPosition());
+        diffuseReflectionDirection.clamp(1);
+
+        return diffuseReflectionDirection;
+    }
+
+    public static Vector3D getSpecularReflection(RayHit hit) {
+        return Vector3D.subtract(hit.getIncidentDirection(), Vector3D.multiply(hit.getNormal(), 2 * Vector3D.dot(hit.getIncidentDirection(), hit.getNormal())));
     }
 }
