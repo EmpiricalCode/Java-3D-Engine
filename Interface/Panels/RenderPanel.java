@@ -58,7 +58,7 @@ public class RenderPanel extends JPanel {
         Vector3D topLeft;
         Vector3D currentVector;
 
-        Ray tempRay;
+        Ray sampleRay;
         ColorRGB rayColor;
 
         // Clamping calculated vectors to unit vectors
@@ -79,13 +79,21 @@ public class RenderPanel extends JPanel {
                 currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/(this.dimensions*2)));
                 currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(this.dimensions*2)));
 
-                tempRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
-                rayColor = tempRay.getColor(3);
+                ColorRGB finalColor = new ColorRGB(0, 0, 0);
 
-                renderMatrix[j][i][0] = rayColor.getR();
-                renderMatrix[j][i][1] = rayColor.getG();
-                renderMatrix[j][i][2] = rayColor.getB();
+                for (int p = 0; p < 50; p++) {
+                    sampleRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
+                    rayColor = sampleRay.getColor(5);
 
+                    finalColor = ColorRGB.add(finalColor, rayColor);    
+                }
+
+                finalColor = ColorRGB.multiply(finalColor, 0.02);
+                
+                renderMatrix[j][i][0] = finalColor.getR();
+                renderMatrix[j][i][1] = finalColor.getG();
+                renderMatrix[j][i][2] = finalColor.getB();
+                
                 if (j % 2 == 1 && i % 2 == 1) {
                     colorMatrix[j/2][i/2][0] = (renderMatrix[j][i][0] + renderMatrix[j][i-1][0] + renderMatrix[j-1][i][0] + renderMatrix[j-1][i-1][0]) / 4;
                     colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
