@@ -1,6 +1,5 @@
 package Core;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import Core.Structures.Entity;

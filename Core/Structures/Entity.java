@@ -1,7 +1,5 @@
 package Core.Structures;
 
-import java.awt.Color;
-
 import Core.Utility.*;
 
 public abstract class Entity {

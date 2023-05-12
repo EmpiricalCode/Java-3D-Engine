@@ -1,7 +1,5 @@
 package Core.Entities;
 
-import java.awt.Color;
-
 import Core.Structures.Entity;
 import Core.Utility.*;
 
