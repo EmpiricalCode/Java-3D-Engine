@@ -65,7 +65,6 @@ public class Ray {
                 } else {
                     reflectionDirection = getSpecularReflection(nearestHit);
                 }
-                
 
                 returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1), 0.5));
 
