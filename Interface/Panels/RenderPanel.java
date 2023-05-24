@@ -35,7 +35,7 @@ public class RenderPanel extends JPanel {
         this.setPreferredSize(new Dimension(pixelSize * dimensions, pixelSize * dimensions));
     }
 
-    // Renders the environment
+    // Renders the environment 
     // Fills the colorMatrix variable and calls repaint() to display it 
     // There exists a virtual "screen" corresponding to the environment's camera.
     // This method shoots 4 rays through each pixel of this virtual screen, which gathers color.
