@@ -17,10 +17,20 @@ public class RenderPanel extends JPanel {
 
     private Environment environment;
 
+    // Render settings
+    private boolean antiAliasing;
+    private boolean gammaCorrection;
+    private int pixelSamples;
+    private int rayDepth;
+
     // Main constructor
-    public RenderPanel(Environment environment, int quality) {
+    public RenderPanel(Environment environment, int quality, boolean antiAliasing, boolean gammaCorrection, int pixelSamples, int rayDepth) {
 
         this.environment = environment;
+        this.antiAliasing = antiAliasing;
+        this.gammaCorrection = gammaCorrection;
+        this.pixelSamples = pixelSamples;
+        this.rayDepth = rayDepth;
 
         // Calculating dimensions and pixel size
         this.dimensions = (int) Math.pow(2, quality);
@@ -44,6 +54,8 @@ public class RenderPanel extends JPanel {
     // is 10 units away from the virtual screen.
     public void render() { 
 
+        int renderDimensions = this.dimensions;
+
         Vector3D camDirection = this.environment.getCamera().getDirection();
         Vector3D camPosition = this.environment.getCamera().getOrigin();
 
@@ -59,6 +71,11 @@ public class RenderPanel extends JPanel {
         ColorRGB rayColor;
         ColorRGB finalColor;
 
+        // Doubling the render dimensions if anti-aliasing is set to true
+        if (this.antiAliasing) {
+            renderDimensions *= 2;
+        }
+
         // Clamping calculated vectors to unit vectors
         camVectorLeft.clamp(1);
         camVectorUp.clamp(1);
@@ -67,49 +84,68 @@ public class RenderPanel extends JPanel {
         topLeft.add(Vector3D.multiply(camVectorLeft, 5));
         topLeft.add(Vector3D.multiply(camVectorUp, 5));
 
-        for (int i = 0; i < this.dimensions*2; i++) {
-            for (int j = 0; j < this.dimensions*2; j++) {
+        for (int i = 0; i < renderDimensions; i++) {
+            for (int j = 0; j < renderDimensions; j++) {
 
-                currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * 10.0/(this.dimensions*2)));
-                currentVector.add(Vector3D.multiply(camVectorUp, -i * 10.0/(this.dimensions*2)));
+                currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * 10.0/(renderDimensions)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -i * 10.0/(renderDimensions)));
 
                 // Temp until antialiasing works
-                currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/(this.dimensions*2)));
-                currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(this.dimensions*2)));
+                currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/(renderDimensions)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(renderDimensions)));
 
                 finalColor = new ColorRGB(0, 0, 0);
 
-                for (int p = 0; p < 100; p++) {
+                for (int p = 0; p < this.pixelSamples; p++) {
                     sampleRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
-                    rayColor = sampleRay.getColor(20);
+                    rayColor = sampleRay.getColor(this.rayDepth);
                     finalColor = ColorRGB.add(finalColor, rayColor);    
                 }
 
-                finalColor = ColorRGB.multiply(finalColor, 0.01);
-                
+                finalColor = ColorRGB.multiply(finalColor, 1 / (double) this.pixelSamples);
+                 
+                // Store calculated color for the current pixel
                 renderMatrix[j][i][0] = finalColor.getR();
                 renderMatrix[j][i][1] = finalColor.getG();
                 renderMatrix[j][i][2] = finalColor.getB();
             }
 
-            System.out.println((i + 1) /  ((double) this.dimensions * 2));
+            System.out.println((i + 1) /  ((double) renderDimensions));
         }
 
-        // Anti-aliasing and gamma correction
-        for (int i = 0; i < this.dimensions*2; i++) {
-            for (int j = 0; j < this.dimensions*2; j++) {
-                if (j % 2 == 1 && i % 2 == 1) {
-                    colorMatrix[j/2][i/2][0] = (renderMatrix[j][i][0] + renderMatrix[j][i-1][0] + renderMatrix[j-1][i][0] + renderMatrix[j-1][i-1][0]) / 4;
-                    colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
-                    colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
-
-                    // Gamma correcting the colors to achieve a more comfortable brightness
-                    colorMatrix[j/2][i/2][0] = (int) (Math.pow((colorMatrix[j/2][i/2][0] / 255.0), 0.5) * 255);
-                    colorMatrix[j/2][i/2][1] = (int) (Math.pow((colorMatrix[j/2][i/2][1] / 255.0), 0.5) * 255);
-                    colorMatrix[j/2][i/2][2] = (int) (Math.pow((colorMatrix[j/2][i/2][2] / 255.0), 0.5) * 255);
+        // Anti-aliasing
+        // Both the x and y axis is doubled, meaning that there are actually 4 pixels rendered for every actual pixel on the display screen
+        // an average of these 4 pixels is taken in order to smooth out the render
+        // An equivalent would be to keep the x and y dimensions constant, and instead shoot 4 rays out of each pixel and taking a similar average.
+        // Anti-aliasing is different from the 100 ray samples already taken for each pixel, because the 100 sample rays are shot in the exact same direction
+        for (int i = 0; i < renderDimensions; i++) {
+            for (int j = 0; j < renderDimensions; j++) {
+                if (this.antiAliasing) {
+                    if (j % 2 == 1 && i % 2 == 1) {
+                        colorMatrix[j/2][i/2][0] = (renderMatrix[j][i][0] + renderMatrix[j][i-1][0] + renderMatrix[j-1][i][0] + renderMatrix[j-1][i-1][0]) / 4;
+                        colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
+                        colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
+                    }
+                } else {
+                    colorMatrix[j][i][0] = renderMatrix[j][i][0];
+                    colorMatrix[j][i][1] = renderMatrix[j][i][1];
+                    colorMatrix[j][i][2] = renderMatrix[j][i][2];
                 }
             }
         }
+
+        // Gamma correcting the colors to achieve a more comfortable brightness
+        // Essentially converting colors to between 0-1 and takign their square root to brighten them
+        if (this.gammaCorrection) {
+            for (int i = 0; i < this.dimensions; i++) {
+                for (int j = 0; j < this.dimensions; j++) {
+                    colorMatrix[j][i][0] = (int) (Math.pow((colorMatrix[j][i][0] / 255.0), 0.5) * 255);
+                    colorMatrix[j][i][1] = (int) (Math.pow((colorMatrix[j][i][1] / 255.0), 0.5) * 255);
+                    colorMatrix[j][i][2] = (int) (Math.pow((colorMatrix[j][i][2] / 255.0), 0.5) * 255);
+                }
+            }
+        }
+            
 
         repaint();
     }

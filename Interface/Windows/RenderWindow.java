@@ -11,7 +11,7 @@ public class RenderWindow extends Window {
     private RenderPanel renderPanel;
     
     // Main constructor
-    public RenderWindow(Environment environment, int quality) {
+    public RenderWindow(Environment environment, int quality, boolean antiAliasing, boolean gammaCorrection, int pixelSamples, int rayDepth) {
 
         // Setting up the window
         super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);
@@ -20,7 +20,7 @@ public class RenderWindow extends Window {
         this.setResizable(false);
 
         // Creating render panel
-        this.renderPanel = new RenderPanel(environment, quality);
+        this.renderPanel = new RenderPanel(environment, quality, antiAliasing, gammaCorrection, pixelSamples, rayDepth);
         this.add(this.renderPanel);
         this.pack();
     }
