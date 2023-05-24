@@ -11,7 +11,6 @@ public class RenderPanel extends JPanel {
 
     private int pixelSize;
     private int dimensions;
-    private int pixelsRendered = 0;
 
     private int[][][] colorMatrix;
     private int[][][] renderMatrix;
@@ -40,7 +39,7 @@ public class RenderPanel extends JPanel {
     // There exists a virtual "screen" corresponding to the environment's camera.
     // This method shoots 4 rays through each pixel of this virtual screen, which gathers color.
     // The color of these 4 rays is averaged and displayed as the color of the pixel.
-    // 
+
     // Virtual screen is 10 units x 10 units, and the origin of the camera (where the rays are shot out from)
     // is 10 units away from the virtual screen.
     public void render() { 
@@ -53,8 +52,12 @@ public class RenderPanel extends JPanel {
 
         // Unit vector pointing up relative to the camera direction
         Vector3D camVectorUp = Vector3D.cross(camDirection, camVectorLeft);
-
+        Vector3D currentVector;
         Vector3D topLeft;
+
+        Ray sampleRay;
+        ColorRGB rayColor;
+        ColorRGB finalColor;
 
         // Clamping calculated vectors to unit vectors
         camVectorLeft.clamp(1);
@@ -64,18 +67,32 @@ public class RenderPanel extends JPanel {
         topLeft.add(Vector3D.multiply(camVectorLeft, 5));
         topLeft.add(Vector3D.multiply(camVectorUp, 5));
 
-        this.pixelsRendered = 1;
-
         for (int i = 0; i < this.dimensions*2; i++) {
+            for (int j = 0; j < this.dimensions*2; j++) {
+
+                currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * 10.0/(this.dimensions*2)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -i * 10.0/(this.dimensions*2)));
+
+                // Temp until antialiasing works
+                currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/(this.dimensions*2)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(this.dimensions*2)));
+
+                finalColor = new ColorRGB(0, 0, 0);
+
+                for (int p = 0; p < 100; p++) {
+                    sampleRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
+                    rayColor = sampleRay.getColor(20);
+                    finalColor = ColorRGB.add(finalColor, rayColor);    
+                }
+
+                finalColor = ColorRGB.multiply(finalColor, 0.01);
                 
-            RenderRayThread t = new RenderRayThread(camPosition, topLeft, camVectorLeft, camVectorUp, environment, renderMatrix, i, this.dimensions, this);
-            t.run();
+                renderMatrix[j][i][0] = finalColor.getR();
+                renderMatrix[j][i][1] = finalColor.getG();
+                renderMatrix[j][i][2] = finalColor.getB();
+            }
 
-            System.out.println(this.pixelsRendered /  ((double) this.dimensions * 2));
-        }
-
-        while (this.pixelsRendered < this.dimensions * 2) {
-            System.out.println(this.pixelsRendered /  ((double) this.dimensions * 2));
+            System.out.println((i + 1) /  ((double) this.dimensions * 2));
         }
 
         // Anti-aliasing and gamma correction
@@ -97,11 +114,6 @@ public class RenderPanel extends JPanel {
         repaint();
     }
 
-    // Increments the pixelsRendered counter
-    public void completePixel() {
-        this.pixelsRendered ++;
-    }
-
     // Draws each pixel in the pixel matrix onto the panel
     @Override
     protected void paintComponent(Graphics g) {
@@ -114,68 +126,5 @@ public class RenderPanel extends JPanel {
                 g.fillRect(r * pixelSize, c * pixelSize, pixelSize, pixelSize);
             }
         }
-    }
-}
-
-class RenderRayThread extends Thread {
-
-    private Vector3D camPosition;
-    private Vector3D topLeft;
-    private Vector3D camVectorLeft;
-    private Vector3D camVectorUp;
-    private Environment environment;
-    private int i;
-    private int dimensions;
-    private int[][][] renderMatrix;
-    private RenderPanel panel;
-
-    public RenderRayThread(Vector3D camPosition, Vector3D topLeft, Vector3D camVectorLeft, Vector3D camVectorUp, Environment environment, int[][][] renderMatrix, int i, int dimensions, RenderPanel panel) {
-        this.topLeft = topLeft;
-        this.camVectorLeft = camVectorLeft;
-        this.camVectorUp = camVectorUp;
-        this.camPosition = camPosition;
-        this.environment = environment;
-        this.i = i;
-        this.renderMatrix = renderMatrix;
-        this.dimensions = dimensions;
-        this.panel = panel;
-    }
-
-    @Override
-    public void run() {
-
-        Ray sampleRay;
-        ColorRGB rayColor;
-
-        for (int j = 0; j < this.dimensions*2; j++) {
-
-            try {
-                Vector3D currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * 10.0/(this.dimensions*2)));
-                currentVector.add(Vector3D.multiply(camVectorUp, -i * 10.0/(this.dimensions*2)));
-
-                // Temp until antialiasing works
-                currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/(this.dimensions*2)));
-                currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(this.dimensions*2)));
-
-                ColorRGB finalColor = new ColorRGB(0, 0, 0);
-
-                for (int p = 0; p < 100; p++) {
-                    sampleRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
-                    rayColor = sampleRay.getColor(20);
-
-                    finalColor = ColorRGB.add(finalColor, rayColor);    
-                }
-
-                finalColor = ColorRGB.multiply(finalColor, 0.01);
-                
-                renderMatrix[j][i][0] = finalColor.getR();
-                renderMatrix[j][i][1] = finalColor.getG();
-                renderMatrix[j][i][2] = finalColor.getB();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-
-        this.panel.completePixel();
     }
 }
