@@ -86,7 +86,7 @@ public class RenderPanel extends JPanel {
                     colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
                     colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
 
-                    // Gamma correcting the colors
+                    // Gamma correcting the colors to achieve a more comfortable brightness
                     colorMatrix[j/2][i/2][0] = (int) (Math.pow((colorMatrix[j/2][i/2][0] / 255.0), 0.5) * 255);
                     colorMatrix[j/2][i/2][1] = (int) (Math.pow((colorMatrix[j/2][i/2][1] / 255.0), 0.5) * 255);
                     colorMatrix[j/2][i/2][2] = (int) (Math.pow((colorMatrix[j/2][i/2][2] / 255.0), 0.5) * 255);
