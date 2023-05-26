@@ -15,7 +15,7 @@ public class MainWindow extends Window {
     public MainWindow()  {
 
         // Setting up the window
-        super("Main Window", true, new BorderLayout(), 500, 500);
+        super("Main Window", new BorderLayout(), 500, 500);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
