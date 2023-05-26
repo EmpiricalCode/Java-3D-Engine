@@ -86,11 +86,6 @@ public class Vector3D {
         return new Vector3D(a.getX() + b.getX(), a.getY() + b.getY(), a.getZ() + b.getZ());
     }
 
-    // Finds the dot product between two vectors
-    public static double dot(Vector3D a, Vector3D b) {
-        return a.getX() * b.getX() + a.getY() * b.getY() + a.getZ() * b.getZ();
-    }
-
     // Finds the cross product between two vectors
     public static Vector3D cross(Vector3D a, Vector3D b) {
         double nx = a.getY() * b.getZ() - a.getZ() * b.getY();

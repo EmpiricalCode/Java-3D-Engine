@@ -91,6 +91,6 @@ public class Ray {
     }
 
     public static Vector3D getSpecularReflection(RayHit hit) {
-        return Vector3D.subtract(hit.getIncidentDirection(), Vector3D.multiply(hit.getNormal(), 2 * Vector3D.dot(hit.getIncidentDirection(), hit.getNormal())));
+        return Vector3D.subtract(hit.getIncidentDirection(), Vector3D.multiply(hit.getNormal(), 2 * hit.getIncidentDirection().dot(hit.getNormal())));
     }
 }
