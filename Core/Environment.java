@@ -32,9 +32,14 @@ public class Environment {
         return this.entities;
     }
 
-    // Adds a world object
+    // Adds an entity
     public void addEntity(Entity entity) {
         this.entities.add(entity);
+    }
+
+    // Removes an entity
+    public void removeEntity(int index) {
+        this.entities.remove(index);
     }
 
     public void setCamera(Camera cam) {
