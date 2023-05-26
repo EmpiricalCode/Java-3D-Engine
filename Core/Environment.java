@@ -9,7 +9,7 @@ import Core.Utility.Vector3D;
 
 public class Environment {
 
-    public static final ColorRGB AMBIENT_COLOR = new ColorRGB(16, 60, 156);
+    public static final ColorRGB SKY_COLOR = new ColorRGB(16, 60, 156);
     
     // TODO: make a function that accumulates all RENDERABLE entities (ex. rectangular prism is really 12 triangles)
     private ArrayList<Entity> entities;
@@ -46,7 +46,7 @@ public class Environment {
     public static ColorRGB getAmbientColor(Vector3D direction) {
 
         ColorRGB residualColor = new ColorRGB(200, 250, 255);
-        ColorRGB colorDifference = ColorRGB.subtract(residualColor, Environment.AMBIENT_COLOR);
+        ColorRGB colorDifference = ColorRGB.subtract(residualColor, Environment.SKY_COLOR);
 
         double directionAxisAngle = Math.atan(Math.abs(direction.getZ()) / Math.max(0.01, Math.sqrt(Math.pow(direction.getX(), 2) + Math.pow(direction.getY(), 2))));
 
