@@ -61,9 +61,9 @@ public class Ray {
 
                 // TODO: Create reflection ray                
                 if (nearestHitEntity.getReflectiontype() == ReflectionType.DIFFUSE) {
-                    reflectionDirection = getDiffuseReflection(nearestHit);
+                    reflectionDirection = Ray.getDiffuseReflection(nearestHit);
                 } else {
-                    reflectionDirection = getSpecularReflection(nearestHit);
+                    reflectionDirection = Ray.getSpecularReflection(nearestHit);
                 }
 
                 returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1), 0.5));
