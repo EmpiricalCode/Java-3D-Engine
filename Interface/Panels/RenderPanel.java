@@ -152,7 +152,7 @@ public class RenderPanel extends JPanel {
 
     // Draws each pixel in the pixel matrix onto the panel
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
 
