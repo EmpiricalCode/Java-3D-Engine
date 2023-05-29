@@ -41,6 +41,7 @@ public class Ray {
         Vector3D reflectionDirection = null;
 
         ColorRGB returnColor;
+        ColorRGB incidentColor;
 
         if (depth > 0) {
             
@@ -58,15 +59,16 @@ public class Ray {
             if (minDistance >= 0) {
                 
                 returnColor = new ColorRGB(0, 0, 0);
-
-                // TODO: Create reflection ray                
+              
                 if (nearestHitEntity.getReflectiontype() == ReflectionType.DIFFUSE) {
                     reflectionDirection = Ray.getDiffuseReflection(nearestHit);
                 } else {
                     reflectionDirection = Ray.getSpecularReflection(nearestHit);
                 }
-
-                returnColor = ColorRGB.add(returnColor, ColorRGB.multiply((new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1), 0.5));
+                
+                incidentColor = (new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1);
+                // System.out.println(ColorRGB.multiply(new ColorRGB(incidentColor.getR() * nearestHitEntity.getColor().getR() / 255, incidentColor.getG() * nearestHitEntity.getColor().getG() / 255, incidentColor.getB() * nearestHitEntity.getColor().getB() / 255), 0.5));
+                returnColor = ColorRGB.add(returnColor, ColorRGB.multiply(new ColorRGB(incidentColor.getR() * nearestHitEntity.getColor().getR() / 255, incidentColor.getG() * nearestHitEntity.getColor().getG() / 255, incidentColor.getB() * nearestHitEntity.getColor().getB() / 255), 0.5));
 
                 
                 return returnColor;
