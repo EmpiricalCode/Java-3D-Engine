@@ -12,7 +12,9 @@ public abstract class Entity {
     // Main constructor
     public Entity(Vector3D position, ColorRGB color, ReflectionType reflectionType) {
         this.position = position;
-        this.color = color;
+
+        // This is necessary because the lighting model has an edge case issue with objects that strictly reflect one channel of color
+        this.color = new ColorRGB(Math.max(color.getR(), 20), Math.max(color.getG(), 20), Math.max(color.getB(), 20));
         this.reflectionType = reflectionType;
     }
 

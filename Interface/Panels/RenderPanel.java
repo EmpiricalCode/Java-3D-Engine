@@ -139,9 +139,9 @@ public class RenderPanel extends JPanel {
         if (this.gammaCorrection) {
             for (int i = 0; i < this.dimensions; i++) {
                 for (int j = 0; j < this.dimensions; j++) {
-                    colorMatrix[j][i][0] = (int) (Math.pow((colorMatrix[j][i][0] / 255.0), 0.5) * 255);
-                    colorMatrix[j][i][1] = (int) (Math.pow((colorMatrix[j][i][1] / 255.0), 0.5) * 255);
-                    colorMatrix[j][i][2] = (int) (Math.pow((colorMatrix[j][i][2] / 255.0), 0.5) * 255);
+                    colorMatrix[j][i][0] = (int) (Math.pow((colorMatrix[j][i][0] / 255.0), 0.4) * 255);
+                    colorMatrix[j][i][1] = (int) (Math.pow((colorMatrix[j][i][1] / 255.0), 0.4) * 255);
+                    colorMatrix[j][i][2] = (int) (Math.pow((colorMatrix[j][i][2] / 255.0), 0.4) * 255);
                 }
             }
         }

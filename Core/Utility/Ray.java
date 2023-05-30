@@ -67,13 +67,11 @@ public class Ray {
                 }
                 
                 incidentColor = (new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1);
-                // System.out.println(ColorRGB.multiply(new ColorRGB(incidentColor.getR() * nearestHitEntity.getColor().getR() / 255, incidentColor.getG() * nearestHitEntity.getColor().getG() / 255, incidentColor.getB() * nearestHitEntity.getColor().getB() / 255), 0.5));
                 returnColor = ColorRGB.add(returnColor, ColorRGB.multiply(new ColorRGB(incidentColor.getR() * nearestHitEntity.getColor().getR() / 255, incidentColor.getG() * nearestHitEntity.getColor().getG() / 255, incidentColor.getB() * nearestHitEntity.getColor().getB() / 255), 0.5));
 
                 
                 return returnColor;
             } else {
-                // System.out.println(Environment.getAmbientColor(this.direction));
                 return Environment.getAmbientColor(this.direction);
             }
 

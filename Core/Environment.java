@@ -58,5 +58,7 @@ public class Environment {
         colorDifference = ColorRGB.multiply(colorDifference,Math.sin(directionAxisAngle));
 
         return ColorRGB.subtract(residualColor, colorDifference);
+
+        // return new ColorRGB(255, 255, 255);
     }
 }
