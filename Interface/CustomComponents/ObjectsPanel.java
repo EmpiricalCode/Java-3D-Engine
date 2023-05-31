@@ -26,20 +26,20 @@ public class ObjectsPanel extends JPanel {
         this.setLayout(new FlowLayout(0, 0, 0));
 
         addObjectsArea = new JPanel();
-        addObjectsArea.setPreferredSize(new Dimension(width, 130));
+        addObjectsArea.setPreferredSize(new Dimension(width, 95));
         addObjectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
         addObjectsArea.setBorder(new MatteBorder(0, 0, 0, 1, new Color(60, 60, 60)));
         addObjectsArea.setLayout(new GridBagLayout());
 
         objectsTitle = new JLabel("Objects");
-        objectsTitle.setFont(FontLoader.loadFont("Montserrat SemiBold", 28));
-        objectsTitle.setBorder(new EmptyBorder(2, 0, 0, 90));
+        objectsTitle.setFont(FontLoader.loadFont("Montserrat SemiBold", 26));
+        objectsTitle.setBorder(new EmptyBorder(3, 10, 0, 100));
         objectsTitle.setForeground(Color.WHITE);
         addObjectsArea.add(objectsTitle);
 
         addObjectButton = new RoundedButton(15, "+ Add Object", new Color(200, 200, 200), new Color(255, 255, 255), true);
         addObjectButton.setFont(FontLoader.loadFont("Montserrat Medium", 17));
-        addObjectButton.setBorder(new EmptyBorder(12, 15, 12, 15));
+        addObjectButton.setBorder(new EmptyBorder(8, 10, 8, 10));
         addObjectsArea.add(addObjectButton);
 
         objectsArea = new JPanel();

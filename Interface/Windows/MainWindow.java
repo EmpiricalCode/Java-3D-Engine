@@ -18,8 +18,8 @@ public class MainWindow extends Window {
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
-    public static final Color BACKGROUND_COLOR = new Color(27, 27, 27);
-    public static final Color BORDER_COLOR = new Color(75, 75, 75);
+    public static final Color BACKGROUND_COLOR = new Color(23, 23, 23);
+    public static final Color BORDER_COLOR = new Color(65, 65, 65);
 
     private ObjectsPanel objectsPanel;
     private JPanel objectInfoContainer;
@@ -57,7 +57,7 @@ public class MainWindow extends Window {
         Environment environment = new Environment(new Camera(new Vector3D(15, 15, 0), new Vector3D(15, 0, 0)));
 
         environment.addEntity(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
-        environment.addEntity(new Sphere(new Vector3D(25, 0, 0), new ColorRGB(100, 255, 0), ReflectionType.SPECULAR, 5));
+        environment.addEntity(new Sphere(new Vector3D(25, 0, 0), new ColorRGB(200, 200, 200), ReflectionType.SPECULAR, 5));
         environment.addEntity(new Sphere(new Vector3D(22, 0, 10), new ColorRGB(200, 200, 0), ReflectionType.DIFFUSE, 5));
         environment.addEntity(new Sphere(new Vector3D(10, 0, -205), new ColorRGB(200, 200, 200), ReflectionType.DIFFUSE, 200));
         
