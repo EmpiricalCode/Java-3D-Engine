@@ -44,10 +44,6 @@ public class RoundedButton extends JButton implements MouseListener {
         super.paintComponent(g2D);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand());
-    }
-
     public void mousePressed(MouseEvent e) {}
 
     public void mouseReleased(MouseEvent e) {}

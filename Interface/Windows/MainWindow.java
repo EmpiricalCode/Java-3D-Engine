@@ -7,23 +7,29 @@ import Core.Environment;
 import Core.Entities.*;
 import Core.Utility.*;
 import Core.Utility.Enum.*;
-import Interface.CustomComponents.RoundedButton;
+import Interface.CustomComponents.ObjectsPanel;
 import Interface.Structures.Window;
 
 public class MainWindow extends Window {
+
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 800;
+
+    private ObjectsPanel objectsPanel;
     
     // Main constructor
     public MainWindow()  {
 
         // Setting up the window
-        super("Main Window", new BorderLayout(), 500, 500);
+        super("Main Window", new BorderLayout(), MainWindow.WIDTH, MainWindow.HEIGHT);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding elements
-        RoundedButton b = new RoundedButton(20, "Remove");
+        objectsPanel = new ObjectsPanel(300, 800);
+        objectsPanel.setBackground(Color.black);
 
-        this.add(b, BorderLayout.SOUTH);
+        this.add(objectsPanel, BorderLayout.WEST);
         this.setVisible(true);
 
         // Creating environment and render window
