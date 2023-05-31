@@ -2,12 +2,16 @@ package Interface.Windows;
 
 import java.awt.*;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import Core.Environment;
 import Core.Entities.*;
 import Core.Utility.*;
 import Core.Utility.Enum.*;
+import Interface.CustomComponents.MaterialsPanel;
 import Interface.CustomComponents.ObjectsPanel;
+import Interface.CustomComponents.PropertiesPanel;
+import Interface.CustomComponents.RenderSettingsPanel;
 import Interface.Structures.Window;
 
 public class MainWindow extends Window {
@@ -15,8 +19,13 @@ public class MainWindow extends Window {
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     public static final Color BACKGROUND_COLOR = new Color(27, 27, 27);
+    public static final Color BORDER_COLOR = new Color(75, 75, 75);
 
     private ObjectsPanel objectsPanel;
+    private JPanel objectInfoContainer;
+    private PropertiesPanel propertiesPanel;
+    private MaterialsPanel materialsPanel;
+    private RenderSettingsPanel renderSettingsPanel;
     
     // Main constructor
     public MainWindow()  {
@@ -28,9 +37,19 @@ public class MainWindow extends Window {
 
         // Adding elements
         objectsPanel = new ObjectsPanel(400, 800);
-        objectsPanel.setBackground(Color.black);
+        renderSettingsPanel = new RenderSettingsPanel(350, 800);
 
+        objectInfoContainer = new JPanel(new FlowLayout(0, 0, 0));
+        objectInfoContainer.setBackground(Color.RED);
+        propertiesPanel = new PropertiesPanel(MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth(), 400);
+        materialsPanel = new MaterialsPanel(MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth(), 400);
+
+        objectInfoContainer.add(propertiesPanel);
+        objectInfoContainer.add(materialsPanel);
+        this.add(renderSettingsPanel, BorderLayout.EAST);
+        this.add(objectInfoContainer, BorderLayout.CENTER);
         this.add(objectsPanel, BorderLayout.WEST);
+
         this.setResizable(false);
         this.setVisible(true);
 
