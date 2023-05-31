@@ -1,4 +1,4 @@
-package Interface.Panels;
+package Interface.CustomComponents;
 
 import java.awt.*;
 
@@ -110,7 +110,7 @@ public class RenderPanel extends JPanel {
                 renderMatrix[j][i][2] = finalColor.getB();
             }
 
-            System.out.println((i + 1) /  ((double) renderDimensions));
+            // System.out.println((i + 1) /  ((double) renderDimensions));
         }
 
         // Anti-aliasing

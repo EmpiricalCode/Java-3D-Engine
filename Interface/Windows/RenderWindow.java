@@ -3,7 +3,7 @@ package Interface.Windows;
 import java.awt.*;
 
 import Core.Environment;
-import Interface.Panels.RenderPanel;
+import Interface.CustomComponents.RenderPanel;
 import Interface.Structures.Window;
 
 public class RenderWindow extends Window {
@@ -22,7 +22,9 @@ public class RenderWindow extends Window {
         // Creating render panel
         this.renderPanel = new RenderPanel(environment, quality, antiAliasing, gammaCorrection, pixelSamples, rayDepth);
         this.add(this.renderPanel);
+        
         this.pack();
+        this.setVisible(true);
     }
 
     // Renders an environment of objects
