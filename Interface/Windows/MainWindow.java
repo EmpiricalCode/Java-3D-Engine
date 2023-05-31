@@ -12,8 +12,9 @@ import Interface.Structures.Window;
 
 public class MainWindow extends Window {
 
-    public static final int WIDTH = 1000;
+    public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
+    public static final Color BACKGROUND_COLOR = new Color(27, 27, 27);
 
     private ObjectsPanel objectsPanel;
     
@@ -26,10 +27,11 @@ public class MainWindow extends Window {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding elements
-        objectsPanel = new ObjectsPanel(300, 800);
+        objectsPanel = new ObjectsPanel(400, 800);
         objectsPanel.setBackground(Color.black);
 
         this.add(objectsPanel, BorderLayout.WEST);
+        this.setResizable(false);
         this.setVisible(true);
 
         // Creating environment and render window
