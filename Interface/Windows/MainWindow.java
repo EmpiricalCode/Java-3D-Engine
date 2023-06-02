@@ -65,7 +65,7 @@ public class MainWindow extends Window {
         this.setVisible(true);
 
         propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
-        materialsPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
+        materialsPanel.loadMaterialProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
 
         // Creating environment and render window
         Environment environment = new Environment(new Camera(new Vector3D(15, 15, 0), new Vector3D(15, 0, 0)));

@@ -55,7 +55,7 @@ public class MaterialsPanel extends JPanel {
     }
 
     // Loads the materials for an entity
-    public void loadProperties(Entity entity) {
+    public void loadMaterialProperties(Entity entity) {
 
         PropertyType[] materialProperties = entity.getMaterialProperties();
         
