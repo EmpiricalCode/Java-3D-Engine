@@ -9,7 +9,7 @@ import Core.Utility.Enum.ReflectionType;
 public class Sphere extends Entity {
     
     public static final PropertyType[] PROPERTIES = {PropertyType.OBJECT_TYPE, PropertyType.POSITION};
-    public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR};
+    public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
     private double radius;
 
     // Main constructor

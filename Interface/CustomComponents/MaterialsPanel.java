@@ -58,12 +58,19 @@ public class MaterialsPanel extends JPanel {
     public void loadMaterialProperties(Entity entity) {
 
         PropertyType[] materialProperties = entity.getMaterialProperties();
+        JComponent fieldValueComponent;
         
+        // Setting material property field name 
         this.materialsSubtitle.setText(entity.getEntityType().getName());
 
+        // For each property, create a relevant propety field
         for (PropertyType property : materialProperties) {
 
-            ListElementLoader.loadListElement(this.materialsArea, property);
+            fieldValueComponent = ListElementLoader.loadListElement(this.materialsArea, property);
+
+            if (property == PropertyType.POSITION) {
+
+            }
         }
     }
 }

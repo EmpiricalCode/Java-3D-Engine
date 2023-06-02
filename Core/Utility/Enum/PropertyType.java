@@ -2,10 +2,14 @@ package Core.Utility.Enum;
 
 public enum PropertyType {
 
+    // Regular properties
     POSITION("Position"),
-    COLOR("Color"), 
     OBJECT_TYPE("Object"),
-    REFLECTION_TYPE("Reflection Type");
+    COLOR("Color"), 
+
+    // Material properties
+    REFLECTION_TYPE("Reflection Type"),
+    FUZZINESS("Fuzziness");
 
     private String name;
 

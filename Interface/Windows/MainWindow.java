@@ -1,6 +1,9 @@
 package Interface.Windows;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,6 +27,9 @@ public class MainWindow extends Window {
     public static final Color SUBTITLE_COLOR = new Color(200, 200, 200);
     public static final Color PROPERTIES_COLOR = new Color(24, 24, 24);
     public static final int FIELD_CONTAINER_HEIGHT = 45;
+    public static final int FIRST_SECTION_WIDTH = 400;
+    public static final int SECOND_SECTION_WIDTH = 450;
+    public static final int THIRD_SECTION_WIDTH = 350;
 
     public static final Font TITLE_FONT = FontLoader.loadFont("montserrat_semibold", 26);
     public static final Font SUBTITLE_FONT = FontLoader.loadFont("montserrat_medium", 16);
@@ -47,14 +53,25 @@ public class MainWindow extends Window {
 
         // Adding elements
         // TODO: Make all of these final variables
-        objectsPanel = new ObjectsPanel(400, MainWindow.HEIGHT);
-        renderSettingsPanel = new RenderSettingsPanel(350, MainWindow.HEIGHT);
+        objectsPanel = new ObjectsPanel(MainWindow.FIRST_SECTION_WIDTH, MainWindow.HEIGHT);
+        renderSettingsPanel = new RenderSettingsPanel(MainWindow.THIRD_SECTION_WIDTH, MainWindow.HEIGHT);
 
         objectInfoContainer = new JPanel(new FlowLayout(0, 0, 0));
         objectInfoContainer.setBackground(Color.RED);
-        propertiesPanel = new PropertiesPanel(this, 450);
-        materialsPanel = new MaterialsPanel(450);
 
+        // TODO: Make a superclass for these
+        propertiesPanel = new PropertiesPanel(this, MainWindow.SECOND_SECTION_WIDTH);
+        materialsPanel = new MaterialsPanel(MainWindow.SECOND_SECTION_WIDTH);
+
+        // Necessary to lose focus for text fields
+        this.getContentPane().addMouseListener(new MouseAdapter() {            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               objectsPanel.requestFocusInWindow();
+            }
+        });
+
+        // Loading in all JComponents
         objectInfoContainer.add(propertiesPanel);
         objectInfoContainer.add(materialsPanel);
         this.add(renderSettingsPanel, BorderLayout.EAST);

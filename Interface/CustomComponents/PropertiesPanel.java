@@ -23,6 +23,7 @@ public class PropertiesPanel extends JPanel {
     private JPanel propertiesArea;
     private MainWindow mainWindow;
     
+    // Creates a new property panel
     public PropertiesPanel(MainWindow mainWindow, int width) {
         super();
 
@@ -32,6 +33,7 @@ public class PropertiesPanel extends JPanel {
         this.setPreferredSize(new Dimension(width, PropertiesPanel.BASE_HEIGHT));
         this.setLayout(new FlowLayout(0, 0, 0));
 
+        // Creating panel components
         titleArea = new JPanel();
         titleArea.setPreferredSize(new Dimension(width, PropertiesPanel.BASE_HEIGHT));
         titleArea.setBackground(MainWindow.BACKGROUND_COLOR);
@@ -63,14 +65,20 @@ public class PropertiesPanel extends JPanel {
 
         PropertyType[] properties = entity.getProperties();
         
+        // Setting property field name 
         this.propertiesSubtitle.setText(entity.getEntityType().getName());
+        JComponent fieldValueComponent;
+
+        // Resetting the property panel's size
         this.setPreferredSize(new Dimension(this.getWidth(), PropertiesPanel.BASE_HEIGHT));
 
+        // For each property, create a relevant propety field
         for (PropertyType property : properties) {
 
+            // Scale the properties panel with the number of property fields
             this.setPreferredSize(new Dimension(this.getWidth(), (int) this.getPreferredSize().getHeight() + MainWindow.FIELD_CONTAINER_HEIGHT));
 
-            ListElementLoader.loadListElement(propertiesArea, property);
+            fieldValueComponent = ListElementLoader.loadListElement(propertiesArea, property);
         }
 
         this.mainWindow.materialsPanel.setPreferredSize(new Dimension(this.mainWindow.materialsPanel.getWidth(), MainWindow.HEIGHT - this.getHeight()));
