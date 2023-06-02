@@ -4,8 +4,8 @@ public enum PropertyType {
 
     POSITION("Position", PropertyAlterType.TRIPLE_DOUBLE),
     COLOR("Color", PropertyAlterType.TRIPLE_INTEGER), 
-    REFLECTION_TYPE("Reflection Type", PropertyAlterType.DROP_DOWN_MENU),
-    NAME("Name", PropertyAlterType.TEXT);
+    OBJECT_TYPE("Object", PropertyAlterType.DROP_DOWN_MENU),
+    REFLECTION_TYPE("Reflection Type", PropertyAlterType.DROP_DOWN_MENU);
 
     private String name;
     private PropertyAlterType alterType;

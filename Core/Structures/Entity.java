@@ -51,4 +51,7 @@ public abstract class Entity {
 
     // Returns an entity's properties
     abstract public PropertyType[] getProperties();
+
+    // Returns an entity's material properties
+    abstract public PropertyType[] getMaterialProperties();
 }

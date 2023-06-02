@@ -8,6 +8,9 @@ import java.awt.Insets;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Core.Structures.Entity;
+import Core.Utility.Enum.PropertyType;
+import Interface.Utility.ListElementLoader;
 import Interface.Windows.MainWindow;
 
 public class MaterialsPanel extends JPanel {
@@ -22,20 +25,20 @@ public class MaterialsPanel extends JPanel {
 
         this.setBorder(new MatteBorder(1, 0, 0, 0, MainWindow.BORDER_COLOR));
         this.setBackground(MainWindow.BACKGROUND_COLOR);
-        this.setPreferredSize(new Dimension(width, height));
+        this.setPreferredSize(new Dimension(width, MainWindow.HEIGHT));
         this.setLayout(new FlowLayout(0, 0, 0));
 
         titleArea = new JPanel();
-        titleArea.setPreferredSize(new Dimension(width, 120));
+        titleArea.setPreferredSize(new Dimension(width, 110));
         titleArea.setBackground(MainWindow.BACKGROUND_COLOR);
-        titleArea.setBorder(new EmptyBorder(35, 40, 0, 0));
+        titleArea.setBorder(new EmptyBorder(29, 40, 0, 0));
         titleArea.setLayout(new BoxLayout(titleArea, BoxLayout.Y_AXIS));
 
         materialsTitle = new JLabel("Materials");
         materialsTitle.setFont(MainWindow.TITLE_FONT);
         materialsTitle.setForeground(Color.WHITE);
 
-        materialsSubtitle = new JLabel("Rectangular Prism");
+        materialsSubtitle = new JLabel("Empty");
         materialsSubtitle.setFont(MainWindow.SUBTITLE_FONT);
         materialsSubtitle.setForeground(MainWindow.SUBTITLE_COLOR);
 
@@ -49,5 +52,18 @@ public class MaterialsPanel extends JPanel {
         titleArea.add(materialsSubtitle);
         this.add(titleArea);
         this.add(materialsArea);
+    }
+
+    // Loads the materials for an entity
+    public void loadProperties(Entity entity) {
+
+        PropertyType[] materialProperties = entity.getMaterialProperties();
+        
+        this.materialsSubtitle.setText(entity.getEntityType().getName());
+
+        for (PropertyType property : materialProperties) {
+
+            ListElementLoader.loadListElement(this.materialsArea, property.getName());
+        }
     }
 }
