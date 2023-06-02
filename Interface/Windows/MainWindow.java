@@ -52,8 +52,8 @@ public class MainWindow extends Window {
         objectInfoContainer = new JPanel(new FlowLayout(0, 0, 0));
         objectInfoContainer.setBackground(Color.RED);
         // TODO: Make these inherit the same class cuz they load similar tables
-        propertiesPanel = new PropertiesPanel(this, MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth());
-        materialsPanel = new MaterialsPanel(MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth(), MainWindow.HEIGHT - propertiesPanel.getHeight());
+        propertiesPanel = new PropertiesPanel(this, 450);
+        materialsPanel = new MaterialsPanel(450, MainWindow.HEIGHT - propertiesPanel.getHeight());
 
         objectInfoContainer.add(propertiesPanel);
         objectInfoContainer.add(materialsPanel);
@@ -61,7 +61,7 @@ public class MainWindow extends Window {
         this.add(objectInfoContainer, BorderLayout.CENTER);
         this.add(objectsPanel, BorderLayout.WEST);
 
-        this.setResizable(true);
+        // this.setResizable(true);
         this.setVisible(true);
 
         propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));

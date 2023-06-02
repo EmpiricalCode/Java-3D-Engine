@@ -63,7 +63,7 @@ public class MaterialsPanel extends JPanel {
 
         for (PropertyType property : materialProperties) {
 
-            ListElementLoader.loadListElement(this.materialsArea, property.getName());
+            ListElementLoader.loadListElement(this.materialsArea, property);
         }
     }
 }

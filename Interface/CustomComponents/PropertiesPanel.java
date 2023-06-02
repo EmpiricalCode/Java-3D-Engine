@@ -71,7 +71,7 @@ public class PropertiesPanel extends JPanel {
 
             this.setPreferredSize(new Dimension(this.getWidth(), (int) this.getPreferredSize().getHeight() + PropertiesPanel.FIELD_CONTAINER_HEIGHT));
 
-            ListElementLoader.loadListElement(propertiesArea, property.getName());
+            ListElementLoader.loadListElement(propertiesArea, property);
         }
 
         this.mainWindow.materialsPanel.setPreferredSize(new Dimension(this.mainWindow.materialsPanel.getWidth(), MainWindow.HEIGHT - this.getHeight()));

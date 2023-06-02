@@ -2,32 +2,45 @@ package Interface.Utility;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Core.Utility.Enum.PropertyType;
 import Interface.CustomComponents.PropertiesPanel;
 import Interface.Windows.MainWindow;
 
 public class ListElementLoader {
 
-    public static void loadListElement(JPanel listArea, String fieldName) {
+    // Creates a list element and returns the field component (textfield, etc)
+    public static JComponent loadListElement(JPanel listArea, PropertyType property) {
 
         JLabel fieldNameComponent;
+        JComponent fieldValueComponent = null;
         JPanel fieldContainerComponent;
 
         fieldContainerComponent = new JPanel();
         fieldContainerComponent.setPreferredSize(new Dimension(listArea.getWidth(), PropertiesPanel.FIELD_CONTAINER_HEIGHT));
         fieldContainerComponent.setBorder(new MatteBorder(0, 0, 1, 0, MainWindow.BORDER_COLOR));
-        fieldContainerComponent.setLayout(new BoxLayout(fieldContainerComponent, BoxLayout.X_AXIS));
+        fieldContainerComponent.setLayout(new GridLayout(1, 2));
         fieldContainerComponent.setBackground(MainWindow.PROPERTIES_COLOR);
 
-        fieldNameComponent = new JLabel(fieldName);
-        fieldNameComponent.setBorder(new EmptyBorder(0, 20, 0, 0));
+        fieldNameComponent = new JLabel(property.getName());
+        fieldNameComponent.setBorder(new EmptyBorder(0, 10, 0, 0));
         fieldNameComponent.setFont(MainWindow.PROPERTIES_FONT);
         fieldNameComponent.setForeground(Color.WHITE);
 
         fieldContainerComponent.add(fieldNameComponent);
+
+        if (property == PropertyType.COLOR || property == PropertyType.POSITION) {
+            fieldValueComponent = new JTextField(10);
+            fieldValueComponent.setVisible(true);
+            fieldContainerComponent.add(fieldValueComponent);
+        }
+
         listArea.add(fieldContainerComponent);
+
+        return null;
     }
 }
