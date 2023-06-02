@@ -2,16 +2,19 @@ package Core.Entities;
 
 import Core.Structures.Entity;
 import Core.Utility.*;
+import Core.Utility.Enum.EntityType;
+import Core.Utility.Enum.PropertyType;
 import Core.Utility.Enum.ReflectionType;
 
 public class Sphere extends Entity {
     
+    public static final PropertyType[] PROPERTIES = {PropertyType.NAME, PropertyType.POSITION, PropertyType.COLOR, PropertyType.REFLECTION_TYPE};
     private double radius;
 
     // Main constructor
     public Sphere(Vector3D position, ColorRGB color, ReflectionType reflectionType, double radius) {
 
-        super(position, color, reflectionType);
+        super(position, color, reflectionType, EntityType.SPHERE);
         this.radius = radius;
     }
 
@@ -60,5 +63,10 @@ public class Sphere extends Entity {
         normal.clamp(1);
 
         return normal;
+    }
+
+    // Returns the properties of a sphere
+    public PropertyType[] getProperties() {
+        return Sphere.PROPERTIES;
     }
 }

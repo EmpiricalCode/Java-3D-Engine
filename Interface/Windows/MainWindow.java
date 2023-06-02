@@ -13,6 +13,7 @@ import Interface.CustomComponents.ObjectsPanel;
 import Interface.CustomComponents.PropertiesPanel;
 import Interface.CustomComponents.RenderSettingsPanel;
 import Interface.Structures.Window;
+import Interface.Utility.FontLoader;
 
 public class MainWindow extends Window {
 
@@ -20,13 +21,21 @@ public class MainWindow extends Window {
     public static final int HEIGHT = 800;
     public static final Color BACKGROUND_COLOR = new Color(23, 23, 23);
     public static final Color BORDER_COLOR = new Color(65, 65, 65);
+    public static final Color SUBTITLE_COLOR = new Color(200, 200, 200);
+    public static final Color PROPERTIES_COLOR = new Color(24, 24, 24);
 
-    private ObjectsPanel objectsPanel;
-    private JPanel objectInfoContainer;
-    private PropertiesPanel propertiesPanel;
-    private MaterialsPanel materialsPanel;
-    private RenderSettingsPanel renderSettingsPanel;
+    public static final Font TITLE_FONT = FontLoader.loadFont("montserrat_semibold", 26);
+    public static final Font SUBTITLE_FONT = FontLoader.loadFont("montserrat_medium", 16);
+    public static final Font PROPERTIES_FONT = FontLoader.loadFont("montserrat_medium", 15);
+
+    // These were made public in case they must access each other using the MainWindow class
+    public ObjectsPanel objectsPanel;
+    public JPanel objectInfoContainer;
+    public PropertiesPanel propertiesPanel;
+    public MaterialsPanel materialsPanel;
+    public RenderSettingsPanel renderSettingsPanel;
     
+    // TODO: Ask if ok that main window is nonstatic
     // Main constructor
     public MainWindow()  {
 
@@ -36,13 +45,15 @@ public class MainWindow extends Window {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding elements
-        objectsPanel = new ObjectsPanel(400, 800);
-        renderSettingsPanel = new RenderSettingsPanel(350, 800);
+        // TODO: Make all of these final variables
+        objectsPanel = new ObjectsPanel(400, MainWindow.HEIGHT);
+        renderSettingsPanel = new RenderSettingsPanel(350, MainWindow.HEIGHT);
 
         objectInfoContainer = new JPanel(new FlowLayout(0, 0, 0));
         objectInfoContainer.setBackground(Color.RED);
-        propertiesPanel = new PropertiesPanel(MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth(), 400);
-        materialsPanel = new MaterialsPanel(MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth(), 400);
+        // TODO: Make these inherit the same class cuz they load similar tables
+        propertiesPanel = new PropertiesPanel(this, MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth());
+        materialsPanel = new MaterialsPanel(MainWindow.WIDTH - objectsPanel.getWidth() - renderSettingsPanel.getWidth(), MainWindow.HEIGHT - propertiesPanel.getHeight());
 
         objectInfoContainer.add(propertiesPanel);
         objectInfoContainer.add(materialsPanel);
@@ -52,6 +63,8 @@ public class MainWindow extends Window {
 
         this.setResizable(false);
         this.setVisible(true);
+
+        propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
 
         // Creating environment and render window
         Environment environment = new Environment(new Camera(new Vector3D(15, 15, 0), new Vector3D(15, 0, 0)));
