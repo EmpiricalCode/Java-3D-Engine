@@ -15,7 +15,6 @@ import Interface.Windows.MainWindow;
 
 public class PropertiesPanel extends JPanel {
 
-    public static final int FIELD_CONTAINER_HEIGHT = 45;
     public static final int BASE_HEIGHT = 110;
 
     private JPanel titleArea;
@@ -69,7 +68,7 @@ public class PropertiesPanel extends JPanel {
 
         for (PropertyType property : properties) {
 
-            this.setPreferredSize(new Dimension(this.getWidth(), (int) this.getPreferredSize().getHeight() + PropertiesPanel.FIELD_CONTAINER_HEIGHT));
+            this.setPreferredSize(new Dimension(this.getWidth(), (int) this.getPreferredSize().getHeight() + MainWindow.FIELD_CONTAINER_HEIGHT));
 
             ListElementLoader.loadListElement(propertiesArea, property);
         }

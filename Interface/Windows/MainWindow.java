@@ -23,6 +23,7 @@ public class MainWindow extends Window {
     public static final Color BORDER_COLOR = new Color(65, 65, 65);
     public static final Color SUBTITLE_COLOR = new Color(200, 200, 200);
     public static final Color PROPERTIES_COLOR = new Color(24, 24, 24);
+    public static final int FIELD_CONTAINER_HEIGHT = 45;
 
     public static final Font TITLE_FONT = FontLoader.loadFont("montserrat_semibold", 26);
     public static final Font SUBTITLE_FONT = FontLoader.loadFont("montserrat_medium", 16);
