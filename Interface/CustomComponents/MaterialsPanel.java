@@ -20,7 +20,7 @@ public class MaterialsPanel extends JPanel {
     private JLabel materialsSubtitle;
     private JPanel materialsArea;
     
-    public MaterialsPanel(int width, int height) {
+    public MaterialsPanel(int width) {
         super();
 
         this.setBorder(new MatteBorder(1, 0, 0, 0, MainWindow.BORDER_COLOR));
