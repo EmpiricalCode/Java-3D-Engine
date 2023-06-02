@@ -72,7 +72,7 @@ public class MaterialsPanel extends JPanel {
 
             fieldValueComponent = ListElementLoader.loadListElement(this.materialsArea, property);
 
-            if (property == PropertyType.COLOR) {
+            if (property == PropertyType.POSITION) {
 
             }
         }

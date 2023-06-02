@@ -70,8 +70,6 @@ public class PropertiesPanel extends JPanel {
         
         // Setting property field name 
         this.propertiesSubtitle.setText(entity.getEntityType().getName());
-
-        // Resetting the property panel's size
         this.setPreferredSize(new Dimension(this.getWidth(), PropertiesPanel.BASE_HEIGHT));
 
         // For each property, create a relevant propety field
