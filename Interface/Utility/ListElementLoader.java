@@ -19,6 +19,7 @@ public class ListElementLoader {
         JComponent fieldValueComponent = null;
         JPanel fieldContainerComponent;
 
+        // Creating the property field
         fieldContainerComponent = new JPanel();
         fieldContainerComponent.setPreferredSize(new Dimension(listArea.getWidth(), MainWindow.FIELD_CONTAINER_HEIGHT));
         fieldContainerComponent.setBorder(new MatteBorder(0, 0, 1, 0, MainWindow.BORDER_COLOR));
@@ -32,7 +33,8 @@ public class ListElementLoader {
 
         fieldContainerComponent.add(fieldNameComponent);
 
-        if (property == PropertyType.COLOR || property == PropertyType.POSITION) {
+        // Creating the relevant JComponents based on how the property is modified (drop down menu, text field, etc)
+        if (property == PropertyType.COLOR || property == PropertyType.POSITION || property == PropertyType.FUZZINESS) {
             
             fieldValueComponent = new JTextField(10);
             fieldValueComponent.setVisible(true);
@@ -47,6 +49,6 @@ public class ListElementLoader {
 
         listArea.add(fieldContainerComponent);
 
-        return null;
+        return fieldValueComponent;
     }
 }

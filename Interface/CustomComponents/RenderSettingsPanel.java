@@ -1,14 +1,11 @@
 package Interface.CustomComponents;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
-import Interface.Utility.FontLoader;
 import Interface.Windows.MainWindow;
 
 public class RenderSettingsPanel extends JPanel {

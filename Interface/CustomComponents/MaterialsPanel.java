@@ -20,14 +20,17 @@ public class MaterialsPanel extends JPanel {
     private JLabel materialsSubtitle;
     private JPanel materialsArea;
     
+    // Creates a new materials panel
     public MaterialsPanel(int width) {
         super();
 
+        // Initializing panel
         this.setBorder(new MatteBorder(1, 0, 0, 0, MainWindow.BORDER_COLOR));
         this.setBackground(MainWindow.BACKGROUND_COLOR);
         this.setPreferredSize(new Dimension(width, MainWindow.HEIGHT));
         this.setLayout(new FlowLayout(0, 0, 0));
 
+        // Creating panel components
         titleArea = new JPanel();
         titleArea.setPreferredSize(new Dimension(width, 110));
         titleArea.setBackground(MainWindow.BACKGROUND_COLOR);
@@ -48,6 +51,7 @@ public class MaterialsPanel extends JPanel {
         materialsArea.setLayout(new FlowLayout(0, 0, 0));
         materialsArea.setBackground(MainWindow.BACKGROUND_COLOR);
 
+        // Adding components
         titleArea.add(materialsTitle);
         titleArea.add(materialsSubtitle);
         this.add(titleArea);
@@ -58,12 +62,19 @@ public class MaterialsPanel extends JPanel {
     public void loadMaterialProperties(Entity entity) {
 
         PropertyType[] materialProperties = entity.getMaterialProperties();
+        JComponent fieldValueComponent;
         
+        // Setting material property field name 
         this.materialsSubtitle.setText(entity.getEntityType().getName());
 
+        // For each property, create a relevant property field
         for (PropertyType property : materialProperties) {
 
-            ListElementLoader.loadListElement(this.materialsArea, property);
+            fieldValueComponent = ListElementLoader.loadListElement(this.materialsArea, property);
+
+            if (property == PropertyType.COLOR) {
+
+            }
         }
     }
 }
