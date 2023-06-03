@@ -11,6 +11,7 @@ import javax.swing.border.*;
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
 import Interface.Utility.ListElementLoader;
+import Interface.Utility.PropertyEventHandler;
 import Interface.Windows.MainWindow;
 
 public class PropertiesPanel extends JPanel {
@@ -79,9 +80,19 @@ public class PropertiesPanel extends JPanel {
             this.setPreferredSize(new Dimension(this.getWidth(), (int) this.getPreferredSize().getHeight() + MainWindow.FIELD_CONTAINER_HEIGHT));
 
             fieldValueComponent = ListElementLoader.loadListElement(propertiesArea, property);
+
+            // Grouping properties by how they are accessed, and using the relevant listeners to handle setting those properties
+            if (property == PropertyType.POSITION) {
+
+                // Setting initial values
+                ((JTextField) fieldValueComponent).setText(entity.getPosition().getX() + ", " + entity.getPosition().getY() + ", " + entity.getPosition().getZ());
+
+                fieldValueComponent.addFocusListener(new PropertyEventHandler(entity, property, fieldValueComponent));
+            }
         }
 
         this.mainWindow.materialsPanel.setPreferredSize(new Dimension(this.mainWindow.materialsPanel.getWidth(), MainWindow.HEIGHT - this.getHeight()));
-        this.mainWindow.repaint();
+        this.revalidate();
+        this.repaint();
     }
 }

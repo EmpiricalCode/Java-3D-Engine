@@ -4,7 +4,6 @@ public enum PropertyType {
 
     // Regular properties
     POSITION("Position"),
-    OBJECT_TYPE("Object"),
     COLOR("Color"), 
 
     // Material properties

@@ -4,13 +4,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
 import Core.Structures.Entity;
+import Core.Utility.ColorRGB;
 import Core.Utility.Enum.PropertyType;
 import Interface.Utility.ListElementLoader;
+import Interface.Utility.PropertyEventHandler;
+import Interface.Utility.PropertyFormatter;
 import Interface.Windows.MainWindow;
 
 public class MaterialsPanel extends JPanel {
@@ -72,9 +77,20 @@ public class MaterialsPanel extends JPanel {
 
             fieldValueComponent = ListElementLoader.loadListElement(this.materialsArea, property);
 
+            // Setting initial values
             if (property == PropertyType.COLOR) {
+                ((JTextField) fieldValueComponent).setText(entity.getColor().getR() + ", " + entity.getColor().getG() + ", " + entity.getColor().getB());
+            } else if (property == PropertyType.FUZZINESS) {
+                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getFuzziness()));
+            }
 
+            // Grouping material properties by how they are accessed, and using the relevant listeners to handle setting those properties
+            if (property == PropertyType.COLOR || property == PropertyType.FUZZINESS) {
+                fieldValueComponent.addFocusListener(new PropertyEventHandler(entity, property, fieldValueComponent));
             }
         }
+
+        this.revalidate();
+        this.repaint();
     }
 }

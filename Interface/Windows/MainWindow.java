@@ -81,16 +81,16 @@ public class MainWindow extends Window {
         // this.setResizable(true);
         this.setVisible(true);
 
-        propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
-        materialsPanel.loadMaterialProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
+        propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.1, ReflectionType.SPECULAR, 5));
+        materialsPanel.loadMaterialProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.2, ReflectionType.SPECULAR, 5));
 
         // Creating environment and render window
         Environment environment = new Environment(new Camera(new Vector3D(15, 15, 0), new Vector3D(15, 0, 0)));
 
-        environment.addEntity(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), ReflectionType.SPECULAR, 5));
-        environment.addEntity(new Sphere(new Vector3D(25, 0, 0), new ColorRGB(200, 200, 200), ReflectionType.SPECULAR, 5));
-        environment.addEntity(new Sphere(new Vector3D(22, 0, 10), new ColorRGB(200, 200, 0), ReflectionType.DIFFUSE, 5));
-        environment.addEntity(new Sphere(new Vector3D(10, 0, -205), new ColorRGB(200, 200, 200), ReflectionType.DIFFUSE, 200));
+        environment.addEntity(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.5, ReflectionType.SPECULAR, 5));
+        environment.addEntity(new Sphere(new Vector3D(25, 0, 0), new ColorRGB(200, 200, 200), 0.1, ReflectionType.SPECULAR, 5));
+        environment.addEntity(new Sphere(new Vector3D(22, 0, 10), new ColorRGB(200, 200, 0), 0.5, ReflectionType.DIFFUSE, 5));
+        environment.addEntity(new Sphere(new Vector3D(10, 0, -205), new ColorRGB(200, 200, 200), 0.6, ReflectionType.DIFFUSE, 200));
         
         RenderWindow renderWindow = new RenderWindow(environment, 9, true, true, 100, 20);
         renderWindow.render();
