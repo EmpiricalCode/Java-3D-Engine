@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: FontLoader.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the loading of custom fonts.
+//
+///////////////////////
+
 package Interface.Utility;
 
 import java.awt.Font;

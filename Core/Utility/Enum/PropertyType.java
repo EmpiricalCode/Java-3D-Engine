@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: PropertyType.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: An enum listing the various property types.
+//
+///////////////////////
+
 package Core.Utility.Enum;
 
 public enum PropertyType {

@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: PropertyFormatter.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that formats property values to be displayed on the screen.
+//
+///////////////////////
+
 package Interface.Utility;
 
 public class PropertyFormatter {

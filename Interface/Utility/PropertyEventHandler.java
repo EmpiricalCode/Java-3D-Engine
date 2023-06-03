@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: PropertyEventHandler.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles all the necessary events corresponding to when a property is set (ex. unfocusing of a textfield, clicking of a checkbox, etc).
+//
+///////////////////////
+
 package Interface.Utility;
 
 import java.awt.event.FocusEvent;

@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: ListElementLoader.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: This loads properties for classes such as the MaterialsPanel, PropertiesPanel, etc, that rely on a table layout to set properties.
+//
+///////////////////////
+
 package Interface.Utility;
 
 import java.awt.Color;

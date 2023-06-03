@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: MainWindow.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the creation of the main window and all of its relevant components.
+//
+///////////////////////
+
 package Interface.Windows;
 
 import java.awt.*;
@@ -78,7 +87,7 @@ public class MainWindow extends Window {
         this.add(objectInfoContainer, BorderLayout.CENTER);
         this.add(objectsPanel, BorderLayout.WEST);
 
-        // this.setResizable(true);
+        this.setResizable(false);
         this.setVisible(true);
 
         propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.1, ReflectionType.SPECULAR, 5));

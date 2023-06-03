@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: RenderPanel.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: This class corresponds to the panel where the scene is actually rendered. It handles the actual rendering of the scene.
+//
+///////////////////////
+
 package Interface.CustomComponents;
 
 import java.awt.*;

@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: Environment.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the various entities and other properties of a renderable environment.
+//
+///////////////////////
+
 package Core;
 
 import java.util.ArrayList;
@@ -11,7 +20,6 @@ public class Environment {
 
     public static final ColorRGB SKY_COLOR = new ColorRGB(16, 60, 156);
     
-    // TODO: make a function that accumulates all RENDERABLE entities (ex. rectangular prism is really 12 triangles)
     private ArrayList<Entity> entities;
 
     private Camera camera;

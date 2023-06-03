@@ -1,8 +1,18 @@
+///////////////////////
+//
+// Filename: EntityType.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: An enum listing the different renderable entities.
+//
+///////////////////////
+
 package Core.Utility.Enum;
 
 public enum EntityType {
     SPHERE("Sphere"),
-    RECTANGULAR_PRISM("Rectangular Prism");
+    RECTANGULAR_PRISM("Rectangular Prism"),
+    TRIANGULAR_PRISM("Triangular Prism");
 
     private String name;
 

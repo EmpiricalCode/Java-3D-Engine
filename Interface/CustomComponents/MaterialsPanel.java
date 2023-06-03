@@ -1,21 +1,26 @@
+///////////////////////
+//
+// Filename: MaterialsPanel.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the creation and user interactions of the panel that allows the changing of material properties.
+//
+///////////////////////
+
 package Interface.CustomComponents;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Insets;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
 import Core.Structures.Entity;
-import Core.Utility.ColorRGB;
 import Core.Utility.Enum.PropertyType;
 import Interface.Utility.ListElementLoader;
 import Interface.Utility.PropertyEventHandler;
-import Interface.Utility.PropertyFormatter;
 import Interface.Windows.MainWindow;
 
 public class MaterialsPanel extends JPanel {

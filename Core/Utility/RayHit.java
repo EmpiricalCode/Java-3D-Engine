@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: RayHit.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that stores information about a ray's collision.
+//
+///////////////////////
+
 package Core.Utility;
 
 public class RayHit {

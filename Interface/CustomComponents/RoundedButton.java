@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: RoundedButton.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A custom class that allows for the creation of rounded buttons.
+//
+///////////////////////
+
 package Interface.CustomComponents;
 
 import java.awt.BasicStroke;
@@ -8,7 +17,6 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
-
 
 public class RoundedButton extends JButton implements MouseListener {
     
@@ -37,6 +45,7 @@ public class RoundedButton extends JButton implements MouseListener {
 
         Graphics2D g2D = (Graphics2D) g;
 
+        // Necessary to make button appear smooth
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2D.setColor(this.mouseExitedColor);

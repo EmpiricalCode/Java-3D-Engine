@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: RenderWindow.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the creation of the render window and all of its relevant components.
+//
+///////////////////////
+
 package Interface.Windows;
 
 import java.awt.*;

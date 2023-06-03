@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: Entity.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A superclass that groups together various renderable objects and handles some of their shared properties.
+//
+///////////////////////
+
 package Core.Structures;
 
 import Core.Utility.*;

@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: Camera.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles properties of the environment's camera (for calculation use).
+//
+///////////////////////
+
 package Core.Utility;
 
 public class Camera {

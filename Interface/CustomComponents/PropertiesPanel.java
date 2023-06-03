@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: PropertiesPanel.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the creation and user interactions of the panel that allows the changing of regular object properties.
+//
+///////////////////////
+
 package Interface.CustomComponents;
 
 import java.awt.Color;

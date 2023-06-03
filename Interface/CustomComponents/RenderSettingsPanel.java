@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: RenderSettingsPanel.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the creation and user interactions of the render settings panel. This panel allows users to modify scene/lighting/etc settings.
+//
+///////////////////////
+
 package Interface.CustomComponents;
 
 import java.awt.Dimension;

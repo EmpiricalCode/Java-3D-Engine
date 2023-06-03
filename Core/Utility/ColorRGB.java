@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: ColorRGB.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles RGB color values, providing custom methods to make certain operations more convenient.
+//
+///////////////////////
+
 package Core.Utility;
 
 public class ColorRGB {

@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: Vector3D.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that packages together XYZ coordinates and allows for certain operations to be carried out on them.
+//
+///////////////////////
+
 package Core.Utility;
 
 public class Vector3D {

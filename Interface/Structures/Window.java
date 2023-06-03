@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: Window.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A superclass that handles some aspects of window creation.
+//
+///////////////////////
+
 package Interface.Structures;
 
 import java.awt.LayoutManager;

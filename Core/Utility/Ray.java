@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: Ray.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the properties of rays shot in an environment (for calculation use).
+//
+///////////////////////
+
 package Core.Utility;
 
 import Core.Environment;
