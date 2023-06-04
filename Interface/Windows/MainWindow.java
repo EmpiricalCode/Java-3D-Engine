@@ -71,8 +71,9 @@ public class MainWindow extends Window {
         materialsPanel = new MaterialsPanel(MainWindow.SECOND_SECTION_WIDTH);
         propertiesPanel = new PropertiesPanel(materialsPanel, MainWindow.SECOND_SECTION_WIDTH);
 
-        // Necessary to lose focus for text fields
-        this.getContentPane().addMouseListener(new MouseAdapter() {            
+        this.getContentPane().addMouseListener(new MouseAdapter() {          
+
+            // Clicking anywhere that isn't a button, text field, etc, will focus on an arbitrary panel (this is to defocus text fields, essentially "clicking off" them)
             @Override
             public void mouseClicked(MouseEvent e) {
                objectsPanel.requestFocusInWindow();
