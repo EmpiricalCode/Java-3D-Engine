@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: IconPanel.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the creation and user interactions of the panel that allows the changing of material properties.
+//
+///////////////////////
+
 package Interface.CustomComponents;
 
 import java.awt.Dimension;
