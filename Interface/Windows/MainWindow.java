@@ -103,7 +103,7 @@ public class MainWindow extends Window {
         environment.addEntity(new Sphere(new Vector3D(22, 0, 10), new ColorRGB(200, 200, 0), 0.5, ReflectionType.DIFFUSE, 5));
         environment.addEntity(new Sphere(new Vector3D(10, 0, -205), new ColorRGB(200, 200, 200), 0.6, ReflectionType.DIFFUSE, 200));
         
-        RenderWindow renderWindow = new RenderWindow(environment, 9, true, true, 100, 20);
+        RenderWindow renderWindow = new RenderWindow(environment, 8, true, true, 100, 20);
         renderWindow.render();
     }
 }

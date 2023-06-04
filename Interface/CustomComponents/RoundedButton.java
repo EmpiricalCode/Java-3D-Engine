@@ -75,19 +75,22 @@ public class RoundedButton extends JButton implements MouseListener {
         super.paintComponent(g2D);
     }
 
+    @Override
     public void mousePressed(MouseEvent event) {}
 
+    @Override
     public void mouseReleased(MouseEvent event) {}
 
+    @Override
     public void mouseEntered(MouseEvent event) {
         this.mouseIn = true;
     }
 
+    @Override
     public void mouseExited(MouseEvent event) {
         this.mouseIn = false;
     }
 
-    public void mouseClicked(MouseEvent event) {
-        System.out.println("Clicked");
-    }
+    @Override
+    public void mouseClicked(MouseEvent event) {}
 }

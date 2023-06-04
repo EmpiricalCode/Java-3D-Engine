@@ -118,7 +118,7 @@ public class RenderPanel extends JPanel {
                 renderMatrix[j][i][2] = finalColor.getB();
             }
 
-            // System.out.println((i + 1) /  ((double) renderDimensions));
+            System.out.println(Math.round(10000 * (i + 1) /  ((double) renderDimensions)) / 100.0 + " %");
         }
 
         // Anti-aliasing

@@ -10,22 +10,24 @@
 package Interface.CustomComponents;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.plaf.metal.MetalComboBoxUI;
 
 import Interface.Utility.FontLoader;
+import Interface.Utility.ComboBox.DropDownMenuRenderer;
+import Interface.Utility.ComboBox.DropDownMenuUI;
 import Interface.Windows.MainWindow;
 
-public class ObjectsPanel extends JPanel {
+public class ObjectsPanel extends JPanel implements MouseListener {
 
     public static final String[] OBJECT_TYPES = {"Sphere", "Rectangular Prism", "Triangular Prism"};
 
@@ -54,6 +56,7 @@ public class ObjectsPanel extends JPanel {
         this.addObjectButton = new RoundedButton(15, "+ Add Object", new Color(200, 200, 200), new Color(255, 255, 255), true);
         this.addObjectButton.setFont(FontLoader.loadFont("montserrat_medium", 17));
         this.addObjectButton.setBorder(new EmptyBorder(8, 10, 8, 10));
+        this.addObjectButton.addMouseListener(this);
 
         this.objectsArea = new JPanel();
         this.objectsArea.setPreferredSize(new Dimension(width, height - addObjectsArea.getHeight()));
@@ -70,40 +73,18 @@ public class ObjectsPanel extends JPanel {
     public void addObject() {
 
         JPanel objectContainer = new JPanel();
+        Component objectTypeSelectorComponent;
         JComboBox<String> objectTypeSelector = new JComboBox<String>(ObjectsPanel.OBJECT_TYPES);
 
-        objectTypeSelector.setUI(new MetalComboBoxUI() {
-
-            @Override 
-            public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
-
-                Insets buttonInsets;
-
-                g.setColor(MainWindow.BACKGROUND_COLOR);
-                g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height - 1);
-
-                if (hasFocus && !isPopupVisible(comboBox) && arrowButton != null) {
-
-                    g.setColor(MainWindow.BACKGROUND_COLOR);
-                    buttonInsets = arrowButton.getInsets();
-
-                    if (buttonInsets.top > 2) {
-                        g.fillRect(bounds.x + 2, bounds.y + 2, bounds.width - 3, buttonInsets.top - 2);
-                    }
-
-                    if (buttonInsets.bottom > 2) {
-                        g.fillRect(bounds.x + 2, bounds.y + bounds.height - buttonInsets.bottom, bounds.width - 3, buttonInsets.bottom - 2);
-                    }
-                }
-            }
-        });
+        objectTypeSelector.setUI(new DropDownMenuUI());
 
         for (int i = 0; i < objectTypeSelector.getComponentCount(); i++) {
-            if (objectTypeSelector.getComponent(i) instanceof JComponent) {
-                ((JComponent) objectTypeSelector.getComponent(i)).setBorder(new CompoundBorder(new MatteBorder(1, 1, 1, 1, MainWindow.BACKGROUND_COLOR), new EmptyBorder(0, 0, 0, 10)));
-                ((JComponent) objectTypeSelector.getComponent(i)).setForeground(Color.WHITE);
-            } else if (objectTypeSelector.getComponent(i) instanceof AbstractButton) {
-                ((AbstractButton) objectTypeSelector.getComponent(i)).setFocusable(false);
+
+            objectTypeSelectorComponent = objectTypeSelector.getComponent(i);
+
+            // Removing combobox borders
+            if (objectTypeSelectorComponent instanceof JComponent) {
+                ((JComponent) objectTypeSelectorComponent).setBorder(new EmptyBorder(0, 0, 0, 10)); 
             }
         }
 
@@ -112,7 +93,7 @@ public class ObjectsPanel extends JPanel {
         objectTypeSelector.setBackground(MainWindow.BACKGROUND_COLOR);
         objectTypeSelector.setForeground(Color.WHITE);
         objectTypeSelector.setBorder(new MatteBorder(1, 1, 1, 1, MainWindow.BACKGROUND_COLOR));
-        objectTypeSelector.setFocusable(false);
+        objectTypeSelector.setRenderer(new DropDownMenuRenderer());
         objectTypeSelector.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
         objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(0, 0, 0, 0)));
@@ -123,5 +104,25 @@ public class ObjectsPanel extends JPanel {
 
         objectContainer.add(objectTypeSelector);
         this.objectsArea.add(objectContainer);
+
+        this.revalidate();
+        this.repaint();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent event) {}
+
+    @Override
+    public void mouseReleased(MouseEvent event) {}
+
+    @Override
+    public void mouseEntered(MouseEvent event) {}
+
+    @Override
+    public void mouseExited(MouseEvent event) {}
+
+    @Override
+    public void mouseClicked(MouseEvent event) {
+        this.addObject();
     }
 }
