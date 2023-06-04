@@ -16,18 +16,21 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Core.Utility.Enum.EntityType;
 import Interface.Utility.FontLoader;
 import Interface.Utility.ComboBox.DropDownMenuRenderer;
 import Interface.Utility.ComboBox.DropDownMenuUI;
 import Interface.Windows.MainWindow;
 
-public class ObjectsPanel extends JPanel implements MouseListener {
+public class ObjectsPanel extends JPanel implements MouseListener, ItemListener {
 
     public static final String[] OBJECT_TYPES = {"Sphere", "Rectangular Prism", "Triangular Prism"};
 
@@ -73,8 +76,11 @@ public class ObjectsPanel extends JPanel implements MouseListener {
     public void addObject() {
 
         JPanel objectContainer = new JPanel();
-        Component objectTypeSelectorComponent;
+        IconPanel objectIcon = new IconPanel(EntityType.SPHERE);
         JComboBox<String> objectTypeSelector = new JComboBox<String>(ObjectsPanel.OBJECT_TYPES);
+
+        Component objectTypeSelectorComponent;
+
 
         objectTypeSelector.setUI(new DropDownMenuUI());
 
@@ -95,13 +101,14 @@ public class ObjectsPanel extends JPanel implements MouseListener {
         objectTypeSelector.setBorder(new MatteBorder(1, 1, 1, 1, MainWindow.BACKGROUND_COLOR));
         objectTypeSelector.setRenderer(new DropDownMenuRenderer());
         objectTypeSelector.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        objectTypeSelector.addItemListener(this);
 
         objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(0, 0, 0, 0)));
         objectContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
         objectContainer.setBackground(MainWindow.BACKGROUND_COLOR);
         objectContainer.setPreferredSize(new Dimension(this.getWidth(), 35));
 
-
+        objectContainer.add(objectIcon);
         objectContainer.add(objectTypeSelector);
         this.objectsArea.add(objectContainer);
 
@@ -109,6 +116,7 @@ public class ObjectsPanel extends JPanel implements MouseListener {
         this.repaint();
     }
 
+    // Manditory override methods
     @Override
     public void mousePressed(MouseEvent event) {}
 
@@ -121,8 +129,35 @@ public class ObjectsPanel extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent event) {}
 
+    // Adding a new object when the addObject button is clicked
     @Override
     public void mouseClicked(MouseEvent event) {
         this.addObject();
+    }
+
+    // When a JComboBox registers an item state change, change its corresponding icon
+    @Override
+    public void itemStateChanged(ItemEvent event) {
+
+        IconPanel iconPanel;
+
+        // This is necessary to prevent a double-register of the event (one event is fired for deselected and for selected)
+        if (event.getStateChange() == ItemEvent.SELECTED) {
+
+            iconPanel = (IconPanel) ((JComponent) event.getSource()).getParent().getComponent(0);
+            
+            if (event.getItem().equals(EntityType.RECTANGULAR_PRISM.getName())) {
+
+                iconPanel.changeEntityType(EntityType.RECTANGULAR_PRISM);
+
+            } else if (event.getItem().equals(EntityType.TRIANGULAR_PRISM.getName())) {
+
+                iconPanel.changeEntityType(EntityType.TRIANGULAR_PRISM);
+
+            } else if (event.getItem().equals(EntityType.SPHERE.getName())) {
+                
+                iconPanel.changeEntityType(EntityType.SPHERE);
+            }
+        }
     }
 }

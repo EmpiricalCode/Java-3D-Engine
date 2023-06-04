@@ -18,7 +18,7 @@ import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.ObjectPropertyPanel;
 import Interface.Utility.ListElementLoader;
-import Interface.Utility.PropertyEventHandler;
+import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
 public class PropertiesPanel extends ObjectPropertyPanel {
@@ -60,7 +60,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
                 ((JTextField) fieldValueComponent).setText(entity.getPosition().getX() + ", " + entity.getPosition().getY() + ", " + entity.getPosition().getZ());
 
                 // Adding the correct event listener
-                fieldValueComponent.addFocusListener(new PropertyEventHandler(entity, property, fieldValueComponent));
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, fieldValueComponent));
 
             } else if (property == PropertyType.RADIUS) {
 
@@ -68,7 +68,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
                 ((JTextField) fieldValueComponent).setText(String.valueOf(((Sphere) entity).getRadius()));
 
                 // Adding the correct event listener
-                fieldValueComponent.addFocusListener(new PropertyEventHandler(entity, property, fieldValueComponent));
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, fieldValueComponent));
 
             }
         }

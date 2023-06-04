@@ -3,11 +3,11 @@
 // Filename: PropertyEventHandler.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles all the necessary events corresponding to when a property is set (ex. unfocusing of a textfield, clicking of a checkbox, etc).
+// Description: A class that handles the setting of properties that are related to text fields. De-focusing a property text-field will register the user's input as the property.
 //
 ///////////////////////
 
-package Interface.Utility;
+package Interface.Utility.PropertySetEvents;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -20,19 +20,22 @@ import Core.Structures.Entity;
 import Core.Utility.ColorRGB;
 import Core.Utility.Vector3D;
 import Core.Utility.Enum.PropertyType;
+import Interface.Utility.PropertyFormatter;
 
-public class PropertyEventHandler implements FocusListener {
+public class PropertyTextFieldEventHandler implements FocusListener {
     
     private Entity entity;
     private PropertyType propertyType;
     private JComponent propertyValueComponent;
 
-    public PropertyEventHandler(Entity entity, PropertyType propertyType, JComponent propertyValueComponent) {
+    // Creates a new PropertyTextFieldEventHandler
+    public PropertyTextFieldEventHandler(Entity entity, PropertyType propertyType, JComponent propertyValueComponent) {
         this.entity = entity;
         this.propertyType = propertyType;
         this.propertyValueComponent = propertyValueComponent;
     }
 
+    // Manditory override
     @Override
     public void focusGained(FocusEvent event) {}
 

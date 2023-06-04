@@ -29,6 +29,7 @@ public class DropDownMenuUI extends MetalComboBoxUI {
         BasicComboPopup basicComboPopup = new BasicComboPopup(comboBox);
         
         basicComboPopup.setBorder(new EmptyBorder(0, 0, 0, 0));
+        
         return basicComboPopup;
     }
 }

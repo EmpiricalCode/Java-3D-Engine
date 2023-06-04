@@ -15,7 +15,7 @@ import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.ObjectPropertyPanel;
 import Interface.Utility.ListElementLoader;
-import Interface.Utility.PropertyEventHandler;
+import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
 public class MaterialsPanel extends ObjectPropertyPanel {
@@ -48,7 +48,7 @@ public class MaterialsPanel extends ObjectPropertyPanel {
 
             // Grouping material properties by how they are accessed, and using the relevant listeners to handle setting those properties
             if (property == PropertyType.COLOR || property == PropertyType.FUZZINESS) {
-                fieldValueComponent.addFocusListener(new PropertyEventHandler(entity, property, fieldValueComponent));
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, fieldValueComponent));
             }
         }
 
