@@ -59,18 +59,6 @@ public abstract class Entity {
         return this.reflectionType;
     }
 
-    // Returns the hit of the object from a raycast
-    abstract public RayHit getHit (Ray ray);
-
-    // Returns a normal vector of the object given position
-    abstract public Vector3D getNormal(Ray ray, Vector3D hitPosition);
-
-    // Returns an entity's properties
-    abstract public PropertyType[] getProperties();
-
-    // Returns an entity's material properties
-    abstract public PropertyType[] getMaterialProperties();
-
     // Sets the position of an object
     public void setPosition(Vector3D position) {
         this.position = position;
@@ -90,4 +78,16 @@ public abstract class Entity {
     public void setReflectiontype(ReflectionType reflectionType) {
         this.reflectionType = reflectionType;
     }
+
+    // Returns the hit of the object from a raycast
+    abstract public RayHit getHit (Ray ray);
+
+    // Returns a normal vector of the object given position
+    abstract public Vector3D getNormal(Ray ray, Vector3D hitPosition);
+
+    // Returns an entity's properties
+    abstract public PropertyType[] getProperties();
+
+    // Returns an entity's material properties
+    abstract public PropertyType[] getMaterialProperties();
 }

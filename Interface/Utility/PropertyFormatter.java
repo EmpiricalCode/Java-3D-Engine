@@ -3,7 +3,7 @@
 // Filename: PropertyFormatter.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that formats property values to be displayed on the screen.
+// Description: A class that formats property values inputted within a property field to be displayed on the screen.
 //
 ///////////////////////
 
@@ -73,10 +73,11 @@ public class PropertyFormatter {
         return null;
     }
 
-    private static boolean isNumeric(String strNum) {
+    // Checks if a string is numeric
+    private static boolean isNumeric(String str) {
 
         try {
-            Double.parseDouble(strNum);
+            Double.parseDouble(str);
         } catch (Exception e) {
             return false;
         }

@@ -69,8 +69,8 @@ public class MainWindow extends Window {
         objectInfoContainer.setBackground(Color.RED);
 
         // TODO: Make a superclass for these
-        propertiesPanel = new PropertiesPanel(this, MainWindow.SECOND_SECTION_WIDTH);
         materialsPanel = new MaterialsPanel(MainWindow.SECOND_SECTION_WIDTH);
+        propertiesPanel = new PropertiesPanel(materialsPanel, MainWindow.SECOND_SECTION_WIDTH);
 
         // Necessary to lose focus for text fields
         this.getContentPane().addMouseListener(new MouseAdapter() {            

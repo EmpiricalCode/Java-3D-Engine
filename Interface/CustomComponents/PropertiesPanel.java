@@ -25,14 +25,14 @@ public class PropertiesPanel extends ObjectPropertyPanel {
 
     public static final int BASE_HEIGHT = 110;
 
-    private MainWindow mainWindow;
+    private MaterialsPanel materialsPanel;
     
     // Creates a new property panel
-    public PropertiesPanel(MainWindow mainWindow, int width) {
+    public PropertiesPanel(MaterialsPanel materialsPanel, int width) {
         super("Properties", width, PropertiesPanel.BASE_HEIGHT, PropertiesPanel.BASE_HEIGHT);
 
-        // the MainWindow object is passed in because the MaterialsPanel object must be accessed
-        this.mainWindow = mainWindow;
+        // the MaterialsPanel object is passed in because it must be resized based on how many property fields the PropertiesPanel object has
+        this.materialsPanel = materialsPanel;
     }
 
     // Loads the properties for an entity
@@ -73,7 +73,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
             }
         }
 
-        this.mainWindow.materialsPanel.setPreferredSize(new Dimension(this.mainWindow.materialsPanel.getWidth(), MainWindow.HEIGHT - this.getHeight()));
+        materialsPanel.setPreferredSize(new Dimension(materialsPanel.getWidth(), MainWindow.HEIGHT - this.getHeight()));
         this.revalidate();
         this.repaint();
     }

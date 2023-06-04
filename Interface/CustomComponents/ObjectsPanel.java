@@ -50,7 +50,7 @@ public class ObjectsPanel extends JPanel {
 
         this.objectsArea = new JPanel();
         this.objectsArea.setPreferredSize(new Dimension(width, height - addObjectsArea.getHeight()));
-        this. objectsArea.setBorder(new MatteBorder(1, 0, 0, 1, MainWindow.BORDER_COLOR));
+        this.objectsArea.setBorder(new MatteBorder(1, 0, 0, 1, MainWindow.BORDER_COLOR));
         this.objectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
 
         this.addObjectsArea.add(this.objectsTitle);

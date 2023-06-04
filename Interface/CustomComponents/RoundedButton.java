@@ -41,6 +41,7 @@ public class RoundedButton extends JButton implements MouseListener {
         this.setFocusPainted(false);
     }
 
+    @Override   
     public void paintComponent(Graphics g) {
 
         Graphics2D g2D = (Graphics2D) g;
@@ -74,19 +75,19 @@ public class RoundedButton extends JButton implements MouseListener {
         super.paintComponent(g2D);
     }
 
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent event) {}
 
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent event) {}
 
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent event) {
         this.mouseIn = true;
     }
 
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent event) {
         this.mouseIn = false;
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent event) {
         System.out.println("Clicked");
     }
 }
