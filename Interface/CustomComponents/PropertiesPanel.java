@@ -53,6 +53,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
 
             fieldValueComponent = ListElementLoader.loadListElement(this.getPropertiesArea(), property);
 
+            // Setting the initial property values
             // Grouping properties by how they are accessed, and using the relevant listeners to handle setting those properties
             if (property == PropertyType.POSITION) {
 

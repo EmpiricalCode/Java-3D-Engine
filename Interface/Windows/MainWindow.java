@@ -68,7 +68,6 @@ public class MainWindow extends Window {
         objectInfoContainer = new JPanel(new FlowLayout(0, 0, 0));
         objectInfoContainer.setBackground(Color.RED);
 
-        // TODO: Make a superclass for these
         materialsPanel = new MaterialsPanel(MainWindow.SECOND_SECTION_WIDTH);
         propertiesPanel = new PropertiesPanel(materialsPanel, MainWindow.SECOND_SECTION_WIDTH);
 

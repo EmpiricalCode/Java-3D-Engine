@@ -47,6 +47,7 @@ public class MaterialsPanel extends ObjectPropertyPanel {
             }
 
             // Grouping material properties by how they are accessed, and using the relevant listeners to handle setting those properties
+            // Text field properties
             if (property == PropertyType.COLOR || property == PropertyType.FUZZINESS) {
                 fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, fieldValueComponent));
             }
