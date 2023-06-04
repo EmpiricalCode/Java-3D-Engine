@@ -90,6 +90,8 @@ public class MainWindow extends Window {
         this.setResizable(false);
         this.setVisible(true);
 
+        objectsPanel.addObject();
+        objectsPanel.addObject();
         propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.1, ReflectionType.SPECULAR, 5));
         materialsPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.2, ReflectionType.SPECULAR, 5));
 

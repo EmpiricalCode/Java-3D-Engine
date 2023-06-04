@@ -10,17 +10,30 @@
 package Interface.CustomComponents;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Rectangle;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
+import javax.swing.plaf.metal.MetalComboBoxUI;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
 
 import Interface.Utility.FontLoader;
 import Interface.Windows.MainWindow;
 
 public class ObjectsPanel extends JPanel {
+
+    public static final String[] OBJECT_TYPES = {"Sphere", "Rectangular Prism", "Triangular Prism"};
 
     private JPanel addObjectsArea;
     private JLabel objectsTitle;
@@ -50,6 +63,7 @@ public class ObjectsPanel extends JPanel {
 
         this.objectsArea = new JPanel();
         this.objectsArea.setPreferredSize(new Dimension(width, height - addObjectsArea.getHeight()));
+        this.objectsArea.setLayout(new FlowLayout(0, 0, 0));
         this.objectsArea.setBorder(new MatteBorder(1, 0, 0, 1, MainWindow.BORDER_COLOR));
         this.objectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
 
@@ -57,5 +71,63 @@ public class ObjectsPanel extends JPanel {
         this.addObjectsArea.add(this.addObjectButton);
         this.add(this.addObjectsArea);
         this.add(this.objectsArea);
+    }
+
+    public void addObject() {
+
+        JPanel objectContainer = new JPanel();
+        JComboBox<String> objectTypeSelector = new JComboBox<String>(ObjectsPanel.OBJECT_TYPES);
+
+        objectTypeSelector.setUI(new MetalComboBoxUI() {
+
+            @Override 
+            public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
+
+                Insets buttonInsets;
+
+                g.setColor(MainWindow.BACKGROUND_COLOR);
+                g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height - 1);
+
+                if (hasFocus && !isPopupVisible(comboBox) && arrowButton != null) {
+
+                    g.setColor(MainWindow.BACKGROUND_COLOR);
+                    buttonInsets = arrowButton.getInsets();
+
+                    if (buttonInsets.top > 2) {
+                        g.fillRect(bounds.x + 2, bounds.y + 2, bounds.width - 3, buttonInsets.top - 2);
+                    }
+
+                    if (buttonInsets.bottom > 2) {
+                        g.fillRect(bounds.x + 2, bounds.y + bounds.height - buttonInsets.bottom, bounds.width - 3, buttonInsets.bottom - 2);
+                    }
+                }
+            }
+        });
+
+        for (int i = 0; i < objectTypeSelector.getComponentCount(); i++) {
+            if (objectTypeSelector.getComponent(i) instanceof JComponent) {
+                ((JComponent) objectTypeSelector.getComponent(i)).setBorder(new CompoundBorder(new MatteBorder(1, 1, 1, 1, MainWindow.BACKGROUND_COLOR), new EmptyBorder(0, 0, 0, 10)));
+                ((JComponent) objectTypeSelector.getComponent(i)).setForeground(Color.WHITE);
+            } else if (objectTypeSelector.getComponent(i) instanceof AbstractButton) {
+                ((AbstractButton) objectTypeSelector.getComponent(i)).setFocusable(false);
+            }
+        }
+
+        objectTypeSelector.setMaximumSize( objectTypeSelector.getPreferredSize() );
+        objectTypeSelector.setFont(FontLoader.loadFont("montserrat_medium", 15));
+        objectTypeSelector.setBackground(MainWindow.BACKGROUND_COLOR);
+        objectTypeSelector.setForeground(Color.WHITE);
+        objectTypeSelector.setBorder(new MatteBorder(1, 1, 1, 1, MainWindow.BACKGROUND_COLOR));
+        objectTypeSelector.setFocusable(false);
+        objectTypeSelector.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+
+        objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(0, 0, 0, 0)));
+        objectContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+        objectContainer.setBackground(MainWindow.BACKGROUND_COLOR);
+        objectContainer.setPreferredSize(new Dimension(this.getWidth(), 35));
+
+
+        objectContainer.add(objectTypeSelector);
+        this.objectsArea.add(objectContainer);
     }
 }
