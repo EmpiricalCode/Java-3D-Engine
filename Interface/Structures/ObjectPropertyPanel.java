@@ -3,7 +3,7 @@
 // Filename: ObjectPropertyPanel.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A superclass that handles the creation of the PropertiesPanel and MaterialsPanel
+// Description: A superclass that handles the creation of the PropertiesPanel and MaterialsPanel.
 //
 ///////////////////////
 

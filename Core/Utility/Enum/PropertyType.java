@@ -22,10 +22,12 @@ public enum PropertyType {
 
     private String name;
 
+    // Creates a new PropertyType
     PropertyType(String name) {
         this.name = name;
     }
 
+    // Returns the name of the property
     public String getName() {
         return this.name;
     }

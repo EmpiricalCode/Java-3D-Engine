@@ -3,7 +3,7 @@
 // Filename: DropDownMenuUI.java
 // Author: Daniel Long
 // Course: ICS4U1.
-// Description: This class provides custom UI to the drop down menu JComboBox that removes some unwanted visual artifacts (border around popup, unusual double borders around the button next to the down-arrow)
+// Description: This class provides custom UI to the drop down menu JComboBox that removes some unwanted visual artifacts (border around popup, unusual double borders around the button next to the down-arrow).
 //
 ///////////////////////
 
