@@ -39,6 +39,7 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
     private JPanel objectsArea;
     private JButton addObjectButton;
     
+    // Creates a new ObjectPanel object
     public ObjectsPanel(int width, int height) {
         super();
 
@@ -73,6 +74,7 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
         this.add(this.objectsArea);
     }
 
+    // Adds a sphere entity object to the object list
     public void addObject() {
 
         JPanel objectContainer = new JPanel();
@@ -80,7 +82,6 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
         JComboBox<String> objectTypeSelector = new JComboBox<String>(ObjectsPanel.OBJECT_TYPES);
 
         Component objectTypeSelectorComponent;
-
 
         objectTypeSelector.setUI(new DropDownMenuUI());
 
@@ -155,7 +156,7 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
                 iconPanel.changeEntityType(EntityType.TRIANGULAR_PRISM);
 
             } else if (event.getItem().equals(EntityType.SPHERE.getName())) {
-                
+
                 iconPanel.changeEntityType(EntityType.SPHERE);
             }
         }
