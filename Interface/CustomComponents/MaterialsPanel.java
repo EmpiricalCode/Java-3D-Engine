@@ -13,12 +13,12 @@ import javax.swing.*;
 
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
-import Interface.Structures.ModifiableListPanel;
+import Interface.Structures.ObjectPropertyPanel;
 import Interface.Utility.ListElementLoader;
 import Interface.Utility.PropertyEventHandler;
 import Interface.Windows.MainWindow;
 
-public class MaterialsPanel extends ModifiableListPanel {
+public class MaterialsPanel extends ObjectPropertyPanel {
     
     // Creates a new materials panel
     public MaterialsPanel(int width) {

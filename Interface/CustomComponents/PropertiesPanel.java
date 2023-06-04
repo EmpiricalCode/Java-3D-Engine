@@ -9,23 +9,19 @@
 
 package Interface.CustomComponents;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Insets;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
 import Core.Entities.Sphere;
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
-import Interface.Structures.ModifiableListPanel;
+import Interface.Structures.ObjectPropertyPanel;
 import Interface.Utility.ListElementLoader;
 import Interface.Utility.PropertyEventHandler;
 import Interface.Windows.MainWindow;
 
-public class PropertiesPanel extends ModifiableListPanel {
+public class PropertiesPanel extends ObjectPropertyPanel {
 
     public static final int BASE_HEIGHT = 110;
 

@@ -1,6 +1,6 @@
 ///////////////////////
 //
-// Filename: ModifiableListPanel.java
+// Filename: ObjectPropertyPanel.java
 // Author: Daniel Long
 // Course: ICS4U1
 // Description: A superclass that handles the creation of the PropertiesPanel and MaterialsPanel
@@ -20,7 +20,7 @@ import javax.swing.border.*;
 import Core.Structures.Entity;
 import Interface.Windows.MainWindow;
 
-public abstract class ModifiableListPanel extends JPanel {
+public abstract class ObjectPropertyPanel extends JPanel {
 
     private JPanel titleArea;
     private JLabel title;
@@ -28,7 +28,7 @@ public abstract class ModifiableListPanel extends JPanel {
     private JPanel propertiesArea;
     
     // Creates a new property panel
-    public ModifiableListPanel(String titleText, int width, int height, int titleAreaHeight) {
+    public ObjectPropertyPanel(String titleText, int width, int height, int titleAreaHeight) {
         super();
 
         // Initializing panel
