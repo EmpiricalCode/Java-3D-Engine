@@ -96,12 +96,11 @@ public class RenderPanel extends JPanel {
         for (int i = 0; i < renderDimensions; i++) {
             for (int j = 0; j < renderDimensions; j++) {
 
-                currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * 10.0/(renderDimensions)));
-                currentVector.add(Vector3D.multiply(camVectorUp, -i * 10.0/(renderDimensions)));
+                currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * Camera.CAMERA_SCREEN_HORIZONTAL_SIZE/(renderDimensions)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -i * Camera.CAMERA_SCREEN_VERTICAL_SIZE/(renderDimensions)));
 
-                // Temp until antialiasing works
-                currentVector.add(Vector3D.multiply(camVectorLeft, -5.0/(renderDimensions)));
-                currentVector.add(Vector3D.multiply(camVectorUp, -5.0/(renderDimensions)));
+                currentVector.add(Vector3D.multiply(camVectorLeft, -Camera.CAMERA_SCREEN_HORIZONTAL_SIZE/(2 * renderDimensions)));
+                currentVector.add(Vector3D.multiply(camVectorUp, -Camera.CAMERA_SCREEN_VERTICAL_SIZE/(2 * renderDimensions)));
 
                 finalColor = new ColorRGB(0, 0, 0);
 

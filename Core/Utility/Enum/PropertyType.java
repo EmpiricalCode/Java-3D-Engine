@@ -13,6 +13,7 @@ public enum PropertyType {
 
     // Regular properties
     POSITION("Position"),
+    RADIUS("Radius"),
     COLOR("Color"), 
 
     // Material properties

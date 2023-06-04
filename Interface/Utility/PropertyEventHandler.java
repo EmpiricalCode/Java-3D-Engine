@@ -15,6 +15,7 @@ import java.awt.event.FocusListener;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+import Core.Entities.Sphere;
 import Core.Structures.Entity;
 import Core.Utility.ColorRGB;
 import Core.Utility.Vector3D;
@@ -50,7 +51,7 @@ public class PropertyEventHandler implements FocusListener {
         // Handling property setting for color
         if (this.propertyType == PropertyType.COLOR) {
 
-            modifiedFieldText = PropertyFormatter.formatTripleInt(textField.getText());
+            modifiedFieldText = PropertyFormatter.formatColor(textField.getText());
 
             if (modifiedFieldText != null) {
                 textField.setText(modifiedFieldText);
@@ -63,7 +64,7 @@ public class PropertyEventHandler implements FocusListener {
         // Handling property setting for position
         } else if (this.propertyType == PropertyType.POSITION) {
             
-            modifiedFieldText = PropertyFormatter.formatTripleDouble(textField.getText());
+            modifiedFieldText = PropertyFormatter.formatPosition(textField.getText());
 
             if (modifiedFieldText != null) {
                 textField.setText(modifiedFieldText);
@@ -76,13 +77,25 @@ public class PropertyEventHandler implements FocusListener {
         // Handling property setting for fuzziness
         } else if (this.propertyType == PropertyType.FUZZINESS) {
 
-            modifiedFieldText = PropertyFormatter.formatDouble(textField.getText());
+            modifiedFieldText = PropertyFormatter.formatFuzziness(textField.getText());
 
             if (modifiedFieldText != null) {
                 textField.setText(modifiedFieldText);
                 entity.setFuzziness(Double.valueOf(modifiedFieldText));
             } else {
                 textField.setText(String.valueOf(entity.getFuzziness()));
+            }
+
+        // Handling property setting for radius
+        } else if (this.propertyType == PropertyType.RADIUS) {
+
+            modifiedFieldText = PropertyFormatter.formatRadius(textField.getText());
+
+            if (modifiedFieldText != null) {
+                textField.setText(modifiedFieldText);
+                ((Sphere) entity).setRadius(Double.valueOf(modifiedFieldText));
+            } else {
+                textField.setText(String.valueOf(((Sphere) entity).getRadius()));
             }
         }
     }

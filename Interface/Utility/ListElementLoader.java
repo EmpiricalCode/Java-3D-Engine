@@ -43,7 +43,7 @@ public class ListElementLoader {
         fieldContainerComponent.add(fieldNameComponent);
 
         // Creating the relevant JComponents based on how the property is modified (drop down menu, text field, etc)
-        if (property == PropertyType.COLOR || property == PropertyType.POSITION || property == PropertyType.FUZZINESS) {
+        if (property == PropertyType.COLOR || property == PropertyType.POSITION || property == PropertyType.FUZZINESS || property == PropertyType.RADIUS) {
             
             fieldValueComponent = new JTextField(10);
             fieldValueComponent.setVisible(true);

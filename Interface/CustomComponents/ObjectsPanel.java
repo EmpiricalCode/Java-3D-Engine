@@ -33,29 +33,29 @@ public class ObjectsPanel extends JPanel {
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new FlowLayout(0, 0, 0));
 
-        addObjectsArea = new JPanel();
-        addObjectsArea.setPreferredSize(new Dimension(width, 95));
-        addObjectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
-        addObjectsArea.setBorder(new MatteBorder(0, 0, 0, 1, MainWindow.BORDER_COLOR));
-        addObjectsArea.setLayout(new GridBagLayout());
+        this.addObjectsArea = new JPanel();
+        this.addObjectsArea.setPreferredSize(new Dimension(width, 95));
+        this.addObjectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
+        this.addObjectsArea.setBorder(new MatteBorder(0, 0, 0, 1, MainWindow.BORDER_COLOR));
+        this.addObjectsArea.setLayout(new GridBagLayout());
 
-        objectsTitle = new JLabel("Objects");
-        objectsTitle.setFont(FontLoader.loadFont("montserrat_semibold", 26));
-        objectsTitle.setBorder(new EmptyBorder(3, 10, 0, 100));
-        objectsTitle.setForeground(Color.WHITE);
+        this.objectsTitle = new JLabel("Objects");
+        this.objectsTitle.setFont(MainWindow.TITLE_FONT);
+        this.objectsTitle.setBorder(new EmptyBorder(3, 10, 0, 100));
+        this.objectsTitle.setForeground(Color.WHITE);
 
-        addObjectButton = new RoundedButton(15, "+ Add Object", new Color(200, 200, 200), new Color(255, 255, 255), true);
-        addObjectButton.setFont(FontLoader.loadFont("montserrat_medium", 17));
-        addObjectButton.setBorder(new EmptyBorder(8, 10, 8, 10));
+        this.addObjectButton = new RoundedButton(15, "+ Add Object", new Color(200, 200, 200), new Color(255, 255, 255), true);
+        this.addObjectButton.setFont(FontLoader.loadFont("montserrat_medium", 17));
+        this.addObjectButton.setBorder(new EmptyBorder(8, 10, 8, 10));
 
-        objectsArea = new JPanel();
-        objectsArea.setPreferredSize(new Dimension(width, height - addObjectsArea.getHeight()));
-        objectsArea.setBorder(new MatteBorder(1, 0, 0, 1, MainWindow.BORDER_COLOR));
-        objectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
+        this.objectsArea = new JPanel();
+        this.objectsArea.setPreferredSize(new Dimension(width, height - addObjectsArea.getHeight()));
+        this. objectsArea.setBorder(new MatteBorder(1, 0, 0, 1, MainWindow.BORDER_COLOR));
+        this.objectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
 
-        addObjectsArea.add(objectsTitle);
-        addObjectsArea.add(addObjectButton);
-        this.add(addObjectsArea);
-        this.add(objectsArea);
+        this.addObjectsArea.add(this.objectsTitle);
+        this.addObjectsArea.add(this.addObjectButton);
+        this.add(this.addObjectsArea);
+        this.add(this.objectsArea);
     }
 }

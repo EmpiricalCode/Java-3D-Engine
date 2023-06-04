@@ -12,6 +12,8 @@ package Core.Utility;
 public class Camera {
 
     public static final double CAMERA_SCREEN_DISTANCE = 5;
+    public static final double CAMERA_SCREEN_VERTICAL_SIZE = 10;
+    public static final double CAMERA_SCREEN_HORIZONTAL_SIZE = 10;
 
     private Vector3D origin;
     private Vector3D direction;

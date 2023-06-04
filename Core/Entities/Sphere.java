@@ -17,7 +17,7 @@ import Core.Utility.Enum.ReflectionType;
 
 public class Sphere extends Entity {
     
-    public static final PropertyType[] PROPERTIES = {PropertyType.POSITION};
+    public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.RADIUS};
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
     private double radius;
 
@@ -32,6 +32,11 @@ public class Sphere extends Entity {
     // Returns the radius of the sphere
     public double getRadius() {
         return this.radius;
+    }
+
+    // Sets the radius of the sphere
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     // Returns the hit of the sphere from a raycast
