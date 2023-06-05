@@ -75,7 +75,7 @@ public class MainWindow extends Window {
 
             // Clicking anywhere that isn't a button, text field, etc, will focus on an arbitrary panel (this is to defocus text fields, essentially "clicking off" them)
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                objectsPanel.requestFocusInWindow();
             }
         });
