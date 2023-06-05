@@ -56,7 +56,7 @@ public class MainWindow extends Window {
     public MainWindow()  {
 
         // Setting up the window
-        super("Main Window", new BorderLayout(), MainWindow.WIDTH, MainWindow.HEIGHT);
+        super("MoonRays", new BorderLayout(), MainWindow.WIDTH, MainWindow.HEIGHT);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
