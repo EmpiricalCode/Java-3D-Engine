@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: Triangle.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: Handles behaviors and properties for the triangle (sub)entity, subclass to the Entity class.
+//
+///////////////////////
+
 package Core.Entities.SubEntities;
 //TODO: Make imports * wherever possible
 import Core.Structures.Entity;
@@ -37,7 +46,7 @@ public class Triangle extends Entity {
         double dot = -point1.dot(normal);
         double length = -(normal.dot(ray.getOrigin()) + dot) / normal.dot(ray.getDirection());
 
-        if (length > 0 ) {
+        if (length > 0 && normal.dot(ray.getDirection()) != 0) {
             hit = new RayHit(Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), length)), normal, ray.getDirection());
             hitPosition = hit.getPosition(); 
 
@@ -50,11 +59,7 @@ public class Triangle extends Entity {
                 if (Vector3D.subtract(hitPosition, ray.getOrigin()).getMagnitude() >= 0.01) {
                     return hit;
                 }
-
-                return null;
             } 
-
-            return null;
         } 
 
         return null;
