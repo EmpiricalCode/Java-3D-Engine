@@ -72,15 +72,6 @@ public class Sphere extends Entity {
         }
     }
 
-    // Returns a normal vector of the sphere given a position
-    public Vector3D getNormal(Ray ray, Vector3D hitPosition) {
-
-        Vector3D normal = Vector3D.subtract(hitPosition, this.getPosition());
-        normal.clamp(1);
-
-        return normal;
-    }
-
     // Returns the properties of a sphere
     public PropertyType[] getProperties() {
         return Sphere.PROPERTIES;
@@ -89,5 +80,14 @@ public class Sphere extends Entity {
     // Returns the material proeprties of a sphere
     public PropertyType[] getMaterialProperties() {
         return Sphere.MATERIAL_PROPERTIES;
+    }
+
+    // Returns a normal vector of the sphere given a position
+    protected Vector3D getNormal(Ray ray, Vector3D hitPosition) {
+
+        Vector3D normal = Vector3D.subtract(hitPosition, this.getPosition());
+        normal.clamp(1);
+
+        return normal;
     }
 }

@@ -14,6 +14,7 @@ public enum PropertyType {
     // Regular properties
     POSITION("Position"),
     RADIUS("Radius"),
+    DIMENSIONS("Dimensions"),
     COLOR("Color"), 
 
     // Material properties

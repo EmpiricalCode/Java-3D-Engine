@@ -82,12 +82,12 @@ public abstract class Entity {
     // Returns the hit of the object from a raycast
     abstract public RayHit getHit (Ray ray);
 
-    // Returns a normal vector of the object given position
-    abstract public Vector3D getNormal(Ray ray, Vector3D hitPosition);
-
     // Returns an entity's properties
     abstract public PropertyType[] getProperties();
 
     // Returns an entity's material properties
     abstract public PropertyType[] getMaterialProperties();
+
+    // Returns a normal vector of the object given position
+    abstract protected Vector3D getNormal(Ray ray, Vector3D hitPosition);
 }
