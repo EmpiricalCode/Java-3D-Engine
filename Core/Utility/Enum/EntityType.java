@@ -12,7 +12,8 @@ package Core.Utility.Enum;
 public enum EntityType {
     SPHERE("Sphere"),
     RECTANGULAR_PRISM("Rectangular Prism"),
-    TRIANGULAR_PRISM("Triangular Prism");
+    TRIANGULAR_PRISM("Triangular Prism"),
+    TRIANGLE("Triangle");
 
     private String name;
 

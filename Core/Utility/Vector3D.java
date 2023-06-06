@@ -64,6 +64,13 @@ public class Vector3D {
         this.z += vector.getZ();
     }
 
+    // Multiplies each coordinate of the vector by a scalar value
+    public void multiply(double scalar) {
+        this.x *= scalar;
+        this.y *= scalar;
+        this.z *= scalar;
+    }
+
     // Finds the dot product with another vector
     public double dot(Vector3D vector) {
         return this.x * vector.getX() + this.y * vector.getY() + this.z * vector.getZ();

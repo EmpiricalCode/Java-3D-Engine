@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import Core.Environment;
 import Core.Entities.*;
+import Core.Entities.SubEntities.Triangle;
 import Core.Utility.*;
 import Core.Utility.Enum.*;
 import Interface.CustomComponents.MaterialsPanel;
@@ -98,12 +99,17 @@ public class MainWindow extends Window {
         // Creating environment and render window
         Environment environment = new Environment(new Camera(new Vector3D(15, 15, 0), new Vector3D(15, 0, 0)));
 
-        environment.addEntity(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.5, ReflectionType.SPECULAR, 5));
-        environment.addEntity(new Sphere(new Vector3D(25, 0, 0), new ColorRGB(200, 200, 200), 0.1, ReflectionType.SPECULAR, 5));
-        environment.addEntity(new Sphere(new Vector3D(22, 0, 10), new ColorRGB(200, 200, 0), 0.5, ReflectionType.DIFFUSE, 5));
+        // environment.addEntity(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.5, ReflectionType.SPECULAR, 5));
+        // environment.addEntity(new Sphere(new Vector3D(25, 0, 0), new ColorRGB(200, 200, 200), 0.1, ReflectionType.SPECULAR, 5));
+        // environment.addEntity(new Sphere(new Vector3D(22, 0, 10), new ColorRGB(200, 200, 0), 0.5, ReflectionType.DIFFUSE, 5));
         environment.addEntity(new Sphere(new Vector3D(10, 0, -205), new ColorRGB(200, 200, 200), 0.6, ReflectionType.DIFFUSE, 200));
+        environment.addEntity(new Sphere(new Vector3D(12,9,-3), new ColorRGB(200, 200, 100), 0.6, ReflectionType.SPECULAR, 2));
+
+        environment.addEntity(new Triangle(new Vector3D(17,2,-5), new Vector3D(10,2,-5), new Vector3D(13,2,1), new ColorRGB(100, 255, 200), 0, ReflectionType.SPECULAR));
+
+        // System.out.println((new Triangle(new Vector3D(-15, -5, 0), new Vector3D(-13, -7, -3), new Vector3D(-16, -4, -1), new ColorRGB(200, 200, 200), 0, ReflectionType.DIFFUSE)).getHit(new Ray(new Vector3D(0, 0, 0), Vector3D.multiply(new Vector3D(4,1.5,0.4), -1), environment)));
         
-        RenderWindow renderWindow = new RenderWindow(environment, 8, true, true, 100, 20);
+        RenderWindow renderWindow = new RenderWindow(environment, 9, true, true, 100, 20);
         renderWindow.render();
     }
 }
