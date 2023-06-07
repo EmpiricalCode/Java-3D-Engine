@@ -46,9 +46,6 @@ public class Triangle extends Entity {
         double dot = -point1.dot(normal);
         double length = -(normal.dot(ray.getOrigin()) + dot) / normal.dot(ray.getDirection());
 
-        // System.out.println(length);
-        // System.out.println(normal.dot(ray.getDirection()));
-
         if (length > 0 && normal.dot(ray.getDirection()) != 0) {
             hit = new RayHit(Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), length)), normal, ray.getDirection());
             hitPosition = hit.getPosition(); 
@@ -56,11 +53,6 @@ public class Triangle extends Entity {
             c1 = Vector3D.subtract(hitPosition, point1);
             c2 = Vector3D.subtract(hitPosition, point2);
             c3 = Vector3D.subtract(hitPosition, point3);
-
-            // System.out.println(normal.dot(Vector3D.cross(edge1, c1)));
-            // System.out.println(normal.dot(Vector3D.cross(edge2, c2)));
-            // System.out.println(normal.dot(Vector3D.cross(edge3, c3)));
-            // System.out.println();
 
             if ((normal.dot(Vector3D.cross(edge1, c1)) >= 0 && normal.dot(Vector3D.cross(edge2, c2)) >= 0 && normal.dot(Vector3D.cross(edge3, c3)) >= 0) || (normal.dot(Vector3D.cross(edge1, c1)) <= 0 && normal.dot(Vector3D.cross(edge2, c2)) <= 0 && normal.dot(Vector3D.cross(edge3, c3)) <= 0)) {
 
