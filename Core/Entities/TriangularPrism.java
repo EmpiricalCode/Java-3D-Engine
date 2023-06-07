@@ -1,6 +1,6 @@
 ///////////////////////
 //
-// Filename: RectangularPrism.java
+// Filename: TriangularPrism.java
 // Author: Daniel Long
 // Course: ICS4U1
 // Description: Handles behaviors and properties for the sphere entity, subclass to the Entity class.
@@ -16,7 +16,7 @@ import Core.Utility.Enum.EntityType;
 import Core.Utility.Enum.PropertyType;
 import Core.Utility.Enum.ReflectionType;
 
-public class RectangularPrism extends Entity {
+public class TriangularPrism extends Entity {
     
     public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.DIMENSIONS};
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
@@ -34,7 +34,7 @@ public class RectangularPrism extends Entity {
 
     // TODO: Make all constructor comments more detailed
     // Main constructor
-    public RectangularPrism(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
+    public TriangularPrism(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
 
         super(position, color, reflectionType, fuzziness, EntityType.RECTANGULAR_PRISM);
 
@@ -46,29 +46,23 @@ public class RectangularPrism extends Entity {
         this.halfHeightVector = new Vector3D(height / 2, 0, 0);
         this.halfDepthVector = new Vector3D(depth / 2, 0, 0);
 
-        points = new Vector3D[8];
+        points = new Vector3D[6];
         points[0] = new Vector3D(position.getX() - width / 2, position.getY() - depth / 2, position.getZ() - height / 2);
         points[1] = new Vector3D(position.getX() + width / 2, position.getY() - depth / 2, position.getZ() - height / 2);
         points[2] = new Vector3D(position.getX() - width / 2, position.getY() + depth / 2, position.getZ() - height / 2);
         points[3] = new Vector3D(position.getX() + width / 2, position.getY() + depth / 2, position.getZ() - height / 2);
-        points[4] = new Vector3D(position.getX() - width / 2, position.getY() - depth / 2, position.getZ() + height / 2);
-        points[5] = new Vector3D(position.getX() + width / 2, position.getY() - depth / 2, position.getZ() + height / 2);
-        points[6] = new Vector3D(position.getX() - width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
-        points[7] = new Vector3D(position.getX() + width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
+        points[4] = new Vector3D(position.getX(), position.getY() - depth / 2, position.getZ() + height / 2);
+        points[5] = new Vector3D(position.getX(), position.getY() + depth / 2, position.getZ() + height / 2);
 
-        mesh = new Triangle[12];
-        mesh[0] = new Triangle(points[0], points[1], points[4], color, fuzziness, reflectionType);
-        mesh[1] = new Triangle(points[1], points[4], points[5], color, fuzziness, reflectionType);
-        mesh[2] = new Triangle(points[1], points[5], points[7], color, fuzziness, reflectionType);
-        mesh[3] = new Triangle(points[1], points[3], points[7], color, fuzziness, reflectionType);
-        mesh[4] = new Triangle(points[3], points[6], points[7], color, fuzziness, reflectionType);
-        mesh[5] = new Triangle(points[2], points[3], points[6], color, fuzziness, reflectionType);
-        mesh[6] = new Triangle(points[0], points[2], points[6], color, fuzziness, reflectionType);
-        mesh[7] = new Triangle(points[0], points[4], points[6], color, fuzziness, reflectionType);
-        mesh[8] = new Triangle(points[0], points[1], points[2], color, fuzziness, reflectionType);
-        mesh[9] = new Triangle(points[1], points[2], points[3], color, fuzziness, reflectionType);
-        mesh[10] = new Triangle(points[4], points[5], points[6], color, fuzziness, reflectionType);
-        mesh[11] = new Triangle(points[5], points[6], points[7], color, fuzziness, reflectionType);
+        mesh = new Triangle[8];
+        mesh[0] = new Triangle(points[0], points[1], points[2], color, fuzziness, reflectionType);
+        mesh[1] = new Triangle(points[1], points[2], points[3], color, fuzziness, reflectionType);
+        mesh[2] = new Triangle(points[0], points[2], points[4], color, fuzziness, reflectionType);
+        mesh[3] = new Triangle(points[2], points[4], points[5], color, fuzziness, reflectionType);
+        mesh[4] = new Triangle(points[1], points[3], points[4], color, fuzziness, reflectionType);
+        mesh[5] = new Triangle(points[3], points[4], points[5], color, fuzziness, reflectionType);
+        mesh[6] = new Triangle(points[0], points[1], points[4], color, fuzziness, reflectionType);
+        mesh[7] = new Triangle(points[2], points[3], points[5], color, fuzziness, reflectionType);
     }
 
     // Returns the width of the rectangular prism
@@ -129,12 +123,12 @@ public class RectangularPrism extends Entity {
 
     // Returns the properties of a rectangular prismhere
     public PropertyType[] getProperties() {
-        return RectangularPrism.PROPERTIES;
+        return TriangularPrism.PROPERTIES;
     }
 
     // Returns the material proeprties of a rectangular prisms
     public PropertyType[] getMaterialProperties() {
-        return RectangularPrism.MATERIAL_PROPERTIES;
+        return TriangularPrism.MATERIAL_PROPERTIES;
     }
 
     // The getNormal method is really only internally, and since the rectangualr prism itself doesn't handle
