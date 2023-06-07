@@ -72,7 +72,7 @@ public class Ray {
                 if (nearestHitEntity.getReflectiontype() == ReflectionType.DIFFUSE) {
                     reflectionDirection = Ray.getDiffuseReflection(nearestHit);
                 } else {
-                    reflectionDirection = Ray.getSpecularReflection(nearestHit);
+                    reflectionDirection = Ray.getSpecularReflection(nearestHit, nearestHitEntity);
                 }
                 
                 incidentColor = (new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1);
@@ -99,7 +99,9 @@ public class Ray {
         return diffuseReflectionDirection;
     }
 
-    public static Vector3D getSpecularReflection(RayHit hit) {
-        return Vector3D.subtract(hit.getIncidentDirection(), Vector3D.multiply(hit.getNormal(), 2 * hit.getIncidentDirection().dot(hit.getNormal())));
+    public static Vector3D getSpecularReflection(RayHit hit, Entity entity) {
+        Vector3D offsetVector = new Vector3D(Math.random() * entity.getFuzziness() / 4, Math.random() * entity.getFuzziness() / 4, Math.random() * entity.getFuzziness() / 4);
+        
+        return Vector3D.add(Vector3D.subtract(hit.getIncidentDirection(), Vector3D.multiply(hit.getNormal(), 2 * hit.getIncidentDirection().dot(hit.getNormal()))), offsetVector);
     }
 }

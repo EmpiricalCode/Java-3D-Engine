@@ -56,10 +56,6 @@ public class RectangularPrism extends Entity {
         points[6] = new Vector3D(position.getX() - width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
         points[7] = new Vector3D(position.getX() + width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
 
-        for (Vector3D point : points) {
-            System.out.println(point);
-        }
-
         mesh = new Triangle[12];
         mesh[0] = new Triangle(points[0], points[1], points[4], color, fuzziness, reflectionType);
         mesh[1] = new Triangle(points[1], points[4], points[5], color, fuzziness, reflectionType);
