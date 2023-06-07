@@ -17,16 +17,18 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import Core.Utility.Enum.PropertyType;
+import Core.Utility.Enum.ReflectionType;
+import Interface.Utility.ComboBox.ComboBoxHelper;
 import Interface.Windows.MainWindow;
 
-public class ListElementLoader {
+public class PropertyElementLoader {
 
     // Creates a list element and returns the field component (textfield, etc)
     public static JComponent loadListElement(JPanel listArea, PropertyType property) {
 
         JLabel fieldNameComponent;
-        JComponent fieldValueComponent = null;
         JPanel fieldContainerComponent;
+        JComponent fieldValueComponent = null;
 
         // Creating the property field
         fieldContainerComponent = new JPanel();
@@ -53,9 +55,13 @@ public class ListElementLoader {
             fieldValueComponent.setBorder(new CompoundBorder(new MatteBorder(0, 1, 0, 0, MainWindow.BORDER_COLOR), new EmptyBorder(0, 10, 0, 0)));
             // Must be cast to JTextField to use setCaretColor
             ((JTextField) fieldValueComponent).setCaretColor(Color.WHITE);
-            fieldContainerComponent.add(fieldValueComponent);
+
+        } else if (property == PropertyType.REFLECTION_TYPE) {
+
+            fieldValueComponent = ComboBoxHelper.createComboBox(ReflectionType.REFLECTION_TYPE_MAMES);
         }
 
+        fieldContainerComponent.add(fieldValueComponent);
         listArea.add(fieldContainerComponent);
 
         return fieldValueComponent;

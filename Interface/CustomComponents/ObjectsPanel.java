@@ -10,8 +10,6 @@
 package Interface.CustomComponents;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,13 +25,13 @@ import javax.swing.border.*;
 
 import Core.Utility.Enum.EntityType;
 import Interface.Utility.FontLoader;
-import Interface.Utility.ComboBox.DropDownMenuRenderer;
-import Interface.Utility.ComboBox.DropDownMenuUI;
+import Interface.Utility.ComboBox.ComboBoxHelper;
 import Interface.Windows.MainWindow;
 
 public class ObjectsPanel extends JPanel implements MouseListener, ItemListener {
 
-    public static final String[] OBJECT_TYPES = {"Sphere", "Rectangular Prism", "Triangular Prism"};
+    // Ignoring triangle since it is a sub-entity
+    public static final String[] SUPPORTED_ENTITY_NAMES = {EntityType.SPHERE.getName(), EntityType.RECTANGULAR_PRISM.getName(), EntityType.TRIANGULAR_PRISM.getName()};
 
     private JPanel addObjectsArea;
     private JLabel objectsTitle;
@@ -81,29 +79,7 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
 
         JPanel objectContainer = new JPanel();
         IconPanel objectIcon = new IconPanel(EntityType.SPHERE);
-        JComboBox<String> objectTypeSelector = new JComboBox<String>(ObjectsPanel.OBJECT_TYPES);
-
-        Component objectTypeSelectorComponent;
-
-        objectTypeSelector.setUI(new DropDownMenuUI());
-
-        for (int i = 0; i < objectTypeSelector.getComponentCount(); i++) {
-
-            objectTypeSelectorComponent = objectTypeSelector.getComponent(i);
-
-            // Removing combobox borders
-            if (objectTypeSelectorComponent instanceof JComponent) {
-                ((JComponent) objectTypeSelectorComponent).setBorder(new EmptyBorder(0, 0, 0, 10)); 
-            }
-        }
-
-        objectTypeSelector.setPreferredSize(new Dimension(175, 35));
-        objectTypeSelector.setFont(FontLoader.loadFont("montserrat_medium", 15));
-        objectTypeSelector.setBackground(MainWindow.BACKGROUND_COLOR);
-        objectTypeSelector.setForeground(Color.WHITE);
-        objectTypeSelector.setBorder(new MatteBorder(0, 1, 0, 1, new Color(45, 45, 45)));
-        objectTypeSelector.setRenderer(new DropDownMenuRenderer());
-        objectTypeSelector.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        JComboBox<String> objectTypeSelector = ComboBoxHelper.createComboBox(ObjectsPanel.SUPPORTED_ENTITY_NAMES);
         objectTypeSelector.addItemListener(this);
 
         objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(-6, 0, 0, 0)));

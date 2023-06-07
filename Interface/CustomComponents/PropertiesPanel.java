@@ -17,7 +17,7 @@ import Core.Entities.Sphere;
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.ObjectPropertyPanel;
-import Interface.Utility.ListElementLoader;
+import Interface.Utility.PropertyElementLoader;
 import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
@@ -51,7 +51,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
             // Scale the properties panel with the number of property fields
             this.setPreferredSize(new Dimension(this.getWidth(), (int) this.getPreferredSize().getHeight() + MainWindow.FIELD_CONTAINER_HEIGHT));
 
-            fieldValueComponent = ListElementLoader.loadListElement(this.getPropertiesArea(), property);
+            fieldValueComponent = PropertyElementLoader.loadListElement(this.getPropertiesArea(), property);
 
             // Setting the initial property values
             // Grouping properties by how they are accessed, and using the relevant listeners to handle setting those properties

@@ -14,7 +14,7 @@ import javax.swing.*;
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.ObjectPropertyPanel;
-import Interface.Utility.ListElementLoader;
+import Interface.Utility.PropertyElementLoader;
 import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
@@ -37,7 +37,7 @@ public class MaterialsPanel extends ObjectPropertyPanel {
         // For each property, create a relevant property field
         for (PropertyType property : materialProperties) {
 
-            fieldValueComponent = ListElementLoader.loadListElement(this.getPropertiesArea(), property);
+            fieldValueComponent = PropertyElementLoader.loadListElement(this.getPropertiesArea(), property);
 
             // Setting initial values
             if (property == PropertyType.COLOR) {
