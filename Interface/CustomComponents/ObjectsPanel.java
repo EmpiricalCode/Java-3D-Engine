@@ -12,6 +12,7 @@ package Interface.CustomComponents;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -60,6 +61,7 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
         this.addObjectButton = new RoundedButton(15, "+ Add Object", new Color(200, 200, 200), new Color(255, 255, 255), true);
         this.addObjectButton.setFont(FontLoader.loadFont("montserrat_medium", 17));
         this.addObjectButton.setBorder(new EmptyBorder(8, 10, 8, 10));
+        this.addObjectButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.addObjectButton.addMouseListener(this);
 
         this.objectsArea = new JPanel();
@@ -95,19 +97,22 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
             }
         }
 
-        objectTypeSelector.setMaximumSize( objectTypeSelector.getPreferredSize() );
+        objectTypeSelector.setPreferredSize(new Dimension(175, 35));
         objectTypeSelector.setFont(FontLoader.loadFont("montserrat_medium", 15));
         objectTypeSelector.setBackground(MainWindow.BACKGROUND_COLOR);
         objectTypeSelector.setForeground(Color.WHITE);
-        objectTypeSelector.setBorder(new MatteBorder(1, 1, 1, 1, MainWindow.BACKGROUND_COLOR));
+        objectTypeSelector.setBorder(new MatteBorder(0, 1, 0, 1, new Color(45, 45, 45)));
         objectTypeSelector.setRenderer(new DropDownMenuRenderer());
         objectTypeSelector.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         objectTypeSelector.addItemListener(this);
 
-        objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(0, 0, 0, 0)));
+        objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(-6, 0, 0, 0)));
         objectContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
         objectContainer.setBackground(MainWindow.BACKGROUND_COLOR);
         objectContainer.setPreferredSize(new Dimension(this.getWidth(), 35));
+        objectContainer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        objectIcon.setPreferredSize(new Dimension(26, 18));
 
         objectContainer.add(objectIcon);
         objectContainer.add(objectTypeSelector);
