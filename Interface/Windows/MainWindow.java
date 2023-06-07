@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 
 import Core.Environment;
 import Core.Entities.*;
-import Core.Entities.SubEntities.Triangle;
 import Core.Utility.*;
 import Core.Utility.Enum.*;
 import Interface.CustomComponents.MaterialsPanel;
