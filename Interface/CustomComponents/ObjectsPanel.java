@@ -75,6 +75,7 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
     }
 
     // Adds a sphere entity object to the object list
+    // TODO: Remember to put a limit on how many objects can be created
     public void addObject() {
 
         JPanel objectContainer = new JPanel();
