@@ -97,11 +97,11 @@ public class MainWindow extends Window {
         materialsPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.2, ReflectionType.SPECULAR, 5));
 
         // Creating environment and render window
-        Environment environment = new Environment(new Camera(new Vector3D(-1, -10, 10), new Vector3D(15, 0, 0)));
+        Environment environment = new Environment(new Camera(new Vector3D(-5, -20, 10), new Vector3D(15, 15, 0)));
 
-        environment.addEntity(new RectangularPrism(new Vector3D(15, 15, 0), new ColorRGB(255, 255, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 20));
-        environment.addEntity(new RectangularPrism(new Vector3D(15, -10, 0), new ColorRGB(255, 100, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 15));
-        environment.addEntity(new RectangularPrism(new Vector3D(15, 5, 0), new ColorRGB(255, 255, 255), 0.5, ReflectionType.SPECULAR, 5, 5, 5));
+        environment.addEntity(new TriangularPrism(new Vector3D(15, 15, 0), new ColorRGB(255, 255, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 20));
+        environment.addEntity(new TriangularPrism(new Vector3D(15, -10, 0), new ColorRGB(255, 100, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 15));
+        environment.addEntity(new Sphere(new Vector3D(13, 1, 0), new ColorRGB(255, 255, 255), 0.5, ReflectionType.SPECULAR, 4));
         environment.addEntity(new RectangularPrism(new Vector3D(15, 15, -55), new ColorRGB(255, 255, 100), 1, ReflectionType.DIFFUSE, 100, 100, 80));
         // environment.addEntity(new Sphere(new Vector3D(10, 0, 0), new ColorRGB(200, 100, 255), 1, ReflectionType.DIFFUSE, 4));
         
