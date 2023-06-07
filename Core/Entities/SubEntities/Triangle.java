@@ -43,6 +43,10 @@ public class Triangle extends Entity {
         Vector3D c2;
         Vector3D c3;
 
+        double c1Dot;
+        double c2Dot;
+        double c3Dot;
+
         double dot = -point1.dot(normal);
         double length = -(normal.dot(ray.getOrigin()) + dot) / normal.dot(ray.getDirection());
 
@@ -54,7 +58,11 @@ public class Triangle extends Entity {
             c2 = Vector3D.subtract(hitPosition, point2);
             c3 = Vector3D.subtract(hitPosition, point3);
 
-            if ((normal.dot(Vector3D.cross(edge1, c1)) >= 0 && normal.dot(Vector3D.cross(edge2, c2)) >= 0 && normal.dot(Vector3D.cross(edge3, c3)) >= 0) || (normal.dot(Vector3D.cross(edge1, c1)) <= 0 && normal.dot(Vector3D.cross(edge2, c2)) <= 0 && normal.dot(Vector3D.cross(edge3, c3)) <= 0)) {
+            c1Dot = normal.dot(Vector3D.cross(edge1, c1));
+            c2Dot = normal.dot(Vector3D.cross(edge2, c2));
+            c3Dot = normal.dot(Vector3D.cross(edge3, c3));
+
+            if ((c1Dot >= 0 && c2Dot >= 0 && c3Dot >= 0) || (c1Dot <= 0 && c2Dot <= 0 && c3Dot <= 0)) {
 
                 if (Vector3D.subtract(hitPosition, ray.getOrigin()).getMagnitude() >= 0.01) {
                     return hit;
