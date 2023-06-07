@@ -101,8 +101,8 @@ public class MainWindow extends Window {
 
         environment.addEntity(new RectangularPrism(new Vector3D(15, 15, 0), new ColorRGB(255, 255, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 20));
         environment.addEntity(new RectangularPrism(new Vector3D(15, -10, 0), new ColorRGB(255, 255, 255), 0.2, ReflectionType.DIFFUSE, 20, 10, 15));
-        environment.addEntity(new RectangularPrism(new Vector3D(15, 5, 0), new ColorRGB(255, 255, 255), 0.4, ReflectionType.SPECULAR, 5, 5, 5));
-        environment.addEntity(new RectangularPrism(new Vector3D(15, 15, -55), new ColorRGB(255, 255, 255), 0.4, ReflectionType.DIFFUSE, 100, 100, 80));
+        environment.addEntity(new RectangularPrism(new Vector3D(15, 5, 0), new ColorRGB(255, 255, 255), 0.5, ReflectionType.SPECULAR, 5, 5, 5));
+        environment.addEntity(new RectangularPrism(new Vector3D(15, 15, -55), new ColorRGB(255, 255, 255), 1, ReflectionType.DIFFUSE, 100, 100, 80));
         // environment.addEntity(new Sphere(new Vector3D(10, 0, 0), new ColorRGB(200, 100, 255), 1, ReflectionType.DIFFUSE, 4));
         
         RenderWindow renderWindow = new RenderWindow(environment, 8, true, true, 100, 10);
