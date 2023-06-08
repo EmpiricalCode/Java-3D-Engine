@@ -58,17 +58,17 @@ public class RectangularPrism extends Entity {
 
         mesh = new Triangle[12];
         mesh[0] = new Triangle(points[0], points[1], points[4], color, fuzziness, reflectionType);
-        mesh[1] = new Triangle(points[1], points[4], points[5], color, fuzziness, reflectionType);
+        mesh[1] = new Triangle(points[4], points[1], points[5], color, fuzziness, reflectionType);
         mesh[2] = new Triangle(points[1], points[5], points[7], color, fuzziness, reflectionType);
-        mesh[3] = new Triangle(points[1], points[3], points[7], color, fuzziness, reflectionType);
+        mesh[3] = new Triangle(points[3], points[1], points[7], color, fuzziness, reflectionType);
         mesh[4] = new Triangle(points[3], points[6], points[7], color, fuzziness, reflectionType);
-        mesh[5] = new Triangle(points[2], points[3], points[6], color, fuzziness, reflectionType);
-        mesh[6] = new Triangle(points[0], points[2], points[6], color, fuzziness, reflectionType);
+        mesh[5] = new Triangle(points[3], points[2], points[6], color, fuzziness, reflectionType);
+        mesh[6] = new Triangle(points[2], points[0], points[6], color, fuzziness, reflectionType);
         mesh[7] = new Triangle(points[0], points[4], points[6], color, fuzziness, reflectionType);
         mesh[8] = new Triangle(points[0], points[1], points[2], color, fuzziness, reflectionType);
-        mesh[9] = new Triangle(points[1], points[2], points[3], color, fuzziness, reflectionType);
-        mesh[10] = new Triangle(points[4], points[5], points[6], color, fuzziness, reflectionType);
-        mesh[11] = new Triangle(points[5], points[6], points[7], color, fuzziness, reflectionType);
+        mesh[9] = new Triangle(points[2], points[1], points[3], color, fuzziness, reflectionType);
+        mesh[10] = new Triangle(points[5], points[6], points[4], color, fuzziness, reflectionType);
+        mesh[11] = new Triangle(points[6], points[5], points[7], color, fuzziness, reflectionType);
     }
 
     // Returns the width of the rectangular prism
@@ -111,18 +111,25 @@ public class RectangularPrism extends Entity {
 
         for (Triangle triangle : this.mesh) {
 
-            hit = triangle.getHit(ray);
+            if (triangle != null) {
+                hit = triangle.getHit(ray);
 
-            if (hit != null ) {
+                if (hit != null ) {
 
-                dist = ray.getOrigin().getDistance(hit.getPosition());
+                    dist = ray.getOrigin().getDistance(hit.getPosition());
 
-                if (dist < minDist || minDist < 0) {
-                    minDist = dist;
-                    nearestHit = hit;
+                    if (dist < minDist || minDist < 0) {
+                        minDist = dist;
+                        nearestHit = hit;
+                    }
                 }
             }
         }
+
+        // if (nearestHit != null) {
+        // System.out.println(nearestHit.getNormal());
+
+        // }    
 
         return nearestHit;
     }

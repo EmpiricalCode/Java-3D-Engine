@@ -55,14 +55,14 @@ public class TriangularPrism extends Entity {
         points[5] = new Vector3D(position.getX(), position.getY() + depth / 2, position.getZ() + height / 2);
 
         mesh = new Triangle[8];
-        mesh[0] = new Triangle(points[0], points[1], points[2], color, fuzziness, reflectionType);
+        mesh[0] = new Triangle(points[1], points[0], points[2], color, fuzziness, reflectionType);
         mesh[1] = new Triangle(points[1], points[2], points[3], color, fuzziness, reflectionType);
         mesh[2] = new Triangle(points[0], points[2], points[4], color, fuzziness, reflectionType);
         mesh[3] = new Triangle(points[2], points[4], points[5], color, fuzziness, reflectionType);
         mesh[4] = new Triangle(points[1], points[3], points[4], color, fuzziness, reflectionType);
-        mesh[5] = new Triangle(points[3], points[4], points[5], color, fuzziness, reflectionType);
+        mesh[5] = new Triangle(points[4], points[3], points[5], color, fuzziness, reflectionType);
         mesh[6] = new Triangle(points[0], points[1], points[4], color, fuzziness, reflectionType);
-        mesh[7] = new Triangle(points[2], points[3], points[5], color, fuzziness, reflectionType);
+        mesh[7] = new Triangle(points[3], points[2], points[5], color, fuzziness, reflectionType);
     }
 
     // Returns the width of the rectangular prism

@@ -91,10 +91,6 @@ public class Triangle extends Entity {
 
         normal.clamp(1);
 
-        if (ray.getOrigin().getDistance(Vector3D.add(hitPosition, normal)) > ray.getOrigin().getDistance(Vector3D.add(hitPosition, Vector3D.multiply(normal, -1)))) {
-            normal.multiply(-1);
-        }
-
         return normal;
     }
 }
