@@ -25,10 +25,6 @@ public class TriangularPrism extends Entity {
     Vector3D halfHeightVector;
     Vector3D halfDepthVector;
 
-    private double width;
-    private double depth;
-    private double height;
-
     private Vector3D[] points;
     private Triangle[] mesh;
 
@@ -37,10 +33,6 @@ public class TriangularPrism extends Entity {
     public TriangularPrism(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
 
         super(position, color, reflectionType, fuzziness, EntityType.TRIANGULAR_PRISM, width, depth, height);
-
-        this.width = width;
-        this.depth = depth;
-        this.height = height;
 
         this.halfWidthVector = new Vector3D(width / 2, 0, 0);
         this.halfHeightVector = new Vector3D(height / 2, 0, 0);
