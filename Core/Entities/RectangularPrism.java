@@ -25,10 +25,6 @@ public class RectangularPrism extends Entity {
     Vector3D halfHeightVector;
     Vector3D halfDepthVector;
 
-    private double width;
-    private double depth;
-    private double height;
-
     private Vector3D[] points;
     private Triangle[] mesh;
 
