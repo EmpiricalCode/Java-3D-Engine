@@ -26,13 +26,13 @@ public class PropertyTextFieldEventHandler implements FocusListener {
     
     private Entity entity;
     private PropertyType propertyType;
-    private JComponent propertyValueComponent;
+    private JTextField textField;
 
     // Creates a new PropertyTextFieldEventHandler
-    public PropertyTextFieldEventHandler(Entity entity, PropertyType propertyType, JComponent propertyValueComponent) {
+    public PropertyTextFieldEventHandler(Entity entity, PropertyType propertyType, JTextField textField) {
         this.entity = entity;
         this.propertyType = propertyType;
-        this.propertyValueComponent = propertyValueComponent;
+        this.textField = textField;
     }
 
     // Manditory override
@@ -43,7 +43,6 @@ public class PropertyTextFieldEventHandler implements FocusListener {
     // Handles property setting for all text-field related properties
     public void focusLost(FocusEvent event) {
 
-        JTextField textField = (JTextField) propertyValueComponent;
         String modifiedFieldText;
 
         ColorRGB originalColor = this.entity.getColor();
@@ -54,51 +53,61 @@ public class PropertyTextFieldEventHandler implements FocusListener {
         // Handling property setting for color
         if (this.propertyType == PropertyType.COLOR) {
 
-            modifiedFieldText = PropertyFormatter.formatColor(textField.getText());
+            modifiedFieldText = PropertyFormatter.formatColor(this.textField.getText());
 
             if (modifiedFieldText != null) {
-                textField.setText(modifiedFieldText);
+
+                this.textField.setText(modifiedFieldText);
+
                 triple = modifiedFieldText.split(", ");
-                entity.setColor(new ColorRGB(Integer.valueOf(triple[0]), Integer.valueOf(triple[1]), Integer.valueOf(triple[2])));
+                this.entity.setColor(new ColorRGB(Integer.valueOf(triple[0]), Integer.valueOf(triple[1]), Integer.valueOf(triple[2])));
+
             } else {
-                textField.setText(originalColor.getR() + ", " + originalColor.getG() + ", " + originalColor.getB());
+                this.textField.setText(originalColor.getR() + ", " + originalColor.getG() + ", " + originalColor.getB());
             }
             
         // Handling property setting for position
         } else if (this.propertyType == PropertyType.POSITION) {
             
-            modifiedFieldText = PropertyFormatter.formatPosition(textField.getText());
+            modifiedFieldText = PropertyFormatter.formatPosition(this.textField.getText());
 
             if (modifiedFieldText != null) {
-                textField.setText(modifiedFieldText);
+
+                this.textField.setText(modifiedFieldText);
+
                 triple = modifiedFieldText.split(", ");
-                entity.setPosition(new Vector3D(Double.valueOf(triple[0]), Double.valueOf(triple[1]), Double.valueOf(triple[2])));
+                this.entity.setPosition(new Vector3D(Double.valueOf(triple[0]), Double.valueOf(triple[1]), Double.valueOf(triple[2])));
+
             } else {
-                textField.setText(originalPosition.getX() + ", " + originalPosition.getY() + ", " + originalPosition.getZ());
+                this.textField.setText(originalPosition.getX() + ", " + originalPosition.getY() + ", " + originalPosition.getZ());
             }
 
         // Handling property setting for fuzziness
         } else if (this.propertyType == PropertyType.FUZZINESS) {
 
-            modifiedFieldText = PropertyFormatter.formatFuzziness(textField.getText());
+            modifiedFieldText = PropertyFormatter.formatFuzziness(this.textField.getText());
 
             if (modifiedFieldText != null) {
-                textField.setText(modifiedFieldText);
-                entity.setFuzziness(Double.valueOf(modifiedFieldText));
+
+                this.textField.setText(modifiedFieldText);
+                this.entity.setFuzziness(Double.valueOf(modifiedFieldText));
+
             } else {
-                textField.setText(String.valueOf(entity.getFuzziness()));
+                this.textField.setText(String.valueOf(this.entity.getFuzziness()));
             }
 
         // Handling property setting for radius
         } else if (this.propertyType == PropertyType.RADIUS) {
 
-            modifiedFieldText = PropertyFormatter.formatRadius(textField.getText());
+            modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
 
             if (modifiedFieldText != null) {
-                textField.setText(modifiedFieldText);
-                ((Sphere) entity).setRadius(Double.valueOf(modifiedFieldText));
+
+                this.textField.setText(modifiedFieldText);
+                ((Sphere) this.entity).setRadius(Double.valueOf(modifiedFieldText));
+                
             } else {
-                textField.setText(String.valueOf(((Sphere) entity).getRadius()));
+                this.textField.setText(String.valueOf(((Sphere) this.entity).getRadius()));
             }
         }
     }

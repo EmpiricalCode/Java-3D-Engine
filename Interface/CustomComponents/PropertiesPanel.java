@@ -61,7 +61,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
                 ((JTextField) fieldValueComponent).setText(entity.getPosition().getX() + ", " + entity.getPosition().getY() + ", " + entity.getPosition().getZ());
 
                 // Adding the correct event listener
-                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, fieldValueComponent));
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
 
             } else if (property == PropertyType.RADIUS) {
 
@@ -69,7 +69,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
                 ((JTextField) fieldValueComponent).setText(String.valueOf(((Sphere) entity).getRadius()));
 
                 // Adding the correct event listener
-                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, fieldValueComponent));
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
 
             }
         }

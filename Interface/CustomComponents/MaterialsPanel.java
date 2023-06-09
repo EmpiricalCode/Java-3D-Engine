@@ -15,6 +15,7 @@ import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.ObjectPropertyPanel;
 import Interface.Utility.PropertyElementLoader;
+import Interface.Utility.PropertySetEvents.PropertyComboBoxEventHandler;
 import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
@@ -37,6 +38,7 @@ public class MaterialsPanel extends ObjectPropertyPanel {
         // For each property, create a relevant property field
         for (PropertyType property : materialProperties) {
 
+            // Creating the relevant fieldValueComponent based on propery type
             fieldValueComponent = PropertyElementLoader.loadListElement(this.getPropertiesArea(), property);
 
             // Setting initial values
@@ -46,10 +48,19 @@ public class MaterialsPanel extends ObjectPropertyPanel {
                 ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getFuzziness()));
             }
 
+            // One general variable (fieldValueComponent) is used to store the all various JComponents related to setting properties (JComboBox, JTextField),
+            // so it must be downcast manually to those subclasses
+
             // Grouping material properties by how they are accessed, and using the relevant listeners to handle setting those properties
             // Text field properties
             if (property == PropertyType.COLOR || property == PropertyType.FUZZINESS) {
-                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, fieldValueComponent));
+
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
+
+            // Drop-down menu properties
+            } else if (property == PropertyType.REFLECTION_TYPE) {
+
+                ((JComboBox<?>) fieldValueComponent).addItemListener(new PropertyComboBoxEventHandler(entity, property, (JComboBox<?>) fieldValueComponent));
             }
         }
 
