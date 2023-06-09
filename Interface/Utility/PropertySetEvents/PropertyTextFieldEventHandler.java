@@ -12,7 +12,6 @@ package Interface.Utility.PropertySetEvents;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import Core.Entities.Sphere;
