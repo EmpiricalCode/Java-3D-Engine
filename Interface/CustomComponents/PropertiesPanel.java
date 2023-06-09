@@ -13,8 +13,11 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+import Core.Entities.RectangularPrism;
 import Core.Entities.Sphere;
+import Core.Entities.TriangularPrism;
 import Core.Structures.Entity;
+import Core.Utility.Enum.EntityType;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.ObjectPropertyPanel;
 import Interface.Utility.PropertyElementLoader;
@@ -54,24 +57,25 @@ public class PropertiesPanel extends ObjectPropertyPanel {
             fieldValueComponent = PropertyElementLoader.loadListElement(this.getPropertiesArea(), property);
 
             // Setting the initial property values
-            // Grouping properties by how they are accessed, and using the relevant listeners to handle setting those properties
             if (property == PropertyType.POSITION) {
 
-                // Setting initial values
                 ((JTextField) fieldValueComponent).setText(entity.getPosition().getX() + ", " + entity.getPosition().getY() + ", " + entity.getPosition().getZ());
-
-                // Adding the correct event listener
-                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
 
             } else if (property == PropertyType.RADIUS) {
 
-                // Setting initial values
                 ((JTextField) fieldValueComponent).setText(String.valueOf(((Sphere) entity).getRadius()));
 
-                // Adding the correct event listener
-                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
-
+            } else if (property == PropertyType.DIMENSIONS) {
+                    
+                ((JTextField) fieldValueComponent).setText(entity.getWidth() + ", " + entity.getDepth() + ", " + entity.getHeight());
             }
+
+            // All current properties rely on a focus listener to be set, so no if statement is required
+            // to determine which listener is necessary
+
+            // However, for scalability reasons, a JComponent is still used to store the field value component even though 
+            // all properties currently only use JTextLabels
+            fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
         }
 
         materialsPanel.setPreferredSize(new Dimension(materialsPanel.getWidth(), MainWindow.HEIGHT - this.getHeight()));

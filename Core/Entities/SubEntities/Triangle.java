@@ -21,7 +21,9 @@ public class Triangle extends Entity {
     
     // Creates a new Triangle entity
     public Triangle(Vector3D point1, Vector3D point2, Vector3D point3, ColorRGB color, double fuzziness, ReflectionType reflectionType) {
-        super(point1, color, reflectionType, fuzziness, EntityType.TRIANGLE);
+
+        // Triangle does not actually use the width, depth, height properties internally
+        super(point1, color, reflectionType, fuzziness, EntityType.TRIANGLE, 0, 0, 0);
 
         this.point1 = point1;
         this.point2 = point2;

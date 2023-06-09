@@ -21,17 +21,57 @@ public abstract class Entity {
     private ReflectionType reflectionType;
     private double fuzziness;
     private EntityType entityType;
+    private double width;
+    private double depth;
+    private double height;
 
     // Main constructor
-    public Entity(Vector3D position, ColorRGB color, ReflectionType reflectionType, double fuzziness, EntityType entityType) {
+    public Entity(Vector3D position, ColorRGB color, ReflectionType reflectionType, double fuzziness, EntityType entityType, double width, double depth, double height) {
 
         this.position = position;
         this.fuzziness = fuzziness;
         this.entityType = entityType;
 
+        // Although not all entities use the width, depth, and height properties, 
+        // it would be better to have them shared between all entities 
+        // so that these properties can be accessed directly from an Entity object without needing to downcast
+        this.width = width;
+        this.depth = depth;
+        this.height = height;
+
         // This is necessary because the lighting model has an edge case issue with objects that strictly reflect one channel of color
         this.color = new ColorRGB(Math.max(color.getR(), 20), Math.max(color.getG(), 20), Math.max(color.getB(), 20));
         this.reflectionType = reflectionType;
+    }
+
+    // Returns the width of the entity
+    public double getWidth() {
+        return this.width;
+    }
+
+    // Returns the height of the entity
+    public double getHeight() {
+        return this.height;
+    }
+
+    // Returns the depth of the entity
+    public double getDepth() {
+        return this.depth;
+    }
+
+    // Sets the width of the entity
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    // Sets the height of the entity
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    // Sets the depth of the entity
+    public void setDepth(double depth) {
+        this.depth = depth;
     }
 
     // Returns the entity type of the object

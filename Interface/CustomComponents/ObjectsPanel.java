@@ -28,7 +28,7 @@ import Interface.Utility.FontLoader;
 import Interface.Utility.ComboBox.ComboBoxHelper;
 import Interface.Windows.MainWindow;
 
-public class ObjectsPanel extends JPanel implements MouseListener, ItemListener {
+public class ObjectsPanel extends JPanel implements MouseListener {
 
     // Ignoring triangle since it is a sub-entity
     public static final String[] SUPPORTED_ENTITY_NAMES = {EntityType.SPHERE.getName(), EntityType.RECTANGULAR_PRISM.getName(), EntityType.TRIANGULAR_PRISM.getName()};
@@ -81,7 +81,35 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
         JPanel objectContainer = new JPanel();
         IconPanel objectIcon = new IconPanel(EntityType.SPHERE);
         JComboBox<String> objectTypeSelector = ComboBoxHelper.createComboBox(ObjectsPanel.SUPPORTED_ENTITY_NAMES);
-        objectTypeSelector.addItemListener(this);
+
+        // When a object type drop-down menu registers an item state change, change its corresponding icon
+        objectTypeSelector.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+
+                IconPanel iconPanel;
+
+                // This is necessary to prevent a double-register of the event (one event is fired for deselected and for selected)
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+
+                    iconPanel = (IconPanel) ((JComponent) event.getSource()).getParent().getComponent(0);
+                    
+                    if (event.getItem().equals(EntityType.RECTANGULAR_PRISM.getName())) {
+
+                        iconPanel.changeEntityType(EntityType.RECTANGULAR_PRISM);
+
+                    } else if (event.getItem().equals(EntityType.TRIANGULAR_PRISM.getName())) {
+
+                        iconPanel.changeEntityType(EntityType.TRIANGULAR_PRISM);
+
+                    } else if (event.getItem().equals(EntityType.SPHERE.getName())) {
+
+                        iconPanel.changeEntityType(EntityType.SPHERE);
+                    }
+                }
+            }
+        });
 
         objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(-6, 0, 0, 0)));
         objectContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -116,31 +144,5 @@ public class ObjectsPanel extends JPanel implements MouseListener, ItemListener 
     @Override
     public void mouseClicked(MouseEvent event) {
         this.addObject();
-    }
-
-    // When a JComboBox registers an item state change, change its corresponding icon
-    @Override
-    public void itemStateChanged(ItemEvent event) {
-
-        IconPanel iconPanel;
-
-        // This is necessary to prevent a double-register of the event (one event is fired for deselected and for selected)
-        if (event.getStateChange() == ItemEvent.SELECTED) {
-
-            iconPanel = (IconPanel) ((JComponent) event.getSource()).getParent().getComponent(0);
-            
-            if (event.getItem().equals(EntityType.RECTANGULAR_PRISM.getName())) {
-
-                iconPanel.changeEntityType(EntityType.RECTANGULAR_PRISM);
-
-            } else if (event.getItem().equals(EntityType.TRIANGULAR_PRISM.getName())) {
-
-                iconPanel.changeEntityType(EntityType.TRIANGULAR_PRISM);
-
-            } else if (event.getItem().equals(EntityType.SPHERE.getName())) {
-
-                iconPanel.changeEntityType(EntityType.SPHERE);
-            }
-        }
     }
 }

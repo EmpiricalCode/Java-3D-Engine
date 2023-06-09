@@ -15,10 +15,10 @@ public enum PropertyType {
     POSITION("Position"),
     RADIUS("Radius"),
     DIMENSIONS("Dimensions"),
-    COLOR("Color"), 
 
     // Material properties
     REFLECTION_TYPE("Reflection Type"),
+    COLOR("Color"), 
     FUZZINESS("Fuzziness");
 
     private String name;

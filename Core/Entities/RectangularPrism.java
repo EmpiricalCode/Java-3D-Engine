@@ -36,7 +36,7 @@ public class RectangularPrism extends Entity {
     // Main constructor
     public RectangularPrism(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
 
-        super(position, color, reflectionType, fuzziness, EntityType.RECTANGULAR_PRISM);
+        super(position, color, reflectionType, fuzziness, EntityType.RECTANGULAR_PRISM, width, depth, height);
 
         this.width = width;
         this.depth = depth;
@@ -69,36 +69,6 @@ public class RectangularPrism extends Entity {
         mesh[9] = new Triangle(points[2], points[1], points[3], color, fuzziness, reflectionType);
         mesh[10] = new Triangle(points[5], points[6], points[4], color, fuzziness, reflectionType);
         mesh[11] = new Triangle(points[6], points[5], points[7], color, fuzziness, reflectionType);
-    }
-
-    // Returns the width of the rectangular prism
-    public double getWidth() {
-        return this.width;
-    }
-
-    // Returns the height of the rectangular prism
-    public double getHeight() {
-        return this.height;
-    }
-
-    // Returns the depth of the rectangular prism
-    public double getDepth() {
-        return this.depth;
-    }
-
-    // Sets the width of the rectangular prism
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    // Sets the height of the rectangular prism
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    // Sets the depth of the rectangular prism
-    public void setDepth(double depth) {
-        this.depth = depth;
     }
 
     // Returns the hit of the rectangular prism from a raycast

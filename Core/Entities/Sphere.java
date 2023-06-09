@@ -25,7 +25,8 @@ public class Sphere extends Entity {
     // Main constructor
     public Sphere(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double radius) {
 
-        super(position, color, reflectionType, fuzziness, EntityType.SPHERE);
+        // Sphere does not actually use the width, depth, height properties internally
+        super(position, color, reflectionType, fuzziness, EntityType.SPHERE, radius * 2, radius * 2, radius * 2);
         this.radius = radius;
     }
 

@@ -92,8 +92,8 @@ public class MainWindow extends Window {
 
         objectsPanel.addObject();
         objectsPanel.addObject();
-        propertiesPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.1, ReflectionType.SPECULAR, 5));
-        materialsPanel.loadProperties(new Sphere(new Vector3D(15, 0, 0), new ColorRGB(100, 0, 255), 0.2, ReflectionType.SPECULAR, 5));
+        propertiesPanel.loadProperties(new TriangularPrism(new Vector3D(15, 15, 0), new ColorRGB(255, 255, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 20));
+        materialsPanel.loadProperties(new TriangularPrism(new Vector3D(15, 15, 0), new ColorRGB(255, 255, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 20));
 
         // Creating environment and render window
         Environment environment = new Environment(new Camera(new Vector3D(-5, -20, 10), new Vector3D(15, 15, 0)));

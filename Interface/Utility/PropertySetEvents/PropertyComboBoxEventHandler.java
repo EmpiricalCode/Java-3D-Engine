@@ -33,6 +33,23 @@ public class PropertyComboBoxEventHandler implements ItemListener {
         this.comboBox = comboBox;
     }
 
+    // Handling reflection type property setting
+    public void setReflectionType(ItemEvent event) {
+
+        if (this.propertyType == PropertyType.REFLECTION_TYPE) {
+
+            if (event.getItem().equals(ReflectionType.DIFFUSE.getName())) {
+
+                entity.setReflectiontype(ReflectionType.DIFFUSE);
+
+            // In case more reflection types are added in the future, else if was used instead of else
+            } else if (event.getItem().equals(ReflectionType.SPECULAR.getName())) {
+                
+                entity.setReflectiontype(ReflectionType.SPECULAR);
+            }
+        }
+    }
+
     @Override
     public void itemStateChanged(ItemEvent event) {
 
@@ -45,15 +62,7 @@ public class PropertyComboBoxEventHandler implements ItemListener {
             // Handling property setting for reflection type
             if (this.propertyType == PropertyType.REFLECTION_TYPE) {
 
-                if (event.getItem().equals(ReflectionType.DIFFUSE.getName())) {
-
-                    entity.setReflectiontype(ReflectionType.DIFFUSE);
-
-                // In case more reflection types are added in the future
-                } else if (event.getItem().equals(ReflectionType.SPECULAR.getName())) {
-                    
-                    entity.setReflectiontype(ReflectionType.SPECULAR);
-                }
+                this.setReflectionType(event);
             }
         }
     }
