@@ -13,11 +13,8 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-import Core.Entities.RectangularPrism;
 import Core.Entities.Sphere;
-import Core.Entities.TriangularPrism;
 import Core.Structures.Entity;
-import Core.Utility.Enum.EntityType;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.ObjectPropertyPanel;
 import Interface.Utility.PropertyElementLoader;

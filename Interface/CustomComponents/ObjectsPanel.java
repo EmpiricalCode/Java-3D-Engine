@@ -10,6 +10,7 @@
 package Interface.CustomComponents;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -17,6 +18,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -32,6 +34,10 @@ public class ObjectsPanel extends JPanel implements MouseListener {
 
     // Ignoring triangle since it is a sub-entity
     public static final String[] SUPPORTED_ENTITY_NAMES = {EntityType.SPHERE.getName(), EntityType.RECTANGULAR_PRISM.getName(), EntityType.TRIANGULAR_PRISM.getName()};
+    public static final Border UNSELECTED_OBJECT_BORDER = new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(-6, 0, 0, 0));
+    public static final Border SELECTED_OBJECT_BORDER = new CompoundBorder(new MatteBorder(new Insets(1, 1, 1, 1), Color.WHITE), new EmptyBorder(-5, 0, 0, 0));
+    public static final int OBJECT_CONTAINER_HEIGHT = 35;
+    public static final Dimension OBJECT_ICON_DIMENSIONS = new Dimension(26, 18);
 
     private JPanel addObjectsArea;
     private JLabel objectsTitle;
@@ -41,7 +47,7 @@ public class ObjectsPanel extends JPanel implements MouseListener {
     // Creates a new ObjectPanel object
     public ObjectsPanel(int width, int height) {
         super();
-
+        // Add various widths and height to static final variables
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new FlowLayout(0, 0, 0));
 
@@ -111,13 +117,43 @@ public class ObjectsPanel extends JPanel implements MouseListener {
             }
         });
 
-        objectContainer.setBorder(new CompoundBorder(new MatteBorder(new Insets(0, 0, 1,1), MainWindow.BORDER_COLOR), new EmptyBorder(-6, 0, 0, 0)));
+        objectContainer.setBorder(ObjectsPanel.UNSELECTED_OBJECT_BORDER);
         objectContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
         objectContainer.setBackground(MainWindow.BACKGROUND_COLOR);
-        objectContainer.setPreferredSize(new Dimension(this.getWidth(), 35));
+        objectContainer.setPreferredSize(new Dimension(this.getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT));
         objectContainer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        objectIcon.setPreferredSize(new Dimension(26, 18));
+        // When the object container is selected, select that object
+        objectContainer.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mousePressed(MouseEvent event) {
+
+                JPanel objectContainer = (JPanel) event.getSource();
+                Component[] objectContainers = objectContainer.getParent().getComponents();
+
+                objectContainer.setBorder(ObjectsPanel.SELECTED_OBJECT_BORDER);
+                objectContainer.setPreferredSize(new Dimension((int) objectContainer.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT + 2));
+
+                // Unselecting other objectContainers
+                for (Component component : objectContainers) {
+
+                    // There shouldn't be any other components that aren't JPanels within 
+                    // the objectArea, but this is just in case
+                    if (component instanceof JPanel) {
+
+                        // Comparing references to make sure the selected objectContainer isn't unselected
+                        if (component != objectContainer) {
+
+                            ((JPanel) component).setBorder(ObjectsPanel.UNSELECTED_OBJECT_BORDER);
+                            ((JPanel) component).setPreferredSize(new Dimension((int) objectContainer.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT));
+                        }
+                    }
+                }
+            }
+        });
+
+        objectIcon.setPreferredSize(ObjectsPanel.OBJECT_ICON_DIMENSIONS);
 
         objectContainer.add(objectIcon);
         objectContainer.add(objectTypeSelector);
