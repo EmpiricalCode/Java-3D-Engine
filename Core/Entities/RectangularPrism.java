@@ -34,10 +34,6 @@ public class RectangularPrism extends Entity {
 
         super(position, color, reflectionType, fuzziness, EntityType.RECTANGULAR_PRISM, width, depth, height);
 
-        this.width = width;
-        this.depth = depth;
-        this.height = height;
-
         this.halfWidthVector = new Vector3D(width / 2, 0, 0);
         this.halfHeightVector = new Vector3D(height / 2, 0, 0);
         this.halfDepthVector = new Vector3D(depth / 2, 0, 0);
