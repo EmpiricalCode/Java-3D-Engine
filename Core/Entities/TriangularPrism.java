@@ -3,7 +3,7 @@
 // Filename: TriangularPrism.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: Handles behaviors and properties for the sphere entity, subclass to the Entity class.
+// Description: Handles behaviors and properties for the triangular prism entity, subclass to the Entity class.
 //
 ///////////////////////
 
@@ -18,7 +18,7 @@ import Core.Utility.Enum.ReflectionType;
 
 public class TriangularPrism extends Entity {
     
-    public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.DIMENSIONS};
+    public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.WIDTH, PropertyType.DEPTH, PropertyType.HEIGHT};
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
 
     private Vector3D[] points;

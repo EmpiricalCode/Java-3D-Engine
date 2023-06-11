@@ -20,10 +20,14 @@ import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
 public class MaterialsPanel extends ObjectPropertyPanel {
+
+    private MainWindow mainWindow;
     
     // Creates a new materials panel
-    public MaterialsPanel(int width) {
+    public MaterialsPanel(MainWindow mainWindow, int width) {
         super("Materials", width, MainWindow.HEIGHT, 110);
+
+        this.mainWindow = mainWindow;
     }
 
     // Loads the material properties for an entity
@@ -55,12 +59,12 @@ public class MaterialsPanel extends ObjectPropertyPanel {
             // Text field properties
             if (property == PropertyType.COLOR || property == PropertyType.FUZZINESS) {
 
-                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(mainWindow, entity, property, (JTextField) fieldValueComponent));
 
             // Drop-down menu properties
             } else if (property == PropertyType.REFLECTION_TYPE) {
 
-                ((JComboBox<?>) fieldValueComponent).addItemListener(new PropertyComboBoxEventHandler(entity, property, (JComboBox<?>) fieldValueComponent));
+                ((JComboBox<?>) fieldValueComponent).addItemListener(new PropertyComboBoxEventHandler(mainWindow, entity, property, (JComboBox<?>) fieldValueComponent));
             }
         }
 

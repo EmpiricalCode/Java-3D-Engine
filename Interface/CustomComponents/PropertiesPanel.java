@@ -25,14 +25,13 @@ public class PropertiesPanel extends ObjectPropertyPanel {
 
     public static final int BASE_HEIGHT = 110;
 
-    private MaterialsPanel materialsPanel;
+    private MainWindow mainWindow;
     
     // Creates a new property panel
-    public PropertiesPanel(MaterialsPanel materialsPanel, int width) {
+    public PropertiesPanel(MainWindow mainWindow, int width) {
         super("Properties", width, PropertiesPanel.BASE_HEIGHT, PropertiesPanel.BASE_HEIGHT);
 
-        // the MaterialsPanel object is passed in because it must be resized based on how many property fields the PropertiesPanel object has
-        this.materialsPanel = materialsPanel;
+        this.mainWindow = mainWindow;
     }
 
     // Loads the properties for an entity
@@ -45,7 +44,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
         this.getSubtitle().setText(entity.getEntityType().getName());
         this.setPreferredSize(new Dimension(this.getWidth(), PropertiesPanel.BASE_HEIGHT));
 
-        // For each property, create a relevant propety field
+        // For each property, create a relevant property field
         for (PropertyType property : properties) {
 
             // Scale the properties panel with the number of property fields
@@ -62,9 +61,17 @@ public class PropertiesPanel extends ObjectPropertyPanel {
 
                 ((JTextField) fieldValueComponent).setText(String.valueOf(((Sphere) entity).getRadius()));
 
-            } else if (property == PropertyType.DIMENSIONS) {
+            } else if (property == PropertyType.WIDTH) {
                     
-                ((JTextField) fieldValueComponent).setText(entity.getWidth() + ", " + entity.getDepth() + ", " + entity.getHeight());
+                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getWidth()));
+
+            } else if (property == PropertyType.DEPTH) {
+
+                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getDepth()));
+
+            } else if (property == PropertyType.HEIGHT) {
+
+                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getHeight()));
             }
 
             // All current properties rely on a focus listener to be set, so no if statement is required
@@ -72,11 +79,19 @@ public class PropertiesPanel extends ObjectPropertyPanel {
 
             // However, for scalability reasons, a JComponent is still used to store the field value component even though 
             // all properties currently only use JTextLabels
-            fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(entity, property, (JTextField) fieldValueComponent));
+            fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(mainWindow, entity, property, (JTextField) fieldValueComponent));
         }
 
-        materialsPanel.setPreferredSize(new Dimension(materialsPanel.getWidth(), MainWindow.HEIGHT - this.getHeight()));
         this.revalidate();
         this.repaint();
+    }
+
+    // Removes properties
+    // This must use an override because the properties panel needs to resize based on how many properties it has
+    @Override
+    public void removeProperties() {
+        super.removeProperties();
+
+        this.setPreferredSize(new Dimension(this.getWidth(), PropertiesPanel.BASE_HEIGHT));
     }
 }

@@ -7,6 +7,8 @@
 //
 ///////////////////////
 
+// TODO: Make closing render window stop render
+
 package Interface.CustomComponents;
 
 import java.awt.*;
@@ -18,6 +20,7 @@ import Core.Utility.*;
 
 public class RenderPanel extends JPanel {
 
+    private boolean isRendering;
     private int pixelSize;
     private int dimensions;
 
@@ -35,6 +38,7 @@ public class RenderPanel extends JPanel {
     // Main constructor
     public RenderPanel(Environment environment, int quality, boolean antiAliasing, boolean gammaCorrection, int pixelSamples, int rayDepth) {
 
+        this.isRendering = false;
         this.environment = environment;
         this.antiAliasing = antiAliasing;
         this.gammaCorrection = gammaCorrection;
@@ -51,6 +55,11 @@ public class RenderPanel extends JPanel {
 
         // Setting size
         this.setPreferredSize(new Dimension(pixelSize * dimensions, pixelSize * dimensions));
+    }
+
+    // Returns if the render panel is rendering
+    public boolean isRendering() {
+        return this.isRendering;
     }
 
     // Renders the environment 
@@ -79,6 +88,8 @@ public class RenderPanel extends JPanel {
         Ray sampleRay;
         ColorRGB rayColor;
         ColorRGB finalColor;
+
+        this.isRendering = true;
 
         // Doubling the render dimensions if anti-aliasing is set to true
         if (this.antiAliasing) {
@@ -118,7 +129,7 @@ public class RenderPanel extends JPanel {
                 renderMatrix[j][i][2] = finalColor.getB();
             }
 
-            System.out.println(Math.round(10000 * (i + 1) /  ((double) renderDimensions)) / 100.0 + " %");
+            // System.out.println(Math.round(10000 * (i + 1) /  ((double) renderDimensions)) / 100.0 + " %");
         }
 
         // Anti-aliasing
@@ -154,7 +165,7 @@ public class RenderPanel extends JPanel {
             }
         }
             
-
+        this.isRendering = false;
         repaint();
     }
 

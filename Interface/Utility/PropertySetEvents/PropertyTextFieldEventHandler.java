@@ -20,18 +20,21 @@ import Core.Utility.ColorRGB;
 import Core.Utility.Vector3D;
 import Core.Utility.Enum.PropertyType;
 import Interface.Utility.PropertyFormatter;
+import Interface.Windows.MainWindow;
 
 public class PropertyTextFieldEventHandler implements FocusListener {
     
     private Entity entity;
     private PropertyType propertyType;
     private JTextField textField;
+    private MainWindow mainWindow;
 
     // Creates a new PropertyTextFieldEventHandler
-    public PropertyTextFieldEventHandler(Entity entity, PropertyType propertyType, JTextField textField) {
+    public PropertyTextFieldEventHandler(MainWindow mainWindow, Entity entity, PropertyType propertyType, JTextField textField) {
         this.entity = entity;
         this.propertyType = propertyType;
         this.textField = textField;
+        this.mainWindow = mainWindow;
     }
 
     // Handles color property setting
@@ -41,7 +44,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
         ColorRGB originalColor = this.entity.getColor();
         String[] triple;
 
-        if (modifiedFieldText != null) {
+        if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
 
             this.textField.setText(modifiedFieldText);
 
@@ -60,7 +63,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
         Vector3D originalPosition = this.entity.getPosition();
         String[] triple;
 
-        if (modifiedFieldText != null) {
+        if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
 
             this.textField.setText(modifiedFieldText);
 
@@ -77,7 +80,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
 
         String modifiedFieldText = PropertyFormatter.formatFuzziness(this.textField.getText());
 
-        if (modifiedFieldText != null) {
+        if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
 
             this.textField.setText(modifiedFieldText);
             this.entity.setFuzziness(Double.valueOf(modifiedFieldText));
@@ -92,7 +95,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
 
         String modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
 
-        if (modifiedFieldText != null) {
+        if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
 
             this.textField.setText(modifiedFieldText);
             ((Sphere) this.entity).setRadius(Double.valueOf(modifiedFieldText));
@@ -102,26 +105,57 @@ public class PropertyTextFieldEventHandler implements FocusListener {
         }
     }
 
-    // Handles dimension property setting
-    public void setDimensions() {
+    // Handles width property setting
+    public void setWidth() {
 
-        // Dimensions uses the same formatting as position, so the formatPosition method can just be reused
-        String modifiedFieldText = PropertyFormatter.formatPosition(this.textField.getText());
-        String[] modifiedFieldTextSplit;
+        // Dimensions uses the same formatting as radius, so the formatRadius method can just be reused
+        String modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
 
-        if (modifiedFieldText != null) {
-
-            modifiedFieldTextSplit = modifiedFieldText.split(", ");
+        if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
 
             this.textField.setText(modifiedFieldText);
             
-            entity.setWidth(Double.valueOf(Double.valueOf(modifiedFieldTextSplit[0])));
-            entity.setWidth(Double.valueOf(Double.valueOf(modifiedFieldTextSplit[1])));
-            entity.setWidth(Double.valueOf(Double.valueOf(modifiedFieldTextSplit[2])));
+            entity.setWidth(Double.valueOf(Double.valueOf(modifiedFieldText)));
             
         } else {
             
-            this.textField.setText(entity.getWidth() + ", " + entity.getHeight() + ", " + entity.getDepth());
+            this.textField.setText(String.valueOf(this.entity.getWidth()));
+        }
+    }
+
+    // Handles depth property setting
+    public void setDepth() {
+
+        // Dimensions uses the same formatting as radius, so the formatRadius method can just be reused
+        String modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
+
+        if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
+
+            this.textField.setText(modifiedFieldText);
+            
+            entity.setDepth(Double.valueOf(Double.valueOf(modifiedFieldText)));
+            
+        } else {
+            
+            this.textField.setText(String.valueOf(this.entity.getDepth()));
+        }
+    }
+
+    // Handles height property setting
+    public void setHeight() {
+
+        // Dimensions uses the same formatting as radius, so the formatRadius method can just be reused
+        String modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
+
+        if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
+
+            this.textField.setText(modifiedFieldText);
+            
+            entity.setHeight(Double.valueOf(Double.valueOf(modifiedFieldText)));
+            
+        } else {
+            
+            this.textField.setText(String.valueOf(this.entity.getHeight()));
         }
     }
 
@@ -153,10 +187,20 @@ public class PropertyTextFieldEventHandler implements FocusListener {
 
             this.setRadius();
 
-        // Handling property setting for dimensions
-        } else if (this.propertyType == PropertyType.DIMENSIONS) {
+        // Handling property setting for width
+        } else if (this.propertyType == PropertyType.WIDTH) {
 
-            this.setDimensions();
+            this.setWidth();
+
+        // Handling property setting for depth
+        } else if (this.propertyType == PropertyType.DEPTH) {
+
+            this.setWidth();
+
+        // Handling property setting for height
+        } else if (this.propertyType == PropertyType.HEIGHT) {
+
+            this.setWidth();
         }
     }
 }

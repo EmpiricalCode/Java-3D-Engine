@@ -3,7 +3,7 @@
 // Filename: IconPanel.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles the creation and user interactions of the panel that allows the changing of material properties.
+// Description: A class that handles the icon behavior for each object in the Object Explorer panel (leftmost panel).
 //
 ///////////////////////
 
@@ -48,7 +48,6 @@ public class IconPanel extends JPanel {
     private void loadIcon() {
         
         try {                
-            
             this.icon = ImageIO.read(new File(IconPanel.ICON_DIR + "/" + this.entityType.getName() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();

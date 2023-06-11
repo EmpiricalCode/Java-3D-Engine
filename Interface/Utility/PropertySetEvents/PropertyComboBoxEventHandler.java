@@ -17,24 +17,33 @@ import javax.swing.JComboBox;
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
 import Core.Utility.Enum.ReflectionType;
+import Interface.Windows.MainWindow;
 
 public class PropertyComboBoxEventHandler implements ItemListener {
 
     private Entity entity;
     private PropertyType propertyType;
-    JComboBox<?> comboBox;
+    private JComboBox<?> comboBox;
+    private MainWindow mainWindow;
     
     // Creates a new PropertyComboBoxEventHandler
     // a "?" is used to parameterize comboBox because a casted JComponent object is passed into the constructor.
     // Casting the JComponent to JComboBox<String> causes an unchecked cast warning, so "?" is used
-    public PropertyComboBoxEventHandler(Entity entity, PropertyType propertyType, JComboBox<?> comboBox) {
+    public PropertyComboBoxEventHandler(MainWindow mainWindow, Entity entity, PropertyType propertyType, JComboBox<?> comboBox) {
         this.entity = entity;
         this.propertyType = propertyType;
         this.comboBox = comboBox;
+        this.mainWindow = mainWindow;
     }
 
     // Handling reflection type property setting
     public void setReflectionType(ItemEvent event) {
+        
+        // Preventing properties from being changed while a render is taking place
+        if (this.mainWindow.isRendering()) {
+            comboBox.setSelectedItem(entity.getReflectiontype().getName());
+            return;
+        }
 
         if (this.propertyType == PropertyType.REFLECTION_TYPE) {
 

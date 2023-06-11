@@ -47,7 +47,7 @@ public abstract class ObjectPropertyPanel extends JPanel {
         this.title.setFont(MainWindow.TITLE_FONT);
         this.title.setForeground(Color.WHITE);
 
-        this.subtitle = new JLabel("Empty");
+        this.subtitle = new JLabel("");
         this.subtitle.setFont(MainWindow.SUBTITLE_FONT);
         this.subtitle.setForeground(MainWindow.SUBTITLE_COLOR);
 
@@ -72,6 +72,15 @@ public abstract class ObjectPropertyPanel extends JPanel {
     // Gets the property area component
     public JPanel getPropertiesArea() {
         return this.propertiesArea;
+    }
+
+    // Removes all properties
+    public void removeProperties() {
+        this.propertiesArea.removeAll();
+        this.subtitle.setText("");
+
+        this.revalidate();
+        this.repaint();
     }
 
     // Loads the properties for an entity

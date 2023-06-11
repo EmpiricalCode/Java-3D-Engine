@@ -21,7 +21,6 @@ public class Sphere extends Entity {
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
     private double radius;
 
-    // TODO: Make all constructor comments more detailed
     // Main constructor
     public Sphere(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double radius) {
 

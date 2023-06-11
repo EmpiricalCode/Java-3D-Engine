@@ -45,7 +45,7 @@ public class PropertyElementLoader {
         fieldContainerComponent.add(fieldNameComponent);
 
         // Creating the relevant JComponents based on how the property is to be modified (drop down menu, text field, etc.)
-        if (property == PropertyType.COLOR || property == PropertyType.POSITION || property == PropertyType.FUZZINESS || property == PropertyType.RADIUS || property == PropertyType.DIMENSIONS) {
+        if (property == PropertyType.COLOR || property == PropertyType.POSITION || property == PropertyType.FUZZINESS || property == PropertyType.RADIUS || property == PropertyType.WIDTH || property == PropertyType.DEPTH || property == PropertyType.HEIGHT) {
             
             fieldValueComponent = new JTextField(10);
             fieldValueComponent.setVisible(true);

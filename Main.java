@@ -7,9 +7,14 @@
 //
 ///////////////////////
 
+// TODO: Remember to check all header comments
+// TODO: Make sure width depth height is all sorted out properly
+// TOOD: Maybe fix button click issue where it doesnt work when mouse moving
 import Interface.Windows.MainWindow;
 
 public class Main {
+
+    public static final String APPLICATION_NAME = "MoonRays";
 
     public static void main(String[] args) {
 
@@ -18,6 +23,6 @@ public class Main {
         System.setProperty("swing.aatext", "true");
 
         // Creating the main window
-        new MainWindow();
+        new MainWindow(Main.APPLICATION_NAME);
     }
 }

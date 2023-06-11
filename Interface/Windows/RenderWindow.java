@@ -36,11 +36,8 @@ public class RenderWindow extends Window {
         this.setVisible(true);
     }
 
-    // Renders an environment of objects
-    // An alternative would be to allow access to the RenderPanel object from outside the class
-    // and call render that way. However, in favor of ease of use and security, the method call
-    // is simply passed directly to the RenderPanel object.
-    public void render() {
-        this.renderPanel.render();
+    // Returns the render panel
+    public RenderPanel getRenderPanel() {
+        return this.renderPanel;
     }
 }

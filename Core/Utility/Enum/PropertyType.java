@@ -14,7 +14,9 @@ public enum PropertyType {
     // Regular properties
     POSITION("Position"),
     RADIUS("Radius"),
-    DIMENSIONS("Dimensions"),
+    WIDTH("Width"),
+    DEPTH("Depth"),
+    HEIGHT("Heigh"),
 
     // Material properties
     REFLECTION_TYPE("Reflection Type"),

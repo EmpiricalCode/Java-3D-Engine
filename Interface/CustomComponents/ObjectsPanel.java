@@ -25,7 +25,14 @@ import java.awt.event.MouseListener;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Core.Environment;
+import Core.Entities.RectangularPrism;
+import Core.Entities.Sphere;
+import Core.Entities.TriangularPrism;
+import Core.Utility.ColorRGB;
+import Core.Utility.Vector3D;
 import Core.Utility.Enum.EntityType;
+import Core.Utility.Enum.ReflectionType;
 import Interface.Utility.FontLoader;
 import Interface.Utility.ComboBox.ComboBoxHelper;
 import Interface.Windows.MainWindow;
@@ -38,15 +45,26 @@ public class ObjectsPanel extends JPanel implements MouseListener {
     public static final Border SELECTED_OBJECT_BORDER = new CompoundBorder(new MatteBorder(new Insets(1, 1, 1, 1), Color.WHITE), new EmptyBorder(-5, 0, 0, 0));
     public static final int OBJECT_CONTAINER_HEIGHT = 35;
     public static final Dimension OBJECT_ICON_DIMENSIONS = new Dimension(26, 18);
+    public static final int ENTITY_CAP = 15;
+
+    public static final Sphere DEFAULT_SPHERE = new Sphere(new Vector3D(0, 0, 0), new ColorRGB(255, 255, 255), 0, ReflectionType.SPECULAR, 2);
+    public static final RectangularPrism DEFAULT_RECTANGULAR_PRISM = new RectangularPrism(new Vector3D(0, 0, 0), new ColorRGB(255, 255, 255), 0, ReflectionType.DIFFUSE, 4, 4, 4);
+    public static final TriangularPrism DEFAULT_TRIANGULAR_PRISM = new TriangularPrism(new Vector3D(0, 0, 0), new ColorRGB(255, 255, 255), 0, ReflectionType.DIFFUSE, 4, 4, 4);
 
     private JPanel addObjectsArea;
     private JLabel objectsTitle;
     private JPanel objectsArea;
     private JButton addObjectButton;
+    private Environment environment;
+    private final MainWindow mainWindow;
     
     // Creates a new ObjectPanel object
-    public ObjectsPanel(int width, int height) {
+    public ObjectsPanel(MainWindow mainWindow, int width, int height, Environment environment) {
         super();
+
+        this.environment = environment;
+        this.mainWindow = mainWindow;
+
         // Add various widths and height to static final variables
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new FlowLayout(0, 0, 0));
@@ -81,73 +99,123 @@ public class ObjectsPanel extends JPanel implements MouseListener {
     }
 
     // Adds a sphere entity object to the object list
-    // TODO: Remember to put a limit on how many objects can be created
     public void addObject() {
 
-        JPanel objectContainer = new JPanel();
+        Sphere defaultSphere = ObjectsPanel.DEFAULT_SPHERE;
+        Sphere newSphere = new Sphere(defaultSphere.getPosition(), defaultSphere.getColor(), defaultSphere.getFuzziness(), defaultSphere.getReflectiontype(), defaultSphere.getRadius());
+        JPanel objectPanel = new JPanel();
         IconPanel objectIcon = new IconPanel(EntityType.SPHERE);
         JComboBox<String> objectTypeSelector = ComboBoxHelper.createComboBox(ObjectsPanel.SUPPORTED_ENTITY_NAMES);
 
-        // When a object type drop-down menu registers an item state change, change its corresponding icon
+        // By default, a sphere is added
+        this.environment.addEntity(newSphere);
+
+        // Object components are JPanels that act as the interface between an actual environment Entity and the user
+        // Object components can be selected to change various properties in the Materials and Properties panels
+        objectPanel.setBorder(ObjectsPanel.UNSELECTED_OBJECT_BORDER);
+        objectPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        objectPanel.setBackground(MainWindow.BACKGROUND_COLOR);
+        objectPanel.setPreferredSize(new Dimension(this.getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT));
+        objectPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        // When the object component is selected, select that object
+        objectPanel.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mousePressed(MouseEvent event) {
+
+                int index;
+                Component[] objectPanels;
+                JPanel currentObjectJPanel;
+
+                if (event.getButton() == MouseEvent.BUTTON1) {
+
+                    index = ObjectsPanel.findComponentIndex(objectPanel);
+                    objectPanels = objectPanel.getParent().getComponents();
+
+                    // Unselecting other objectPanels
+                    for (Component component : objectPanels) {
+
+                        // There shouldn't be any other components that aren't JPanels within 
+                        // the objectArea, but this is just in case
+                        if (component instanceof JPanel) {
+
+                            // Deselecting object panel
+                            currentObjectJPanel = (JPanel) component;
+
+                            currentObjectJPanel.setBorder(ObjectsPanel.UNSELECTED_OBJECT_BORDER);
+                            currentObjectJPanel.setPreferredSize(new Dimension((int) objectPanel.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT));
+                            
+                            if (currentObjectJPanel.getComponentCount() > 2) {
+                                currentObjectJPanel.remove(2);
+                            }
+                        }
+                    }
+
+                    // Selecting the JPanel
+                    objectPanel.setBorder(ObjectsPanel.SELECTED_OBJECT_BORDER);
+                    objectPanel.setPreferredSize(new Dimension((int) objectPanel.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT + 2));
+
+                    // Creating a delete button
+                    ObjectsPanel.createDeleteButton(objectPanel, objectsArea, environment, mainWindow);
+
+                    // Loading the properties for that object
+                    mainWindow.loadProperties(environment.getEntities().get(index)); 
+                }
+            }
+        });
+
+        // When a object-type drop-down menu registers an item state change, change its corresponding icon and update the environment's entities accordingly
         objectTypeSelector.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent event) {
 
+                RectangularPrism defaultRectangularPrism = ObjectsPanel.DEFAULT_RECTANGULAR_PRISM;
+                Sphere defaultSphere = ObjectsPanel.DEFAULT_SPHERE;
+                TriangularPrism defaultTriangularPrism = ObjectsPanel.DEFAULT_TRIANGULAR_PRISM;
+
                 IconPanel iconPanel;
+                int index = 0;
 
                 // This is necessary to prevent a double-register of the event (one event is fired for deselected and for selected)
                 if (event.getStateChange() == ItemEvent.SELECTED) {
 
-                    iconPanel = (IconPanel) ((JComponent) event.getSource()).getParent().getComponent(0);
+                    index = ObjectsPanel.findComponentIndex(objectPanel);
+
+                    // If a render is currently undergoing, do not modify the environment's objects
+                    if (mainWindow.isRendering()) {
+                        objectTypeSelector.setSelectedItem(environment.getEntities().get(index).getEntityType().getName());
+                        return;
+                    }
+
+                    iconPanel = (IconPanel) objectPanel.getComponent(0);
                     
                     if (event.getItem().equals(EntityType.RECTANGULAR_PRISM.getName())) {
 
                         iconPanel.changeEntityType(EntityType.RECTANGULAR_PRISM);
 
+                        // Creating a new rectangular prism to replace the old entity
+                        environment.getEntities().set(index, new RectangularPrism(defaultRectangularPrism.getPosition(), defaultRectangularPrism.getColor(), defaultRectangularPrism.getFuzziness(), defaultRectangularPrism.getReflectiontype(), defaultRectangularPrism.getWidth(), defaultRectangularPrism.getDepth(), defaultRectangularPrism.getHeight()));
+
                     } else if (event.getItem().equals(EntityType.TRIANGULAR_PRISM.getName())) {
 
                         iconPanel.changeEntityType(EntityType.TRIANGULAR_PRISM);
 
+                        // Creating a new triangular prism to replace the old entity
+                        environment.getEntities().set(index, new TriangularPrism(defaultTriangularPrism.getPosition(), defaultTriangularPrism.getColor(), defaultTriangularPrism.getFuzziness(), defaultTriangularPrism.getReflectiontype(), defaultTriangularPrism.getWidth(), defaultTriangularPrism.getDepth(), defaultTriangularPrism.getHeight()));
+
                     } else if (event.getItem().equals(EntityType.SPHERE.getName())) {
 
                         iconPanel.changeEntityType(EntityType.SPHERE);
+
+                        // Creating a new sphere to replace the old entity
+                        environment.getEntities().set(index, new Sphere(defaultSphere.getPosition(), defaultSphere.getColor(), defaultSphere.getFuzziness(), defaultSphere.getReflectiontype(), defaultSphere.getRadius()));
                     }
-                }
-            }
-        });
 
-        objectContainer.setBorder(ObjectsPanel.UNSELECTED_OBJECT_BORDER);
-        objectContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-        objectContainer.setBackground(MainWindow.BACKGROUND_COLOR);
-        objectContainer.setPreferredSize(new Dimension(this.getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT));
-        objectContainer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        // When the object container is selected, select that object
-        objectContainer.addMouseListener(new MouseAdapter() {
-            
-            @Override
-            public void mousePressed(MouseEvent event) {
-
-                JPanel objectContainer = (JPanel) event.getSource();
-                Component[] objectContainers = objectContainer.getParent().getComponents();
-
-                objectContainer.setBorder(ObjectsPanel.SELECTED_OBJECT_BORDER);
-                objectContainer.setPreferredSize(new Dimension((int) objectContainer.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT + 2));
-
-                // Unselecting other objectContainers
-                for (Component component : objectContainers) {
-
-                    // There shouldn't be any other components that aren't JPanels within 
-                    // the objectArea, but this is just in case
-                    if (component instanceof JPanel) {
-
-                        // Comparing references to make sure the selected objectContainer isn't unselected
-                        if (component != objectContainer) {
-
-                            ((JPanel) component).setBorder(ObjectsPanel.UNSELECTED_OBJECT_BORDER);
-                            ((JPanel) component).setPreferredSize(new Dimension((int) objectContainer.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT));
-                        }
+                    // If the current object is currently selected, update the properties panels to reflect the new object
+                    if (objectPanel.getBorder() == ObjectsPanel.SELECTED_OBJECT_BORDER) {
+                        mainWindow.loadProperties(environment.getEntities().get(index));
                     }
                 }
             }
@@ -155,9 +223,19 @@ public class ObjectsPanel extends JPanel implements MouseListener {
 
         objectIcon.setPreferredSize(ObjectsPanel.OBJECT_ICON_DIMENSIONS);
 
-        objectContainer.add(objectIcon);
-        objectContainer.add(objectTypeSelector);
-        this.objectsArea.add(objectContainer);
+        objectPanel.add(objectIcon);
+        objectPanel.add(objectTypeSelector);
+        this.objectsArea.add(objectPanel);
+
+        // If this is the first object added to the environment, select it
+        if (environment.getEntities().size() == 1) {
+
+            objectPanel.setBorder(ObjectsPanel.SELECTED_OBJECT_BORDER);
+            objectPanel.setPreferredSize(new Dimension((int) objectPanel.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT + 2));
+            ObjectsPanel.createDeleteButton(objectPanel, this.objectsArea, this.environment, this.mainWindow);
+
+            mainWindow.loadProperties(newSphere);
+        }
 
         this.revalidate();
         this.repaint();
@@ -179,6 +257,65 @@ public class ObjectsPanel extends JPanel implements MouseListener {
     // Adding a new object when the addObject button is clicked
     @Override
     public void mouseClicked(MouseEvent event) {
-        this.addObject();
+        
+        // If the correct button is pressed, a render is not underway, and there aren't too many entities currently in the environment
+        if (event.getButton() == MouseEvent.BUTTON1 && !this.mainWindow.isRendering() && this.environment.getEntities().size() < ObjectsPanel.ENTITY_CAP) {
+            this.addObject();
+        }
+    }
+
+    // Finds the index of a component within its parent container by comparing references
+    // This method should never return one, since a component should always be able to be found within its parent container
+    private static int findComponentIndex(JComponent component) {
+
+        for (int i = 0; i < component.getParent().getComponentCount(); i++) {
+
+            // If a component's reference matches the target component
+            if (component == component.getParent().getComponent(i)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    // Creates a delete button for an object component
+    // and handles all its relevant behavior
+    private static void createDeleteButton(JPanel objectPanel, JPanel objectsArea, Environment environment, MainWindow mainWindow) {
+
+        RoundedButton removeButton = new RoundedButton(15, "Remove", new Color(200, 100, 100), new Color(220, 120, 120), false);
+
+        removeButton.setFont(FontLoader.loadFont("montserrat_medium", 13));
+        removeButton.setForeground(Color.WHITE);
+        removeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        removeButton.setBorder(new EmptyBorder(2, 10, 2, 10));
+
+        removeButton.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mousePressed(MouseEvent event) {
+
+                int index;
+
+                if (event.getButton() == MouseEvent.BUTTON1 && !mainWindow.isRendering()) {
+
+                    // Removing the entity
+                    index = ObjectsPanel.findComponentIndex((JComponent) removeButton.getParent());
+
+                    environment.removeEntity(index);
+
+                    // Removing the panel
+                    objectPanel.getParent().remove(objectPanel);
+
+                    objectsArea.revalidate();
+                    objectsArea.repaint();
+
+                    // Resetting properties panels
+                    mainWindow.removeProperties();
+                }
+            }
+        });
+
+        objectPanel.add(removeButton);
     }
 }
