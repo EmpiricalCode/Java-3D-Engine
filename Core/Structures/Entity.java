@@ -26,7 +26,7 @@ public abstract class Entity {
     private double height;
 
     // Main constructor
-    public Entity(Vector3D position, ColorRGB color, ReflectionType reflectionType, double fuzziness, EntityType entityType, double width, double depth, double height) {
+    public Entity(EntityType entityType, Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
 
         this.position = position;
         this.fuzziness = fuzziness;

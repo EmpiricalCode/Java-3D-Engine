@@ -41,6 +41,11 @@ public class RoundedButton extends JButton implements MouseListener {
         this.setFocusPainted(false);
     }
 
+    // Returns if the mouse is in the button
+    public boolean mouseIn() {
+        return this.mouseIn;
+    }
+
     @Override   
     public void paintComponent(Graphics g) {
 

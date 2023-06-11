@@ -16,17 +16,18 @@ import javax.swing.*;
 import Core.Entities.Sphere;
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
-import Interface.Structures.ObjectPropertyPanel;
+import Interface.Structures.PropertyPanel;
 import Interface.Utility.PropertyElementLoader;
-import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
+import Interface.Utility.EntityPropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
-public class PropertiesPanel extends ObjectPropertyPanel {
+public class PropertiesPanel extends PropertyPanel {
 
     public static final int BASE_HEIGHT = 110;
 
     private MainWindow mainWindow;
-    
+    private Entity entity;
+
     // Creates a new property panel
     public PropertiesPanel(MainWindow mainWindow, int width) {
         super("Properties", width, PropertiesPanel.BASE_HEIGHT, PropertiesPanel.BASE_HEIGHT);
@@ -34,14 +35,19 @@ public class PropertiesPanel extends ObjectPropertyPanel {
         this.mainWindow = mainWindow;
     }
 
-    // Loads the properties for an entity
-    public void loadProperties(Entity entity) {
+    // Selects an entity
+    public void loadEntity(Entity entity) {
+        this.entity = entity;
+    }
 
-        PropertyType[] properties = entity.getProperties();
+    // Loads the properties for an entity
+    public void loadProperties() {
+
+        PropertyType[] properties = this.entity.getProperties();
         JComponent fieldValueComponent;
         
         // Setting property field name 
-        this.getSubtitle().setText(entity.getEntityType().getName());
+        this.getSubtitle().setText(this.entity.getEntityType().getName());
         this.setPreferredSize(new Dimension(this.getWidth(), PropertiesPanel.BASE_HEIGHT));
 
         // For each property, create a relevant property field
@@ -55,23 +61,23 @@ public class PropertiesPanel extends ObjectPropertyPanel {
             // Setting the initial property values
             if (property == PropertyType.POSITION) {
 
-                ((JTextField) fieldValueComponent).setText(entity.getPosition().getX() + ", " + entity.getPosition().getY() + ", " + entity.getPosition().getZ());
+                ((JTextField) fieldValueComponent).setText(this.entity.getPosition().getX() + ", " + this.entity.getPosition().getY() + ", " + this.entity.getPosition().getZ());
 
             } else if (property == PropertyType.RADIUS) {
 
-                ((JTextField) fieldValueComponent).setText(String.valueOf(((Sphere) entity).getRadius()));
+                ((JTextField) fieldValueComponent).setText(String.valueOf(((Sphere) this.entity).getRadius()));
 
             } else if (property == PropertyType.WIDTH) {
                     
-                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getWidth()));
+                ((JTextField) fieldValueComponent).setText(String.valueOf(this.entity.getWidth()));
 
             } else if (property == PropertyType.DEPTH) {
 
-                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getDepth()));
+                ((JTextField) fieldValueComponent).setText(String.valueOf(this.entity.getDepth()));
 
             } else if (property == PropertyType.HEIGHT) {
 
-                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getHeight()));
+                ((JTextField) fieldValueComponent).setText(String.valueOf(this.entity.getHeight()));
             }
 
             // All current properties rely on a focus listener to be set, so no if statement is required
@@ -79,7 +85,7 @@ public class PropertiesPanel extends ObjectPropertyPanel {
 
             // However, for scalability reasons, a JComponent is still used to store the field value component even though 
             // all properties currently only use JTextLabels
-            fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(mainWindow, entity, property, (JTextField) fieldValueComponent));
+            fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(this.mainWindow, this.entity, property, (JTextField) fieldValueComponent));
         }
 
         this.revalidate();

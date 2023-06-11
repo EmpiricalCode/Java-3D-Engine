@@ -86,8 +86,7 @@ public class Vector3D {
         return Vector3D.subtract(vector, this).getMagnitude();
     }
 
-    // TODO: Remember to remove toString
-    // For debugging reasons
+    // Returns the vector as a string
     public String toString() {
         return Math.round(this.x * 100) / 100.0 + ", " + Math.round(this.y * 100) / 100.0 + ", " + Math.round(this.z * 100) / 100.0;
     }

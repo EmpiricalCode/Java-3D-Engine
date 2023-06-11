@@ -13,7 +13,6 @@ public enum ReflectionType {
     SPECULAR("Specular"),
     DIFFUSE("Diffuse");
 
-    public static final String[] REFLECTION_TYPE_MAMES = {ReflectionType.DIFFUSE.getName(), ReflectionType.SPECULAR.getName()};
     private String name;
 
     ReflectionType(String name) {

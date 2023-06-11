@@ -12,12 +12,14 @@ package Interface.Windows;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Core.Environment;
 import Core.Structures.Entity;
+import Core.Utility.Camera;
 import Interface.CustomComponents.MaterialsPanel;
 import Interface.CustomComponents.ObjectsPanel;
 import Interface.CustomComponents.PropertiesPanel;
@@ -65,7 +67,7 @@ public class MainWindow extends Window {
 
         this.environment = new Environment(null);
         this.objectsPanel = new ObjectsPanel(this, MainWindow.FIRST_SECTION_WIDTH, MainWindow.HEIGHT, environment);
-        this.renderSettingsPanel = new RenderSettingsPanel(MainWindow.THIRD_SECTION_WIDTH, MainWindow.HEIGHT);
+        this.renderSettingsPanel = new RenderSettingsPanel(this, MainWindow.THIRD_SECTION_WIDTH, MainWindow.HEIGHT);
 
         this.objectInfoContainer = new JPanel(new FlowLayout(0, 0, 0));
         this.objectInfoContainer.setBackground(MainWindow.BACKGROUND_COLOR);
@@ -90,6 +92,8 @@ public class MainWindow extends Window {
         this.setResizable(false);
         this.setVisible(true);
 
+        this.renderSettingsPanel.loadProperties();
+
         // Creating environment and render window
         // environment = new Environment(new Camera(new Vector3D(-5, -20, 10), new Vector3D(15, 15, 0)));
 
@@ -107,9 +111,15 @@ public class MainWindow extends Window {
 
     // Starts the render
     public void startRender() {
-        this.renderWindow = new RenderWindow(this.environment, 8, true, true, 100, 10);
+
+        // Closing the old render window
+        if (this.renderWindow != null) {
+            this.renderWindow.dispatchEvent(new WindowEvent(renderWindow, WindowEvent.WINDOW_CLOSING));
+        }
+
+        this.environment.setCamera(new Camera(this.renderSettingsPanel.getCameraPosition(), this.renderSettingsPanel.getCameraLookAt()));
+        this.renderWindow = new RenderWindow(this.environment, this.renderSettingsPanel.getQuality(), this.renderSettingsPanel.getAntiAliasing(), this.renderSettingsPanel.getGamma(), this.renderSettingsPanel.getPixelSamples(), this.renderSettingsPanel.getRayDepth());
         this.renderWindow.getRenderPanel().render();
-        this.renderWindow = null;
     }
 
     // Checks if a render is still ongoing 
@@ -126,8 +136,11 @@ public class MainWindow extends Window {
     public void loadProperties(Entity entity) {
         this.removeProperties();
 
-        this.propertiesPanel.loadProperties(entity);
-        this.materialsPanel.loadProperties(entity);
+        this.propertiesPanel.loadEntity(entity);
+        this.materialsPanel.loadEntity(entity);
+
+        this.propertiesPanel.loadProperties();
+        this.materialsPanel.loadProperties();
     }
 
     // Removes material and regular properties

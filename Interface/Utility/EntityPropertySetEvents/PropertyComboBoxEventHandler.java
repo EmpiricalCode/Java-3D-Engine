@@ -3,11 +3,11 @@
 // Filename: PropertyComboBoxEventHandler.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles the setting of properties that are related to drop-down menus (JComboBoxes).
+// Description: A class that handles the setting of entity properties that are related to drop-down menus (JComboBoxes).
 //
 ///////////////////////
 
-package Interface.Utility.PropertySetEvents;
+package Interface.Utility.EntityPropertySetEvents;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -45,17 +45,14 @@ public class PropertyComboBoxEventHandler implements ItemListener {
             return;
         }
 
-        if (this.propertyType == PropertyType.REFLECTION_TYPE) {
+        if (event.getItem().equals(ReflectionType.DIFFUSE.getName())) {
 
-            if (event.getItem().equals(ReflectionType.DIFFUSE.getName())) {
+            entity.setReflectiontype(ReflectionType.DIFFUSE);
 
-                entity.setReflectiontype(ReflectionType.DIFFUSE);
-
-            // In case more reflection types are added in the future, else if was used instead of else
-            } else if (event.getItem().equals(ReflectionType.SPECULAR.getName())) {
-                
-                entity.setReflectiontype(ReflectionType.SPECULAR);
-            }
+        // In case more reflection types are added in the future, else if was used instead of else
+        } else if (event.getItem().equals(ReflectionType.SPECULAR.getName())) {
+            
+            entity.setReflectiontype(ReflectionType.SPECULAR);
         }
     }
 

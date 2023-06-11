@@ -29,14 +29,13 @@ public class RenderPanel extends JPanel {
 
     private Environment environment;
 
-    // Render settings
     private boolean antiAliasing;
-    private boolean gammaCorrection;
+    private double gammaCorrection;
     private int pixelSamples;
     private int rayDepth;
 
     // Main constructor
-    public RenderPanel(Environment environment, int quality, boolean antiAliasing, boolean gammaCorrection, int pixelSamples, int rayDepth) {
+    public RenderPanel(Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
 
         this.isRendering = false;
         this.environment = environment;
@@ -155,13 +154,11 @@ public class RenderPanel extends JPanel {
 
         // Gamma correcting the colors to achieve a more comfortable brightness
         // Essentially converting colors to between 0-1 and takign their square root to brighten them
-        if (this.gammaCorrection) {
-            for (int i = 0; i < this.dimensions; i++) {
-                for (int j = 0; j < this.dimensions; j++) {
-                    colorMatrix[j][i][0] = (int) (Math.pow((colorMatrix[j][i][0] / 255.0), 0.4) * 255);
-                    colorMatrix[j][i][1] = (int) (Math.pow((colorMatrix[j][i][1] / 255.0), 0.4) * 255);
-                    colorMatrix[j][i][2] = (int) (Math.pow((colorMatrix[j][i][2] / 255.0), 0.4) * 255);
-                }
+        for (int i = 0; i < this.dimensions; i++) {
+            for (int j = 0; j < this.dimensions; j++) {
+                colorMatrix[j][i][0] = (int) (Math.pow((colorMatrix[j][i][0] / 255.0), 1/gammaCorrection) * 255);
+                colorMatrix[j][i][1] = (int) (Math.pow((colorMatrix[j][i][1] / 255.0), 1/gammaCorrection) * 255);
+                colorMatrix[j][i][2] = (int) (Math.pow((colorMatrix[j][i][2] / 255.0), 1/gammaCorrection) * 255);
             }
         }
             

@@ -20,7 +20,7 @@ public class RenderWindow extends Window {
     private RenderPanel renderPanel;
     
     // Main constructor
-    public RenderWindow(Environment environment, int quality, boolean antiAliasing, boolean gammaCorrection, int pixelSamples, int rayDepth) {
+    public RenderWindow(Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
 
         // Setting up the window
         super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);

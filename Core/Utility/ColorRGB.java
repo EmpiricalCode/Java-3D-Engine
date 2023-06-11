@@ -52,8 +52,7 @@ public class ColorRGB {
         return new ColorRGB((int) (a.getR() * scalar), (int) (a.getG() * scalar), (int) (a.getB() * scalar));
     }
 
-    //TODO: Remember to remove this in final release
-    // For debugging reasons
+    // Returns the color as a string
     public String toString() {
         return this.r + ", " + this.g + ", " + this.b;
     }

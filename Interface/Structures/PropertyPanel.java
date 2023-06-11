@@ -17,10 +17,9 @@ import java.awt.Insets;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import Core.Structures.Entity;
 import Interface.Windows.MainWindow;
 
-public abstract class ObjectPropertyPanel extends JPanel {
+public abstract class PropertyPanel extends JPanel {
 
     private JPanel titleArea;
     private JLabel title;
@@ -28,13 +27,13 @@ public abstract class ObjectPropertyPanel extends JPanel {
     private JPanel propertiesArea;
     
     // Creates a new property panel
-    public ObjectPropertyPanel(String titleText, int width, int height, int titleAreaHeight) {
+    public PropertyPanel(String titleText, int width, int height, int titleAreaHeight) {
         super();
 
         // Initializing panel
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new FlowLayout(0, 0, 0));
-        this.setBorder(new MatteBorder(new Insets(1, 0, 0, 0), MainWindow.BORDER_COLOR));
+        this.setBorder(new MatteBorder(new Insets(1, 1, 0, 0), MainWindow.BORDER_COLOR));
 
         // Creating panel components
         this.titleArea = new JPanel();
@@ -83,6 +82,6 @@ public abstract class ObjectPropertyPanel extends JPanel {
         this.repaint();
     }
 
-    // Loads the properties for an entity
-    public abstract void loadProperties(Entity entity);
+    // Abstract method for loading properties
+    public abstract void loadProperties();
 }

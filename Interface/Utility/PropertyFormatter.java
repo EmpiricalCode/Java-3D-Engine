@@ -57,7 +57,7 @@ public class PropertyFormatter {
 
     // Formats the fuzziness property field text
     public static String formatFuzziness(String fieldText) {
-        if (isNumeric(fieldText)) {
+        if (PropertyFormatter.isNumeric(fieldText)) {
             return String.valueOf(Math.min(1, Math.max(Double.parseDouble(fieldText), 0)));
         }
 
@@ -66,18 +66,57 @@ public class PropertyFormatter {
 
     // Formats the radius property field text
     public static String formatRadius(String fieldText) {
-        if (isNumeric(fieldText) && Double.parseDouble(fieldText) > 0) {
+        if (PropertyFormatter.isNumeric(fieldText) && Double.parseDouble(fieldText) > 0) {
             return String.valueOf(Double.parseDouble(fieldText));
         }
 
         return null;
     }
 
-    // Checks if a string is numeric
-    private static boolean isNumeric(String str) {
+    // Formats the pixel samples property field text
+    public static String formatPixelSamples(String fieldText) {
+        if (PropertyFormatter.isInteger(fieldText)) {
+            return String.valueOf(Math.min(100, Math.max(Integer.parseInt(fieldText), 1)));
+        }
+
+        return null;
+    }
+
+    // Formats the quality property field text
+    public static String formatQuality(String fieldText) {
+        if (PropertyFormatter.isInteger(fieldText)) {
+            return String.valueOf(Math.min(3, Math.max(Integer.parseInt(fieldText), 1)));
+        }
+
+        return null;
+    }
+
+    // Formats the gamma property field text
+    public static String formatGamma(String fieldText) {
+        if (PropertyFormatter.isNumeric(fieldText)) {
+            return String.valueOf(Math.min(4, Math.max(Double.parseDouble(fieldText), 1)));
+        }
+
+        return null;
+    }
+
+    // Checks if a string is an integer
+    private static boolean isInteger(String string) {
 
         try {
-            Double.parseDouble(str);
+            Integer.parseInt(string);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // Checks if a string is numeric
+    private static boolean isNumeric(String string) {
+
+        try {
+            Double.parseDouble(string);
         } catch (Exception e) {
             return false;
         }

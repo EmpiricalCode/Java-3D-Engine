@@ -16,12 +16,17 @@ import java.awt.GridLayout;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Core.Utility.Enum.PropertySetType;
 import Core.Utility.Enum.PropertyType;
 import Core.Utility.Enum.ReflectionType;
 import Interface.Utility.ComboBox.ComboBoxHelper;
 import Interface.Windows.MainWindow;
 
 public class PropertyElementLoader {
+
+    // Drop-down menu options
+    public static final String[] REFLECTION_TYPE_OPTIONS = {ReflectionType.DIFFUSE.getName(), ReflectionType.SPECULAR.getName()};
+    public static final String[] ANTI_ALIASING_OPTIONS = {"True", "False"};
 
     // Creates a list element and returns the field component (textfield, etc)
     public static JComponent loadListElement(JPanel listArea, PropertyType property) {
@@ -45,7 +50,7 @@ public class PropertyElementLoader {
         fieldContainerComponent.add(fieldNameComponent);
 
         // Creating the relevant JComponents based on how the property is to be modified (drop down menu, text field, etc.)
-        if (property == PropertyType.COLOR || property == PropertyType.POSITION || property == PropertyType.FUZZINESS || property == PropertyType.RADIUS || property == PropertyType.WIDTH || property == PropertyType.DEPTH || property == PropertyType.HEIGHT) {
+        if (property.getSetType() == PropertySetType.TEXT_FIELD) {
             
             fieldValueComponent = new JTextField(10);
             fieldValueComponent.setVisible(true);
@@ -56,9 +61,13 @@ public class PropertyElementLoader {
             // Must be cast to JTextField to use setCaretColor
             ((JTextField) fieldValueComponent).setCaretColor(Color.WHITE);
 
-        } else if (property == PropertyType.REFLECTION_TYPE) {
+        } else if (property.getSetType() == PropertySetType.DROP_DOWN_MENU) {
 
-            fieldValueComponent = ComboBoxHelper.createComboBox(ReflectionType.REFLECTION_TYPE_MAMES);
+            if (property == PropertyType.REFLECTION_TYPE) {
+                fieldValueComponent = ComboBoxHelper.createComboBox(PropertyElementLoader.REFLECTION_TYPE_OPTIONS);
+            } else if (property == PropertyType.ANTI_ALIASING) {
+                fieldValueComponent = ComboBoxHelper.createComboBox(PropertyElementLoader.ANTI_ALIASING_OPTIONS);
+            }
         }
 
         fieldContainerComponent.add(fieldValueComponent);

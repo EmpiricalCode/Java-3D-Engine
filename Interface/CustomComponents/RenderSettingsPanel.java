@@ -12,43 +12,292 @@ package Interface.CustomComponents;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Core.Utility.Vector3D;
+import Core.Utility.Enum.PropertyType;
+import Interface.Structures.PropertyPanel;
+import Interface.Utility.PropertyElementLoader;
+import Interface.Utility.PropertyFormatter;
+import Interface.Utility.EntityPropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
-public class RenderSettingsPanel extends JPanel {
+public class RenderSettingsPanel extends PropertyPanel {
 
-    JLabel title;
-    JPanel titleArea;
-    JPanel renderSettingsArea;
+    // Render settings and their default values
+    private int quality = 8;
+    private int pixelSamples = 100;
+    private int rayDepth = 10;
+    private double gammaCorrection = 2;
+    private boolean antiAliasing = true;
+    private Vector3D cameraPosition = new Vector3D(0, 0, 0);
+    private Vector3D cameraLookAt = new Vector3D(5, 0, 0);;
+
+    private MainWindow mainWindow;
     
-    public RenderSettingsPanel(int width, int height) {
-        super();
+    public RenderSettingsPanel(MainWindow mainWindow, int width, int height) {
+        super("Render Settings", width, 800, 90);
 
-        this.setBorder(new MatteBorder(0, 1, 0, 0, MainWindow.BORDER_COLOR));
-        this.setBackground(MainWindow.BACKGROUND_COLOR);
-        this.setPreferredSize(new Dimension(width, height));
-        this.setLayout(new FlowLayout(0, 0, 0));
+        this.mainWindow = mainWindow;
+    }
 
-        this.titleArea = new JPanel();
-        this.titleArea.setPreferredSize(new Dimension(width, 90));
-        this.titleArea.setBackground(MainWindow.BACKGROUND_COLOR);
-        this.titleArea.setBorder(new EmptyBorder(29, 40, 0, 0));
-        this.titleArea.setLayout(new BoxLayout(titleArea, BoxLayout.Y_AXIS));
+    // Loads the render settings properties
+    public void loadProperties() {
 
-        this.title = new JLabel("Render Settings");
-        this.title.setFont(MainWindow.TITLE_FONT);
-        this.title.setForeground(Color.WHITE);
+        // Creating properties
+        JTextField qualityComponent = (JTextField) PropertyElementLoader.loadListElement(this.getPropertiesArea(), PropertyType.QUALITY);
+        JTextField pixelSamplesComponent = (JTextField) PropertyElementLoader.loadListElement(this.getPropertiesArea(), PropertyType.PIXEL_SAMPLES);
+        JTextField rayDepthComponent = (JTextField) PropertyElementLoader.loadListElement(this.getPropertiesArea(), PropertyType.RAY_DEPTH);
+        JTextField gammaComponent = (JTextField) PropertyElementLoader.loadListElement(this.getPropertiesArea(), PropertyType.GAMMA);
+        JTextField cameraPositionComponent = (JTextField) PropertyElementLoader.loadListElement(this.getPropertiesArea(), PropertyType.CAMERA_POSITION);
+        JTextField cameraLookAtComponent = (JTextField) PropertyElementLoader.loadListElement(this.getPropertiesArea(), PropertyType.CAMERA_LOOK_AT);
+        JComboBox<?> antiAliasingComponent = (JComboBox<?>) PropertyElementLoader.loadListElement(this.getPropertiesArea(), PropertyType.ANTI_ALIASING);
 
-        this.renderSettingsArea = new JPanel();
-        this.renderSettingsArea.setPreferredSize(new Dimension(width, MainWindow.HEIGHT));
-        this.renderSettingsArea.setBorder(new MatteBorder(1, 0, 0, 1, MainWindow.BORDER_COLOR));
-        this.renderSettingsArea.setBackground(MainWindow.BACKGROUND_COLOR);
+        // Setting initial values
+        qualityComponent.setText(String.valueOf(this.quality - 6));
+        pixelSamplesComponent.setText(String.valueOf(this.pixelSamples));
+        rayDepthComponent.setText(String.valueOf(this.rayDepth));
+        gammaComponent.setText(String.valueOf(this.gammaCorrection));
+        cameraPositionComponent.setText(this.cameraPosition.toString());
+        cameraLookAtComponent.setText(this.cameraLookAt.toString());
+        
+        if (this.antiAliasing) {
+            antiAliasingComponent.setSelectedIndex(0);
+        } else {
+            antiAliasingComponent.setSelectedIndex(1);
+        }
 
-        this.titleArea.add(this.title);
-        this.add(this.titleArea);
-        this.add(this.renderSettingsArea);
+        // Every focus listener is implemented seperately. Even if they were all grouped under the same focus listener to reduce repeated code, it would
+        // then be very inefficient to figure out which kind of property is being changed (without a custom class handling focusListener, where property type could be passed in)
+
+        // A custom focus listener class was used for entity text field properties (PropertyTextFieldEventHandler) because different entities have varying properties.
+        // However, for render settings, all the properties are immediately known, and so it is simpler to manually set up listeners for them all
+
+        // Listening for property changes and modifying properties accordingly
+        // Listening for quality property change
+        qualityComponent.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                String modifiedFieldText = PropertyFormatter.formatQuality(qualityComponent.getText());
+                PropertyTextFieldEventHandler.setProperty(String.valueOf(quality), modifiedFieldText, qualityComponent, mainWindow.isRendering());
+
+                if (modifiedFieldText != null) {
+                    setQuality(Integer.valueOf(modifiedFieldText) + 6);
+                }
+            }
+        });
+
+        // Listening for pixel samples property change
+        pixelSamplesComponent.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                String modifiedFieldText = PropertyFormatter.formatPixelSamples(pixelSamplesComponent.getText());
+                PropertyTextFieldEventHandler.setProperty(String.valueOf(pixelSamples), modifiedFieldText, pixelSamplesComponent, mainWindow.isRendering());
+
+                if (modifiedFieldText != null) {
+                    setPixelSamples(Integer.valueOf(modifiedFieldText));
+                }
+            }
+        });
+
+        // Listening for ray depth property change
+        rayDepthComponent.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                // Ray depth uses the same property formatting as pixel samples
+                String modifiedFieldText = PropertyFormatter.formatPixelSamples(rayDepthComponent.getText());
+                PropertyTextFieldEventHandler.setProperty(String.valueOf(rayDepth), modifiedFieldText, rayDepthComponent, mainWindow.isRendering());
+
+                if (modifiedFieldText != null) {
+                    setRayDepth(Integer.valueOf(modifiedFieldText));
+                }
+            }
+        });
+
+        // Listening for gamma correction property change
+        gammaComponent.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                String modifiedFieldText = PropertyFormatter.formatGamma(gammaComponent.getText());
+                PropertyTextFieldEventHandler.setProperty(String.valueOf(gammaCorrection), modifiedFieldText, gammaComponent, mainWindow.isRendering());
+
+                if (modifiedFieldText != null) {
+                    setGamma(Double.valueOf(modifiedFieldText));
+                }
+            }
+        });
+
+        // Listening for camera position property change
+        cameraPositionComponent.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                String modifiedFieldText = PropertyFormatter.formatPosition(cameraPositionComponent.getText());
+                String[] triple;
+                Vector3D newPos;
+
+                if (modifiedFieldText != null) {
+
+                    triple = modifiedFieldText.split(", ");
+                    newPos = new Vector3D(Double.valueOf(triple[0]), Double.valueOf(triple[1]), Double.valueOf(triple[2]));
+
+                    // Reset camera position if it equals to the camera look at position, otherwise set the new camera position
+                    if (newPos.toString().equals(cameraLookAt.toString())) {
+                        modifiedFieldText = null;
+                    } else {
+                        setCameraPosition(newPos);
+                    }
+
+                    PropertyTextFieldEventHandler.setProperty(cameraPosition.toString(), modifiedFieldText, cameraPositionComponent, mainWindow.isRendering());
+                }
+            }
+        });
+
+        // Listening for camera look at position property change
+        cameraLookAtComponent.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                
+                String modifiedFieldText = PropertyFormatter.formatPosition(cameraLookAtComponent.getText());
+                String[] triple;
+                Vector3D newPos;
+
+                if (modifiedFieldText != null) {
+
+                    triple = modifiedFieldText.split(", ");
+                    newPos = new Vector3D(Double.valueOf(triple[0]), Double.valueOf(triple[1]), Double.valueOf(triple[2]));
+
+                    // Reset camera look at position if it equals to the camera position, otherwise set the new camera look at position
+                    if (newPos.toString().equals(cameraPosition.toString())) {
+                        modifiedFieldText = null;
+                    } else {
+                        setCameraLookAt(newPos);
+                    }
+
+                    PropertyTextFieldEventHandler.setProperty(cameraLookAt.toString(), modifiedFieldText, cameraLookAtComponent, mainWindow.isRendering());
+                }
+            }
+        });
+
+        // Listening for anti-aliasing property change
+        antiAliasingComponent.addItemListener(new ItemListener() {
+            
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+
+                    // Preventing the combobox and property from changing if a render is underway
+                    if (mainWindow.isRendering()) {
+                        if (antiAliasing) {
+                            antiAliasingComponent.setSelectedIndex(0);
+                        } else {
+                            antiAliasingComponent.setSelectedIndex(1);
+                        }
+                        
+                        return;
+                    }
+
+                    // Setting antialiasing
+                    if (antiAliasingComponent.getSelectedIndex() == 0) {
+                        setAntiAliasing(true);
+                    } else {
+                        setAntiAliasing(false);
+
+                        mainWindow.startRender();
+                    }
+                }
+            }
+        });
+
+        this.revalidate();
+        this.repaint();
+    }
+
+    // Gets the quality
+    public int getQuality() {
+        return this.quality;
+    }
+
+    // Gets the pixel samples
+    public int getPixelSamples() {
+        return this.pixelSamples;
+    }
+
+    // Gets the ray depth
+    public int getRayDepth() {
+        return this.rayDepth;
+    }
+
+    // Gets the gamma correction
+    public double getGamma() {
+        return this.gammaCorrection;
+    }
+
+    // Gets the anti aliasing boolean
+    public boolean getAntiAliasing() {
+        return this.antiAliasing;
+    }
+
+    // Gets the camera position
+    public Vector3D getCameraPosition() {
+        return this.cameraPosition;
+    }
+
+    // Gets the camera look at vector
+    public Vector3D getCameraLookAt() {
+        return this.cameraLookAt;
+    }
+
+    // Sets the quality
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    // Sets the pixel samples
+    public void setPixelSamples(int samples) {
+        this.pixelSamples = samples;
+    }
+
+    // Sets the ray depth
+    public void setRayDepth(int depth) {
+        this.rayDepth = depth;
+    }
+
+    // Sets the gamma correction
+    public void setGamma(double gamma) {
+        this.gammaCorrection = gamma;
+    }
+
+    // Sets the anti aliasing boolean
+    public void setAntiAliasing(boolean antiAliasing) {
+        this.antiAliasing = antiAliasing;
+    }
+
+    // Sets the camera position
+    public void setCameraPosition(Vector3D position) {
+        this.cameraPosition = position;
+    }
+
+    // Sets the camera look at vector
+    public void setCameraLookAt(Vector3D position) {
+        this.cameraLookAt = position;
     }
 }

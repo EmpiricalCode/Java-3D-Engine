@@ -10,50 +10,65 @@
 package Core.Entities;
 
 import Core.Entities.SubEntities.Triangle;
-import Core.Structures.Entity;
+import Core.Structures.MeshEntity;
 import Core.Utility.*;
 import Core.Utility.Enum.EntityType;
 import Core.Utility.Enum.PropertyType;
 import Core.Utility.Enum.ReflectionType;
 
-public class RectangularPrism extends Entity {
+public class RectangularPrism extends MeshEntity {
     
     public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.WIDTH, PropertyType.DEPTH, PropertyType.HEIGHT};
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
 
-    private Vector3D[] points;
-    private Triangle[] mesh;
-
     // TODO: Make all constructor comments more detailed
     // Main constructor
     public RectangularPrism(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
+        super(EntityType.RECTANGULAR_PRISM, position, color, fuzziness, reflectionType, width, depth, height);
+    }
 
-        super(position, color, reflectionType, fuzziness, EntityType.RECTANGULAR_PRISM, width, depth, height);
+    // Sets up mesh
+    public void setupMesh() {
 
-        this.points = new Vector3D[8];
-        this.points[0] = new Vector3D(position.getX() - width / 2, position.getY() - depth / 2, position.getZ() - height / 2);
-        this.points[1] = new Vector3D(position.getX() + width / 2, position.getY() - depth / 2, position.getZ() - height / 2);
-        this.points[2] = new Vector3D(position.getX() - width / 2, position.getY() + depth / 2, position.getZ() - height / 2);
-        this.points[3] = new Vector3D(position.getX() + width / 2, position.getY() + depth / 2, position.getZ() - height / 2);
-        this.points[4] = new Vector3D(position.getX() - width / 2, position.getY() - depth / 2, position.getZ() + height / 2);
-        this.points[5] = new Vector3D(position.getX() + width / 2, position.getY() - depth / 2, position.getZ() + height / 2);
-        this.points[6] = new Vector3D(position.getX() - width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
-        this.points[7] = new Vector3D(position.getX() + width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
+        Vector3D position = this.getPosition();
+
+        double width = this.getWidth();
+        double depth = this.getDepth();
+        double height = this.getHeight();
+
+        ColorRGB color = this.getColor();
+        double fuzziness = this.getFuzziness();
+        ReflectionType reflectionType = this.getReflectiontype();
+        
+        Triangle[] mesh;
+        Vector3D[] points = new Vector3D[8];
+
+        // Setting up points
+        points[0] = new Vector3D(position.getX() - width / 2, position.getY() - depth / 2, position.getZ() - height / 2);
+        points[1] = new Vector3D(position.getX() + width / 2, position.getY() - depth / 2, position.getZ() - height / 2);
+        points[2] = new Vector3D(position.getX() - width / 2, position.getY() + depth / 2, position.getZ() - height / 2);
+        points[3] = new Vector3D(position.getX() + width / 2, position.getY() + depth / 2, position.getZ() - height / 2);
+        points[4] = new Vector3D(position.getX() - width / 2, position.getY() - depth / 2, position.getZ() + height / 2);
+        points[5] = new Vector3D(position.getX() + width / 2, position.getY() - depth / 2, position.getZ() + height / 2);
+        points[6] = new Vector3D(position.getX() - width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
+        points[7] = new Vector3D(position.getX() + width / 2, position.getY() + depth / 2, position.getZ() + height / 2);
 
         // Setting up triangle mesh
-        this.mesh = new Triangle[12];
-        this.mesh[0] = new Triangle(this.points[0], this.points[1], this.points[4], color, fuzziness, reflectionType);
-        this.mesh[1] = new Triangle(this.points[4], this.points[1], this.points[5], color, fuzziness, reflectionType);
-        this.mesh[2] = new Triangle(this.points[1], this.points[5], this.points[7], color, fuzziness, reflectionType);
-        this.mesh[3] = new Triangle(this.points[3], this.points[1], points[7], color, fuzziness, reflectionType);
-        this.mesh[4] = new Triangle(this.points[3], this.points[6], points[7], color, fuzziness, reflectionType);
-        this.mesh[5] = new Triangle(this.points[3], this.points[2], points[6], color, fuzziness, reflectionType);
-        this.mesh[6] = new Triangle(this.points[2], this.points[0], points[6], color, fuzziness, reflectionType);
-        this.mesh[7] = new Triangle(this.points[0], this.points[4], points[6], color, fuzziness, reflectionType);
-        this.mesh[8] = new Triangle(this.points[0], this.points[1], points[2], color, fuzziness, reflectionType);
-        this.mesh[9] = new Triangle(this.points[2], this.points[1], points[3], color, fuzziness, reflectionType);
-        this.mesh[10] = new Triangle(this.points[5], this.points[6], points[4], color, fuzziness, reflectionType);
-        this.mesh[11] = new Triangle(this.points[6], this.points[5], points[7], color, fuzziness, reflectionType);
+        mesh = new Triangle[12];
+        mesh[0] = new Triangle(points[0], points[1], points[4], color, fuzziness, reflectionType);
+        mesh[1] = new Triangle(points[4], points[1], points[5], color, fuzziness, reflectionType);
+        mesh[2] = new Triangle(points[1], points[5], points[7], color, fuzziness, reflectionType);
+        mesh[3] = new Triangle(points[3], points[1], points[7], color, fuzziness, reflectionType);
+        mesh[4] = new Triangle(points[3], points[6], points[7], color, fuzziness, reflectionType);
+        mesh[5] = new Triangle(points[3], points[2], points[6], color, fuzziness, reflectionType);
+        mesh[6] = new Triangle(points[2], points[0], points[6], color, fuzziness, reflectionType);
+        mesh[7] = new Triangle(points[0], points[4], points[6], color, fuzziness, reflectionType);
+        mesh[8] = new Triangle(points[0], points[1], points[2], color, fuzziness, reflectionType);
+        mesh[9] = new Triangle(points[2], points[1], points[3], color, fuzziness, reflectionType);
+        mesh[10] = new Triangle(points[5], points[6], points[4], color, fuzziness, reflectionType);
+        mesh[11] = new Triangle(points[6], points[5], points[7], color, fuzziness, reflectionType);
+
+        this.setMesh(mesh);
     }
 
     // Returns the hit of the rectangular prism from a raycast
@@ -64,7 +79,7 @@ public class RectangularPrism extends Entity {
         RayHit hit;
         RayHit nearestHit = null;
 
-        for (Triangle triangle : this.mesh) {
+        for (Triangle triangle : this.getMesh()) {
 
             if (triangle != null) {
                 hit = triangle.getHit(ray);
@@ -94,7 +109,7 @@ public class RectangularPrism extends Entity {
         return RectangularPrism.MATERIAL_PROPERTIES;
     }
 
-    // The getNormal method is really only internally, and since the rectangualr prism itself doesn't handle
+    // The getNormal method is really only internally, and since the rectangular prism itself doesn't handle
     // ray collisions and relies on the triangles it is comprised of, it does not need to return a normal
     protected Vector3D getNormal(Ray ray, Vector3D hitPosition) {
 

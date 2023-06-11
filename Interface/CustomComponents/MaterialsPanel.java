@@ -13,15 +13,16 @@ import javax.swing.*;
 
 import Core.Structures.Entity;
 import Core.Utility.Enum.PropertyType;
-import Interface.Structures.ObjectPropertyPanel;
+import Interface.Structures.PropertyPanel;
 import Interface.Utility.PropertyElementLoader;
-import Interface.Utility.PropertySetEvents.PropertyComboBoxEventHandler;
-import Interface.Utility.PropertySetEvents.PropertyTextFieldEventHandler;
+import Interface.Utility.EntityPropertySetEvents.PropertyComboBoxEventHandler;
+import Interface.Utility.EntityPropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
-public class MaterialsPanel extends ObjectPropertyPanel {
+public class MaterialsPanel extends PropertyPanel {
 
     private MainWindow mainWindow;
+    private Entity entity;
     
     // Creates a new materials panel
     public MaterialsPanel(MainWindow mainWindow, int width) {
@@ -30,14 +31,19 @@ public class MaterialsPanel extends ObjectPropertyPanel {
         this.mainWindow = mainWindow;
     }
 
-    // Loads the material properties for an entity
-    public void loadProperties(Entity entity) {
+    // Selects an entity
+    public void loadEntity(Entity entity) {
+        this.entity = entity;
+    }
 
-        PropertyType[] materialProperties = entity.getMaterialProperties();
+    // Loads the material properties for an entity
+    public void loadProperties() {
+
+        PropertyType[] materialProperties = this.entity.getMaterialProperties();
         JComponent fieldValueComponent;
         
         // Setting material property field name 
-        this.getSubtitle().setText(entity.getEntityType().getName());
+        this.getSubtitle().setText(this.entity.getEntityType().getName());
 
         // For each property, create a relevant property field
         for (PropertyType property : materialProperties) {
@@ -47,9 +53,11 @@ public class MaterialsPanel extends ObjectPropertyPanel {
 
             // Setting initial values
             if (property == PropertyType.COLOR) {
-                ((JTextField) fieldValueComponent).setText(entity.getColor().getR() + ", " + entity.getColor().getG() + ", " + entity.getColor().getB());
+                ((JTextField) fieldValueComponent).setText(this.entity.getColor().getR() + ", " + this.entity.getColor().getG() + ", " + this.entity.getColor().getB());
             } else if (property == PropertyType.FUZZINESS) {
-                ((JTextField) fieldValueComponent).setText(String.valueOf(entity.getFuzziness()));
+                ((JTextField) fieldValueComponent).setText(String.valueOf(this.entity.getFuzziness()));
+            } else if (property == PropertyType.REFLECTION_TYPE) {
+                ((JComboBox<?>) fieldValueComponent).setSelectedItem(this.entity.getReflectiontype().getName());
             }
 
             // One general variable (fieldValueComponent) is used to store the all various JComponents related to setting properties (JComboBox, JTextField),
@@ -59,12 +67,13 @@ public class MaterialsPanel extends ObjectPropertyPanel {
             // Text field properties
             if (property == PropertyType.COLOR || property == PropertyType.FUZZINESS) {
 
-                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(mainWindow, entity, property, (JTextField) fieldValueComponent));
+                fieldValueComponent.addFocusListener(new PropertyTextFieldEventHandler(mainWindow, this.entity, property, (JTextField) fieldValueComponent));
 
             // Drop-down menu properties
             } else if (property == PropertyType.REFLECTION_TYPE) {
 
-                ((JComboBox<?>) fieldValueComponent).addItemListener(new PropertyComboBoxEventHandler(mainWindow, entity, property, (JComboBox<?>) fieldValueComponent));
+                // Must cast to JComboBox to use addItemListener
+                ((JComboBox<?>) fieldValueComponent).addItemListener(new PropertyComboBoxEventHandler(this.mainWindow, this.entity, property, (JComboBox<?>) fieldValueComponent));
             }
         }
 

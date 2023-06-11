@@ -9,7 +9,8 @@
 
 // TODO: Remember to check all header comments
 // TODO: Make sure width depth height is all sorted out properly
-// TOOD: Maybe fix button click issue where it doesnt work when mouse moving
+// TODO: maybe remove protected methods
+
 import Interface.Windows.MainWindow;
 
 public class Main {
