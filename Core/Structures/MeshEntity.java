@@ -2,11 +2,8 @@ package Core.Structures;
 
 import Core.Entities.SubEntities.Triangle;
 import Core.Utility.ColorRGB;
-import Core.Utility.Ray;
-import Core.Utility.RayHit;
 import Core.Utility.Vector3D;
 import Core.Utility.Enum.EntityType;
-import Core.Utility.Enum.PropertyType;
 import Core.Utility.Enum.ReflectionType;
 
 public abstract class MeshEntity extends Entity {

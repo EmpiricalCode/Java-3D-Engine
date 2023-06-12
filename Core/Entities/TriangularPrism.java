@@ -10,7 +10,6 @@
 package Core.Entities;
 
 import Core.Entities.SubEntities.Triangle;
-import Core.Structures.Entity;
 import Core.Structures.MeshEntity;
 import Core.Utility.*;
 import Core.Utility.Enum.EntityType;

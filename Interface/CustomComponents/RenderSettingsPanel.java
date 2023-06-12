@@ -15,17 +15,14 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
-import Core.Utility.ColorRGB;
 import Core.Utility.Vector3D;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.PropertyPanel;
