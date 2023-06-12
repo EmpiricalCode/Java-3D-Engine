@@ -3,7 +3,7 @@
 // Filename: IconPanel.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles the icon behavior for each object in the Object Explorer panel (leftmost panel).
+// Description: A class that handles the icon behavior for each element in the Object Explorer panel (leftmost panel).
 //
 ///////////////////////
 

@@ -4,6 +4,7 @@
 // Author: Daniel Long
 // Course: ICS4U1
 // Description: A class that handles the creation of the main window and all of its relevant components.
+//              This class acts as the "hub" of interact for the application, bringing together many classes to make the program work.
 //
 ///////////////////////
 

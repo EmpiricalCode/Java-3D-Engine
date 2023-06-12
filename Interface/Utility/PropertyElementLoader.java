@@ -1,9 +1,9 @@
 ///////////////////////
 //
-// Filename: ListElementLoader.java
+// Filename: PropertyElementLoader.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: This loads properties for classes such as the MaterialsPanel, PropertiesPanel, etc, that rely on a table layout to set properties.
+// Description: This class loads properties for panels such as the MaterialsPanel, PropertiesPanel, etc, that rely on a table layout to set properties.
 //
 ///////////////////////
 

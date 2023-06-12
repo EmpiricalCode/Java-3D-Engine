@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: MeshEntity.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A superclass that groups together various entities that rely on meshes to be rendered.
+//
+///////////////////////
+
 package Core.Structures;
 
 import Core.Entities.SubEntities.Triangle;

@@ -3,7 +3,7 @@
 // Filename: RectangularPrism.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: Handles behaviors and properties for the rectangular prism entity, subclass to the Entity class.
+// Description: Handles behaviors and properties for the rectangular prism entity, subclass to the MeshEntity class.
 //
 ///////////////////////
 

@@ -3,7 +3,7 @@
 // Filename: TriangularPrism.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: Handles behaviors and properties for the triangular prism entity, subclass to the Entity class.
+// Description: Handles behaviors and properties for the triangular prism entity, subclass to the MeshEntity class.
 //
 ///////////////////////
 

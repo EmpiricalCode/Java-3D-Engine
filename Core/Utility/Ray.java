@@ -3,7 +3,7 @@
 // Filename: Ray.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles the properties of rays shot in an environment (for calculation use).
+// Description: A class that handles the various properties and behaviors of rays shot into an environment (for calculation use).
 //
 ///////////////////////
 
