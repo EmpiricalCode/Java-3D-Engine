@@ -17,8 +17,9 @@ import javax.swing.*;
 
 import Core.Environment;
 import Core.Utility.*;
+import Interface.Windows.MainWindow;
 
-public class RenderPanel extends JPanel {
+public class RenderPanel extends JPanel implements Runnable {
 
     private boolean isRendering;
     private int pixelSize;
@@ -27,6 +28,7 @@ public class RenderPanel extends JPanel {
     private int[][][] colorMatrix;
     private int[][][] renderMatrix;
 
+    private MainWindow mainWindow;
     private Environment environment;
 
     private boolean antiAliasing;
@@ -35,9 +37,10 @@ public class RenderPanel extends JPanel {
     private int rayDepth;
 
     // Main constructor
-    public RenderPanel(Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
+    public RenderPanel(MainWindow mainWindow, Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
 
         this.isRendering = false;
+        this.mainWindow = mainWindow;
         this.environment = environment;
         this.antiAliasing = antiAliasing;
         this.gammaCorrection = gammaCorrection;
@@ -61,6 +64,14 @@ public class RenderPanel extends JPanel {
         return this.isRendering;
     }
 
+    // Stops the render
+    public void stopRendering() {
+        this.isRendering = false;
+
+        // This is to let the render settings panel know to hide the render progress label
+        this.mainWindow.updateRenderProgress(0);
+    }
+
     // Renders the environment 
     // Fills the colorMatrix variable and calls repaint() to display it 
     // There exists a virtual "screen" corresponding to the environment's camera.
@@ -69,7 +80,8 @@ public class RenderPanel extends JPanel {
 
     // Virtual screen is 10 units x 10 units, and the origin of the camera (where the rays are shot out from)
     // is 10 units away from the virtual screen.
-    public void render() { 
+    @Override
+    public void run() { 
 
         int renderDimensions = this.dimensions;
 
@@ -106,6 +118,11 @@ public class RenderPanel extends JPanel {
         for (int i = 0; i < renderDimensions; i++) {
             for (int j = 0; j < renderDimensions; j++) {
 
+                // Returning if rendering has stopped
+                if (!this.isRendering) {
+                    return;
+                }
+
                 currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * Camera.CAMERA_SCREEN_HORIZONTAL_SIZE/(renderDimensions)));
                 currentVector.add(Vector3D.multiply(camVectorUp, -i * Camera.CAMERA_SCREEN_VERTICAL_SIZE/(renderDimensions)));
 
@@ -121,13 +138,14 @@ public class RenderPanel extends JPanel {
                 }
 
                 finalColor = ColorRGB.multiply(finalColor, 1 / (double) this.pixelSamples);
-                 
+                
                 // Store calculated color for the current pixel
                 renderMatrix[j][i][0] = finalColor.getR();
                 renderMatrix[j][i][1] = finalColor.getG();
                 renderMatrix[j][i][2] = finalColor.getB();
             }
 
+            mainWindow.updateRenderProgress(Math.round(10000 * (i + 1) /  ((double) renderDimensions)) / 100.0);
             // System.out.println(Math.round(10000 * (i + 1) /  ((double) renderDimensions)) / 100.0 + " %");
         }
 
@@ -138,6 +156,12 @@ public class RenderPanel extends JPanel {
         // Anti-aliasing is different from the 100 ray samples already taken for each pixel, because the 100 sample rays are shot in the exact same direction
         for (int i = 0; i < renderDimensions; i++) {
             for (int j = 0; j < renderDimensions; j++) {
+
+                // Returning if rendering has stopped
+                if (!this.isRendering) {
+                    return;
+                }
+
                 if (this.antiAliasing) {
                     if (j % 2 == 1 && i % 2 == 1) {
                         colorMatrix[j/2][i/2][0] = (renderMatrix[j][i][0] + renderMatrix[j][i-1][0] + renderMatrix[j-1][i][0] + renderMatrix[j-1][i-1][0]) / 4;
@@ -156,6 +180,12 @@ public class RenderPanel extends JPanel {
         // Essentially converting colors to between 0-1 and takign their square root to brighten them
         for (int i = 0; i < this.dimensions; i++) {
             for (int j = 0; j < this.dimensions; j++) {
+
+                // Returning if rendering has stopped
+                if (!this.isRendering) {
+                    return;
+                }
+
                 colorMatrix[j][i][0] = (int) (Math.pow((colorMatrix[j][i][0] / 255.0), 1/gammaCorrection) * 255);
                 colorMatrix[j][i][1] = (int) (Math.pow((colorMatrix[j][i][1] / 255.0), 1/gammaCorrection) * 255);
                 colorMatrix[j][i][2] = (int) (Math.pow((colorMatrix[j][i][2] / 255.0), 1/gammaCorrection) * 255);

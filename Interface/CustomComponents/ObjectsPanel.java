@@ -82,7 +82,6 @@ public class ObjectsPanel extends JPanel {
         this.addObjectButton = new RoundedButton(15, "+ Add Object", new Color(200, 200, 200), new Color(255, 255, 255), true);
         this.addObjectButton.setFont(FontLoader.loadFont("montserrat_medium", 17));
         this.addObjectButton.setBorder(new EmptyBorder(8, 10, 8, 10));
-        this.addObjectButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Creating a new object if the add object button is pressed
         this.addObjectButton.addMouseListener(new MouseAdapter() {
@@ -280,7 +279,6 @@ public class ObjectsPanel extends JPanel {
 
         removeButton.setFont(FontLoader.loadFont("montserrat_medium", 13));
         removeButton.setForeground(Color.WHITE);
-        removeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         removeButton.setBorder(new EmptyBorder(2, 10, 2, 10));
 
         removeButton.addMouseListener(new MouseAdapter() {

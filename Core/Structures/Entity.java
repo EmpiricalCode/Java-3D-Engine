@@ -16,6 +16,8 @@ import Core.Utility.Enum.ReflectionType;
 
 public abstract class Entity {
 
+    public static int MIN_COLOR_VALUE = 40;
+
     private Vector3D position;
     private ColorRGB color;
     private ReflectionType reflectionType;
@@ -40,7 +42,7 @@ public abstract class Entity {
         this.height = height;
 
         // This is necessary because the lighting model has an edge case issue with objects that strictly reflect one channel of color
-        this.color = new ColorRGB(Math.max(color.getR(), 20), Math.max(color.getG(), 20), Math.max(color.getB(), 20));
+        this.color = new ColorRGB(Math.max(color.getR(), Entity.MIN_COLOR_VALUE), Math.max(color.getG(), Entity.MIN_COLOR_VALUE), Math.max(color.getB(), Entity.MIN_COLOR_VALUE));
         this.reflectionType = reflectionType;
     }
 
@@ -106,7 +108,9 @@ public abstract class Entity {
     
     // Sets the color of the object
     public void setColor(ColorRGB color) {
-        this.color = color;
+
+        // This is necessary because the lighting model has an edge case issue with objects that strictly reflect one channel of color
+        this.color = new ColorRGB(Math.max(color.getR(), Entity.MIN_COLOR_VALUE), Math.max(color.getG(), Entity.MIN_COLOR_VALUE), Math.max(color.getB(), Entity.MIN_COLOR_VALUE));;
     }
 
     // Sets the fuzziness of the object

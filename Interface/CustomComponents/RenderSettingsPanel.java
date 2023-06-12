@@ -12,24 +12,32 @@ package Interface.CustomComponents;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Core.Utility.ColorRGB;
 import Core.Utility.Vector3D;
 import Core.Utility.Enum.PropertyType;
 import Interface.Structures.PropertyPanel;
+import Interface.Utility.FontLoader;
 import Interface.Utility.PropertyElementLoader;
 import Interface.Utility.PropertyFormatter;
 import Interface.Utility.EntityPropertySetEvents.PropertyTextFieldEventHandler;
 import Interface.Windows.MainWindow;
 
 public class RenderSettingsPanel extends PropertyPanel {
+
+    public static final Font BUTTON_FONT = FontLoader.loadFont("montserrat_medium", 17);
 
     // Render settings and their default values
     private int quality = 8;
@@ -38,14 +46,105 @@ public class RenderSettingsPanel extends PropertyPanel {
     private double gammaCorrection = 2;
     private boolean antiAliasing = true;
     private Vector3D cameraPosition = new Vector3D(0, 0, 0);
-    private Vector3D cameraLookAt = new Vector3D(5, 0, 0);;
+    private Vector3D cameraLookAt = new Vector3D(0, 5, 0);;
 
     private MainWindow mainWindow;
+
+    private JPanel buttonArea;
+    private RoundedButton previewButton;
+    private RoundedButton renderButton;
+    private RoundedButton cancelRenderButton;
+    private JLabel progressLabel;
     
     public RenderSettingsPanel(MainWindow mainWindow, int width, int height) {
         super("Render Settings", width, 800, 90);
 
         this.mainWindow = mainWindow;
+        this.getPropertiesArea().setPreferredSize(new Dimension(width, 340));
+
+        // Creating the button panel
+        this.buttonArea = new JPanel();
+        this.buttonArea.setPreferredSize(new Dimension(width, 460));
+        this.buttonArea.setBackground(MainWindow.BACKGROUND_COLOR);
+        this.buttonArea.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
+
+        this.previewButton = new RoundedButton(15, "Preview", new Color(170, 160, 50), new Color(200, 190, 90), true);
+        this.previewButton.setBorder(new EmptyBorder(8, 24, 8, 24));
+        this.previewButton.setFont(RenderSettingsPanel.BUTTON_FONT);
+
+        // Starting a preview when the preview button is pressed unless there is an ongoing render
+        this.previewButton.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseReleased(MouseEvent event) {
+
+                if (previewButton.mouseIn() && !mainWindow.isRendering()) {
+                    mainWindow.startPreview();
+                }
+            }
+        });
+
+        this.renderButton = new RoundedButton(15, "Render", new Color(100, 150, 100), new Color(130, 180, 130), false);
+        this.renderButton.setForeground(Color.WHITE);
+        this.renderButton.setBorder(new EmptyBorder(8, 28, 8, 28));
+        this.renderButton.setFont(RenderSettingsPanel.BUTTON_FONT);
+
+        // Starting a render when the render button is pressed unless there is an ongoing render
+        this.renderButton.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseReleased(MouseEvent event) {
+
+                if (renderButton.mouseIn() && !mainWindow.isRendering()) {
+                    mainWindow.startRender();
+                }
+            }
+        });
+
+        this.cancelRenderButton = new RoundedButton(15, "Cancel Render", new Color(200, 100, 100), new Color(230, 130, 130), true);
+        this.cancelRenderButton.setBorder(new EmptyBorder(8, 62, 8, 62));
+        this.cancelRenderButton.setFont(RenderSettingsPanel.BUTTON_FONT);
+
+        // Cancelling a render when the cancel render button is pressed
+        this.cancelRenderButton.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseReleased(MouseEvent event) {
+                
+                if (cancelRenderButton.mouseIn()) {
+                    mainWindow.cancelRender();
+                }
+            }
+        });
+
+        this.progressLabel = new JLabel("");
+        this.progressLabel.setFont(FontLoader.loadFont("montserrat_medium", 15));
+        this.progressLabel.setForeground(Color.GRAY);
+        this.progressLabel.setVisible(false);
+
+        this.add(buttonArea);
+        this.buttonArea.add(this.previewButton);
+        this.buttonArea.add(this.renderButton);
+        this.buttonArea.add(this.cancelRenderButton);
+        this.buttonArea.add(this.progressLabel);
+    }
+
+    // Updates the render progress label
+    public void updateRenderProgress(double percent) {
+
+        if (mainWindow.isRendering()) {
+            
+            // Making the progress label visible
+            if (!this.progressLabel.isVisible()) {
+                this.progressLabel.setVisible(true);
+            }
+
+            // Updating progerss label text
+            this.progressLabel.setText("Render Progress: " + percent + " %");
+
+        } else {
+            this.progressLabel.setVisible(false);
+        }
     }
 
     // Loads the render settings properties
@@ -75,7 +174,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         }
 
         // Every focus listener is implemented seperately. Even if they were all grouped under the same focus listener to reduce repeated code, it would
-        // then be very inefficient to figure out which kind of property is being changed (without a custom class handling focusListener, where property type could be passed in)
+        // then be inefficient to then figure out which kind of property is being changed (without a custom class handling focusListener, where property type could be passed in)
 
         // A custom focus listener class was used for entity text field properties (PropertyTextFieldEventHandler) because different entities have varying properties.
         // However, for render settings, all the properties are immediately known, and so it is simpler to manually set up listeners for them all
@@ -85,12 +184,12 @@ public class RenderSettingsPanel extends PropertyPanel {
         qualityComponent.addFocusListener(new FocusAdapter() {
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent event) {
                 
                 String modifiedFieldText = PropertyFormatter.formatQuality(qualityComponent.getText());
-                PropertyTextFieldEventHandler.setProperty(String.valueOf(quality), modifiedFieldText, qualityComponent, mainWindow.isRendering());
+                PropertyTextFieldEventHandler.setProperty(String.valueOf(quality - 6), modifiedFieldText, qualityComponent, mainWindow.isRendering());
 
-                if (modifiedFieldText != null) {
+                if (modifiedFieldText != null && !mainWindow.isRendering()) {
                     setQuality(Integer.valueOf(modifiedFieldText) + 6);
                 }
             }
@@ -100,12 +199,12 @@ public class RenderSettingsPanel extends PropertyPanel {
         pixelSamplesComponent.addFocusListener(new FocusAdapter() {
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent event) {
                 
                 String modifiedFieldText = PropertyFormatter.formatPixelSamples(pixelSamplesComponent.getText());
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(pixelSamples), modifiedFieldText, pixelSamplesComponent, mainWindow.isRendering());
 
-                if (modifiedFieldText != null) {
+                if (modifiedFieldText != null && !mainWindow.isRendering()) {
                     setPixelSamples(Integer.valueOf(modifiedFieldText));
                 }
             }
@@ -115,13 +214,13 @@ public class RenderSettingsPanel extends PropertyPanel {
         rayDepthComponent.addFocusListener(new FocusAdapter() {
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent event) {
                 
                 // Ray depth uses the same property formatting as pixel samples
                 String modifiedFieldText = PropertyFormatter.formatPixelSamples(rayDepthComponent.getText());
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(rayDepth), modifiedFieldText, rayDepthComponent, mainWindow.isRendering());
 
-                if (modifiedFieldText != null) {
+                if (modifiedFieldText != null && !mainWindow.isRendering()) {
                     setRayDepth(Integer.valueOf(modifiedFieldText));
                 }
             }
@@ -131,12 +230,12 @@ public class RenderSettingsPanel extends PropertyPanel {
         gammaComponent.addFocusListener(new FocusAdapter() {
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent event) {
                 
                 String modifiedFieldText = PropertyFormatter.formatGamma(gammaComponent.getText());
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(gammaCorrection), modifiedFieldText, gammaComponent, mainWindow.isRendering());
 
-                if (modifiedFieldText != null) {
+                if (modifiedFieldText != null && !mainWindow.isRendering()) {
                     setGamma(Double.valueOf(modifiedFieldText));
                 }
             }
@@ -146,7 +245,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         cameraPositionComponent.addFocusListener(new FocusAdapter() {
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent event) {
                 
                 String modifiedFieldText = PropertyFormatter.formatPosition(cameraPositionComponent.getText());
                 String[] triple;
@@ -160,12 +259,12 @@ public class RenderSettingsPanel extends PropertyPanel {
                     // Reset camera position if it equals to the camera look at position, otherwise set the new camera position
                     if (newPos.toString().equals(cameraLookAt.toString())) {
                         modifiedFieldText = null;
-                    } else {
+                    } else if (!mainWindow.isRendering()) {
                         setCameraPosition(newPos);
                     }
-
-                    PropertyTextFieldEventHandler.setProperty(cameraPosition.toString(), modifiedFieldText, cameraPositionComponent, mainWindow.isRendering());
                 }
+
+                PropertyTextFieldEventHandler.setProperty(cameraPosition.toString(), modifiedFieldText, cameraPositionComponent, mainWindow.isRendering());
             }
         });
 
@@ -173,7 +272,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         cameraLookAtComponent.addFocusListener(new FocusAdapter() {
 
             @Override
-            public void focusLost(FocusEvent e) {
+            public void focusLost(FocusEvent event) {
                 
                 String modifiedFieldText = PropertyFormatter.formatPosition(cameraLookAtComponent.getText());
                 String[] triple;
@@ -187,12 +286,12 @@ public class RenderSettingsPanel extends PropertyPanel {
                     // Reset camera look at position if it equals to the camera position, otherwise set the new camera look at position
                     if (newPos.toString().equals(cameraPosition.toString())) {
                         modifiedFieldText = null;
-                    } else {
+                    } else if (!mainWindow.isRendering()) {
                         setCameraLookAt(newPos);
                     }
-
-                    PropertyTextFieldEventHandler.setProperty(cameraLookAt.toString(), modifiedFieldText, cameraLookAtComponent, mainWindow.isRendering());
                 }
+
+                PropertyTextFieldEventHandler.setProperty(cameraLookAt.toString(), modifiedFieldText, cameraLookAtComponent, mainWindow.isRendering());
             }
         });
 
@@ -220,8 +319,6 @@ public class RenderSettingsPanel extends PropertyPanel {
                         setAntiAliasing(true);
                     } else {
                         setAntiAliasing(false);
-
-                        mainWindow.startRender();
                     }
                 }
             }

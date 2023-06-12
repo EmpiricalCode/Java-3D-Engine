@@ -40,6 +40,10 @@ public class MainWindow extends Window {
     public static final int SECOND_SECTION_WIDTH = 450;
     public static final int THIRD_SECTION_WIDTH = 350;
 
+    public static final int PREVIEW_QUALITY = 7;
+    public static final int PREVIEW_PIXEL_SAMPLES = 10;
+    public static final int PREVIEW_RAY_DEPTH = 5;
+
     public static final Font TITLE_FONT = FontLoader.loadFont("montserrat_semibold", 26);
     public static final Font SUBTITLE_FONT = FontLoader.loadFont("montserrat_medium", 16);
     public static final Font PROPERTIES_FONT = FontLoader.loadFont("montserrat_medium", 15);
@@ -93,20 +97,6 @@ public class MainWindow extends Window {
         this.setVisible(true);
 
         this.renderSettingsPanel.loadProperties();
-
-        // Creating environment and render window
-        // environment = new Environment(new Camera(new Vector3D(-5, -20, 10), new Vector3D(15, 15, 0)));
-
-        // environment.addEntity(new TriangularPrism(new Vector3D(15, 15, 0), new ColorRGB(255, 255, 255), 0.2, ReflectionType.SPECULAR, 20, 10, 20));
-        // environment.addEntity(new TriangularPrism(new Vector3D(15, -10, 0), new ColorRGB(255, 100, 255), 0, ReflectionType.SPECULAR, 20, 10, 15));
-        // environment.addEntity(new Sphere(new Vector3D(13, 1, 0), new ColorRGB(255, 255, 255), 0.5, ReflectionType.SPECULAR, 4));
-        // environment.addEntity(new RectangularPrism(new Vector3D(15, 15, -55), new ColorRGB(255, 255, 100), 1, ReflectionType.DIFFUSE, 100, 100, 80));
-        // // environment.addEntity(new Sphere(new Vector3D(10, 0, 0), new ColorRGB(200, 100, 255), 1, ReflectionType.DIFFUSE, 4));
-        // this.environment.setCamera(new Camera(new Vector3D(0, 0, 0), new Vector3D(5, 0, 0)));
-        // this.environment.addEntity(new RectangularPrism(new Vector3D(5, 0, 0), new ColorRGB(25, 25, 255), 0, ReflectionType.DIFFUSE, 3, 3, 3));
-        // this.startRender();
-        
-        // renderWindow.render();
     }
 
     // Starts the render
@@ -118,8 +108,33 @@ public class MainWindow extends Window {
         }
 
         this.environment.setCamera(new Camera(this.renderSettingsPanel.getCameraPosition(), this.renderSettingsPanel.getCameraLookAt()));
-        this.renderWindow = new RenderWindow(this.environment, this.renderSettingsPanel.getQuality(), this.renderSettingsPanel.getAntiAliasing(), this.renderSettingsPanel.getGamma(), this.renderSettingsPanel.getPixelSamples(), this.renderSettingsPanel.getRayDepth());
-        this.renderWindow.getRenderPanel().render();
+        this.renderWindow = new RenderWindow(this, this.environment, this.renderSettingsPanel.getQuality(), this.renderSettingsPanel.getAntiAliasing(), this.renderSettingsPanel.getGamma(), this.renderSettingsPanel.getPixelSamples(), this.renderSettingsPanel.getRayDepth());
+        (new Thread(this.renderWindow.getRenderPanel())).start();
+    }
+
+    // Starts a preview render with some parameters set to a low default
+    public void startPreview() {
+
+        // Closing the old render window
+        if (this.renderWindow != null) {
+            this.renderWindow.dispatchEvent(new WindowEvent(renderWindow, WindowEvent.WINDOW_CLOSING));
+        }
+
+        this.environment.setCamera(new Camera(this.renderSettingsPanel.getCameraPosition(), this.renderSettingsPanel.getCameraLookAt()));
+        this.renderWindow = new RenderWindow(this, this.environment, MainWindow.PREVIEW_QUALITY, false, this.renderSettingsPanel.getGamma(), MainWindow.PREVIEW_PIXEL_SAMPLES, MainWindow.PREVIEW_RAY_DEPTH);
+        (new Thread(this.renderWindow.getRenderPanel())).start();
+    }
+
+    // Cancels a render
+    public void cancelRender() {
+        if (this.renderWindow != null) {
+            this.renderWindow.dispatchEvent(new WindowEvent(renderWindow, WindowEvent.WINDOW_CLOSING));
+        }
+    }
+
+    // Updates the progress for a render
+    public void updateRenderProgress(double percent) {
+        this.renderSettingsPanel.updateRenderProgress(percent);
     }
 
     // Checks if a render is still ongoing 

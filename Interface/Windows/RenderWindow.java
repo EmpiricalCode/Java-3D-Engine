@@ -10,6 +10,8 @@
 package Interface.Windows;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import Core.Environment;
 import Interface.CustomComponents.RenderPanel;
@@ -20,7 +22,7 @@ public class RenderWindow extends Window {
     private RenderPanel renderPanel;
     
     // Main constructor
-    public RenderWindow(Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
+    public RenderWindow(MainWindow mainWindow, Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
 
         // Setting up the window
         super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);
@@ -29,8 +31,18 @@ public class RenderWindow extends Window {
         this.setResizable(false);
 
         // Creating render panel
-        this.renderPanel = new RenderPanel(environment, quality, antiAliasing, gammaCorrection, pixelSamples, rayDepth);
+        this.renderPanel = new RenderPanel(mainWindow, environment, quality, antiAliasing, gammaCorrection, pixelSamples, rayDepth);
         this.add(this.renderPanel);
+
+        // Handling window close
+        // Stopping rendering when render window closes
+        this.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent event) {
+                renderPanel.stopRendering();
+            }
+        });
         
         this.pack();
         this.setVisible(true);

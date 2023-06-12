@@ -56,7 +56,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
             modifiedFieldText = PropertyFormatter.formatColor(this.textField.getText());
             PropertyTextFieldEventHandler.setProperty(this.entity.getColor().toString(), modifiedFieldText, this.textField, this.mainWindow.isRendering());
             
-            if (modifiedFieldText != null) {
+            if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
                 triple = modifiedFieldText.split(", ");
                 this.entity.setColor(new ColorRGB(Integer.valueOf(triple[0]), Integer.valueOf(triple[1]), Integer.valueOf(triple[2])));
             }
@@ -67,10 +67,9 @@ public class PropertyTextFieldEventHandler implements FocusListener {
             modifiedFieldText = PropertyFormatter.formatPosition(this.textField.getText());
             PropertyTextFieldEventHandler.setProperty(this.entity.getPosition().toString(), modifiedFieldText, this.textField, this.mainWindow.isRendering());
             
-            if (modifiedFieldText != null) {
+            if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
                 triple = modifiedFieldText.split(", ");
                 this.entity.setPosition(new Vector3D(Double.valueOf(triple[0]), Double.valueOf(triple[1]), Double.valueOf(triple[2])));
-
             }
 
         // Handling property setting for fuzziness
@@ -79,7 +78,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
             modifiedFieldText = PropertyFormatter.formatFuzziness(this.textField.getText());
             PropertyTextFieldEventHandler.setProperty(String.valueOf(this.entity.getFuzziness()), modifiedFieldText, this.textField, this.mainWindow.isRendering());
 
-            if (modifiedFieldText != null) {
+            if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
                 this.entity.setFuzziness(Double.valueOf(modifiedFieldText));
             }
 
@@ -89,7 +88,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
             modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
             PropertyTextFieldEventHandler.setProperty(String.valueOf(((Sphere) this.entity).getRadius()), modifiedFieldText, this.textField, this.mainWindow.isRendering());
 
-            if (modifiedFieldText != null) {
+            if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
                 ((Sphere) this.entity).setRadius(Double.valueOf(modifiedFieldText));
             };
 
@@ -100,7 +99,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
             modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
             PropertyTextFieldEventHandler.setProperty(String.valueOf(this.entity.getWidth()), modifiedFieldText, this.textField, this.mainWindow.isRendering());
 
-            if (modifiedFieldText != null) {
+            if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
                 this.entity.setWidth(Double.valueOf(modifiedFieldText));
             }
 
@@ -111,7 +110,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
             modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
             PropertyTextFieldEventHandler.setProperty(String.valueOf(this.entity.getDepth()), modifiedFieldText, this.textField, this.mainWindow.isRendering());
 
-            if (modifiedFieldText != null) {
+            if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
                 this.entity.setDepth(Double.valueOf(modifiedFieldText));
             }
 
@@ -122,7 +121,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
             modifiedFieldText = PropertyFormatter.formatRadius(this.textField.getText());
             PropertyTextFieldEventHandler.setProperty(String.valueOf(this.entity.getHeight()), modifiedFieldText, this.textField, this.mainWindow.isRendering());
 
-            if (modifiedFieldText != null) {
+            if (modifiedFieldText != null && !this.mainWindow.isRendering()) {
                 this.entity.setHeight(Double.valueOf(modifiedFieldText));
             }
         }

@@ -11,6 +11,7 @@ package Interface.CustomComponents;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -35,6 +36,7 @@ public class RoundedButton extends JButton implements MouseListener {
         this.mouseExitedColor = mouseExitedColor;
 
         this.setContentAreaFilled(false);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.setOpaque(false);
         this.setBorderPainted(false);
         this.addMouseListener(this);
