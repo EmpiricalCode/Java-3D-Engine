@@ -49,6 +49,8 @@ public class MainWindow extends Window {
     public static final Font SUBTITLE_FONT = FontLoader.loadFont("montserrat_medium", 16);
     public static final Font PROPERTIES_FONT = FontLoader.loadFont("montserrat_medium", 15);
 
+    public static final String WINDOW_TITLE = "MoonRays";
+
     private RenderWindow renderWindow = null;
 
     private ObjectsPanel objectsPanel;
@@ -60,10 +62,10 @@ public class MainWindow extends Window {
     private Environment environment;
     
     // Main constructor
-    public MainWindow(String title)  {
+    public MainWindow()  {
 
         // Setting up the window
-        super(title, new BorderLayout(), MainWindow.WIDTH, MainWindow.HEIGHT);
+        super(MainWindow.WINDOW_TITLE, new BorderLayout(), MainWindow.WIDTH, MainWindow.HEIGHT);
 
         // Adding elements
         // TODO: Make all of these final variables

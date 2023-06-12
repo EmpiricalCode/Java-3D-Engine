@@ -19,13 +19,15 @@ import Interface.Structures.Window;
 
 public class RenderWindow extends Window {
 
+    public static final String WINDOW_TITLE = "MoonRays Render";
+
     private RenderPanel renderPanel;
     
     // Main constructor
     public RenderWindow(MainWindow mainWindow, Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
 
         // Setting up the window
-        super("Render Window", new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);
+        super(RenderWindow.WINDOW_TITLE, new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);
 
         // Resizing the window to account for the insets (the content must be 512px by 512px, not the window itself)
         this.setResizable(false);

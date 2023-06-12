@@ -13,8 +13,6 @@ import Interface.Windows.MainWindow;
 
 public class Main {
 
-    public static final String APPLICATION_NAME = "MoonRays";
-
     public static void main(String[] args) {
 
         // Necessary to make application text look smooth
@@ -22,6 +20,6 @@ public class Main {
         System.setProperty("swing.aatext", "true");
 
         // Creating the main window
-        new MainWindow(Main.APPLICATION_NAME);
+        new MainWindow();
     }
 }
