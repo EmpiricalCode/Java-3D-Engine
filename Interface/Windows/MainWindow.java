@@ -40,8 +40,8 @@ public class MainWindow extends Window {
     public static final int SECOND_SECTION_WIDTH = 450;
     public static final int THIRD_SECTION_WIDTH = 350;
 
-    public static final int PREVIEW_QUALITY = 7;
-    public static final int PREVIEW_PIXEL_SAMPLES = 10;
+    public static final int PREVIEW_QUALITY = 6;
+    public static final int PREVIEW_PIXEL_SAMPLES = 5;
     public static final int PREVIEW_RAY_DEPTH = 5;
 
     public static final Font TITLE_FONT = FontLoader.loadFont("montserrat_semibold", 26);
