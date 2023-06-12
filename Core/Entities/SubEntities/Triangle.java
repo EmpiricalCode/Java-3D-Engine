@@ -66,7 +66,7 @@ public class Triangle extends Entity {
 
             if ((c1Dot >= 0 && c2Dot >= 0 && c3Dot >= 0) || (c1Dot <= 0 && c2Dot <= 0 && c3Dot <= 0)) {
 
-                if (Vector3D.subtract(hitPosition, ray.getOrigin()).getMagnitude() >= 0.01) {
+                if (Vector3D.subtract(hitPosition, ray.getOrigin()).getMagnitude() >= 0.001) {
                     return hit;
                 }
             } 
