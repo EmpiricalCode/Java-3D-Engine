@@ -3,7 +3,7 @@
 // Filename: Camera.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles properties of the environment's camera (for calculation use).
+// Description: A class that handles the properties of the environment's camera (for calculation use).
 //
 ///////////////////////
 

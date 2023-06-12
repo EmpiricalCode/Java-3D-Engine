@@ -3,7 +3,7 @@
 // Filename: ObjectsPanel.java
 // Author: Daniel Long
 // Course: ICS4U1.
-// Description: A class that handles the creation and user interactions of the panel where the environment's objects are displayed/added/removed
+// Description: A class that handles the creation and user interactions of the panel where the environment's objects are displayed/added/removed.
 //
 ///////////////////////
 

@@ -3,7 +3,7 @@
 // Filename: Environment.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles the various entities and other properties of a renderable environment.
+// Description: A class that stores renderable entities and handles various behaviors and properties for a renderable environment.
 //
 ///////////////////////
 

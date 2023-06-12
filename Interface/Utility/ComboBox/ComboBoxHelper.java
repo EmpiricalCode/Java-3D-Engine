@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: ComboBoxHelper.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: A class that handles the creation of custom JComboBoxes.
+//
+///////////////////////
+
 package Interface.Utility.ComboBox;
 
 import java.awt.Color;
@@ -21,8 +30,6 @@ public class ComboBoxHelper {
         JComboBox<String> comboBox = new JComboBox<String>(elements);
         Component comboBoxComponent;
 
-        comboBox.setUI(new DropDownMenuUI());
-
         for (int i = 0; i < comboBox.getComponentCount(); i++) {
 
             comboBoxComponent = comboBox.getComponent(i);
@@ -39,6 +46,7 @@ public class ComboBoxHelper {
         comboBox.setForeground(Color.WHITE);
         comboBox.setBorder(new MatteBorder(0, 1, 0, 1, new Color(45, 45, 45)));
         comboBox.setRenderer(new DropDownMenuRenderer());
+        comboBox.setUI(new DropDownMenuUI());
         comboBox.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
         return comboBox;

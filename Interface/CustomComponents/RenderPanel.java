@@ -146,7 +146,6 @@ public class RenderPanel extends JPanel implements Runnable {
             }
 
             mainWindow.updateRenderProgress(Math.round(10000 * (i + 1) /  ((double) renderDimensions)) / 100.0);
-            // System.out.println(Math.round(10000 * (i + 1) /  ((double) renderDimensions)) / 100.0 + " %");
         }
 
         // Anti-aliasing

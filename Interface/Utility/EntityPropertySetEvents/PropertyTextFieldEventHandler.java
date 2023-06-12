@@ -1,13 +1,11 @@
 ///////////////////////
 //
-// Filename: PropertyEventHandler.java
+// Filename: PropertyTextFieldEventHandler.java
 // Author: Daniel Long
 // Course: ICS4U1
 // Description: A class that handles the setting of entity properties that are related to text fields. De-focusing a property text-field will register the user's input as the property.
 //
 ///////////////////////
-
-// TODO: clean up methods and make them more efficient
 
 package Interface.Utility.EntityPropertySetEvents;
 

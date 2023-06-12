@@ -3,7 +3,7 @@
 // Filename: RenderWindow.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles the creation of the render window and all of its relevant components.
+// Description: A class that handles the creation of the render window and all of its relevant components, as well as its behavior.
 //
 ///////////////////////
 

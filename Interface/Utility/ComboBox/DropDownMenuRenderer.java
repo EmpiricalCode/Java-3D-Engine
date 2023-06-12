@@ -3,7 +3,7 @@
 // Filename: DropDownMenuRenderer.java
 // Author: Daniel Long
 // Course: ICS4U1.
-// Description: A class that handles custom rendering for the drop down menu list popup.
+// Description: A class that handles custom rendering for JComboBoxes.
 //
 ///////////////////////
 
