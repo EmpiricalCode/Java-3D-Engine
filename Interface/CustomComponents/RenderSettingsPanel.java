@@ -361,37 +361,37 @@ public class RenderSettingsPanel extends PropertyPanel {
     }
 
     // Sets the quality
-    public void setQuality(int quality) {
+    private void setQuality(int quality) {
         this.quality = quality;
     }
 
     // Sets the pixel samples
-    public void setPixelSamples(int samples) {
+    private void setPixelSamples(int samples) {
         this.pixelSamples = samples;
     }
 
     // Sets the ray depth
-    public void setRayDepth(int depth) {
+    private void setRayDepth(int depth) {
         this.rayDepth = depth;
     }
 
     // Sets the gamma correction
-    public void setGamma(double gamma) {
+    private void setGamma(double gamma) {
         this.gammaCorrection = gamma;
     }
 
     // Sets the anti aliasing boolean
-    public void setAntiAliasing(boolean antiAliasing) {
+    private void setAntiAliasing(boolean antiAliasing) {
         this.antiAliasing = antiAliasing;
     }
 
     // Sets the camera position
-    public void setCameraPosition(Vector3D position) {
+    private void setCameraPosition(Vector3D position) {
         this.cameraPosition = position;
     }
 
     // Sets the camera look at vector
-    public void setCameraLookAt(Vector3D position) {
+    private void setCameraLookAt(Vector3D position) {
         this.cameraLookAt = position;
     }
 }

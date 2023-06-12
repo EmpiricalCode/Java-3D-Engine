@@ -15,11 +15,11 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
-public class RoundedButton extends JButton implements MouseListener {
+public class RoundedButton extends JButton {
     
     private int radius;
     private boolean mouseIn;
@@ -39,13 +39,33 @@ public class RoundedButton extends JButton implements MouseListener {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         this.setOpaque(false);
         this.setBorderPainted(false);
-        this.addMouseListener(this);
         this.setFocusPainted(false);
+
+        this.addMouseListener(new MouseAdapter() {
+
+            // Setting mouseIn to true when the mouse enters the button
+            @Override
+            public void mouseEntered(MouseEvent event) {
+                setMouseIn(true);
+            }
+
+            // Setting mouseIn to false when the mouse exits the button
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setMouseIn(false);
+            }
+        });
+
     }
 
     // Returns if the mouse is in the button
     public boolean mouseIn() {
         return this.mouseIn;
+    }
+
+    // Sets the mouseIn variable
+    private void setMouseIn(boolean mouseIn) {
+        this.mouseIn = mouseIn;
     }
 
     @Override   
@@ -81,23 +101,4 @@ public class RoundedButton extends JButton implements MouseListener {
 
         super.paintComponent(g2D);
     }
-
-    @Override
-    public void mousePressed(MouseEvent event) {}
-
-    @Override
-    public void mouseReleased(MouseEvent event) {}
-
-    @Override
-    public void mouseEntered(MouseEvent event) {
-        this.mouseIn = true;
-    }
-
-    @Override
-    public void mouseExited(MouseEvent event) {
-        this.mouseIn = false;
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent event) {}
 }
