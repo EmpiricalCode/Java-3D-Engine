@@ -10,7 +10,9 @@
 package Interface.Structures;
 
 import java.awt.LayoutManager;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class Window extends JFrame {
@@ -25,5 +27,12 @@ public class Window extends JFrame {
         // in order to avoid issues where components do not show until the window is resized.
         this.setLayout(layout);
         this.setSize(width, height);
+
+        // Setting the app icon
+        try {
+            this.setIconImage(ImageIO.read(new File(System.getProperty("user.dir") + "/Assets/Icons/Application Icon.png")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
