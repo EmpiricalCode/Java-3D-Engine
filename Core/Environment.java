@@ -50,8 +50,8 @@ public class Environment {
         this.entities.remove(index);
     }
 
-    public void setCamera(Camera cam) {
-        this.camera = cam;
+    public void setCamera(Camera camera) {
+        this.camera = camera;
     }
 
     // Returns the ambient color of the environment given a 

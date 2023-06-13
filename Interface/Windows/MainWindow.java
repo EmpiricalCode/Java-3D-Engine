@@ -44,6 +44,7 @@ public class MainWindow extends Window {
     public static final int PREVIEW_QUALITY = 6;
     public static final int PREVIEW_PIXEL_SAMPLES = 5;
     public static final int PREVIEW_RAY_DEPTH = 5;
+    public static final boolean PREVIEW_ANTI_ALIASING = false;
 
     public static final Font TITLE_FONT = FontLoader.loadFont("montserrat_semibold", 26);
     public static final Font SUBTITLE_FONT = FontLoader.loadFont("montserrat_medium", 16);
@@ -124,7 +125,7 @@ public class MainWindow extends Window {
         }
 
         this.environment.setCamera(new Camera(this.renderSettingsPanel.getCameraPosition(), this.renderSettingsPanel.getCameraLookAt()));
-        this.renderWindow = new RenderWindow(this, this.environment, MainWindow.PREVIEW_QUALITY, false, this.renderSettingsPanel.getGamma(), MainWindow.PREVIEW_PIXEL_SAMPLES, MainWindow.PREVIEW_RAY_DEPTH);
+        this.renderWindow = new RenderWindow(this, this.environment, MainWindow.PREVIEW_QUALITY, MainWindow.PREVIEW_ANTI_ALIASING, this.renderSettingsPanel.getGamma(), MainWindow.PREVIEW_PIXEL_SAMPLES, MainWindow.PREVIEW_RAY_DEPTH);
         (new Thread(this.renderWindow.getRenderPanel())).start();
     }
 

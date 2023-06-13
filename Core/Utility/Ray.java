@@ -20,7 +20,7 @@ public class Ray {
 
     private Environment environment;
     
-    // Main constructor
+    // Creates a new ray
     public Ray(Vector3D origin, Vector3D direction, Environment environment) {
         this.origin = origin;
         this.direction = direction;

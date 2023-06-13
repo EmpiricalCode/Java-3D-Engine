@@ -55,7 +55,7 @@ public class ObjectsPanel extends JPanel {
     private JPanel objectsArea;
     private RoundedButton addObjectButton;
     private Environment environment;
-    private final MainWindow mainWindow;
+    private MainWindow mainWindow;
     
     // Creates a new ObjectPanel object
     public ObjectsPanel(MainWindow mainWindow, int width, int height, Environment environment) {
@@ -272,7 +272,7 @@ public class ObjectsPanel extends JPanel {
 
     // Creates a delete button for an object component
     // and handles all its relevant behavior
-    private static void createDeleteButton(JPanel objectPanel, JPanel objectsArea, Environment environment, MainWindow mainWindow) {
+    private static void createDeleteButton(JPanel objectComponent, JPanel objectsArea, Environment environment, MainWindow mainWindow) {
 
         RoundedButton removeButton = new RoundedButton(15, "Remove", new Color(200, 100, 100), new Color(220, 120, 120), false);
 
@@ -295,7 +295,7 @@ public class ObjectsPanel extends JPanel {
                     environment.removeEntity(index);
 
                     // Removing the panel
-                    objectPanel.getParent().remove(objectPanel);
+                    objectComponent.getParent().remove(objectComponent);
 
                     objectsArea.revalidate();
                     objectsArea.repaint();
@@ -306,6 +306,6 @@ public class ObjectsPanel extends JPanel {
             }
         });
 
-        objectPanel.add(removeButton);
+        objectComponent.add(removeButton);
     }
 }
