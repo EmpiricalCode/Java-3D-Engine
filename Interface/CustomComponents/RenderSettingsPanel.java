@@ -115,7 +115,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         });
 
         this.progressLabel = new JLabel("");
-        this.progressLabel.setFont(FontLoader.loadFont("montserrat_medium", 15));
+        this.progressLabel.setFont(FontLoader.loadFont("montserrat_medium", 17));
         this.progressLabel.setForeground(Color.GRAY);
         this.progressLabel.setVisible(false);
 
