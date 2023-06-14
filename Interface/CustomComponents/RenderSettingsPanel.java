@@ -7,6 +7,9 @@
 //
 ///////////////////////
 
+// TODO: make render update label diff color
+// TODO: make render/preview gray out when render is happening
+
 package Interface.CustomComponents;
 
 import java.awt.Color;
@@ -117,7 +120,7 @@ public class RenderSettingsPanel extends PropertyPanel {
 
         this.progressLabel = new JLabel("");
         this.progressLabel.setFont(FontLoader.loadFont("montserrat_medium", 17));
-        this.progressLabel.setForeground(Color.GRAY);
+        this.progressLabel.setForeground(Color.RED);
         this.progressLabel.setVisible(false);
 
         this.add(buttonArea);

@@ -71,6 +71,8 @@ public class TriangularPrism extends MeshEntity {
         RayHit hit;
         RayHit nearestHit = null;
 
+        // Iterating through each triangle and getting their respective hit points
+        // Whichever triangle has the closest hitpoint will be used
         for (Triangle triangle : this.getMesh()) {
 
             hit = triangle.getHit(ray);

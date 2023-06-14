@@ -60,6 +60,7 @@ public class Ray {
 
                 hit = entity.getHit(this);
 
+                // Saving min distance, nearest hit, and nearest hit entity if its hit location is currently closest
                 if (hit != null && (hit.getPosition().getDistance(this.origin) < minDistance || minDistance < 0)) {
                     minDistance = hit.getPosition().getDistance(this.origin);
                     nearestHit = hit;
@@ -100,8 +101,10 @@ public class Ray {
     public static Vector3D getDiffuseReflection(RayHit hit) {
         
         Vector3D diffuseOrigin = Vector3D.add(hit.getPosition(), hit.getNormal());
+        // Random unit sphere
         Vector3D diffuseOffset = new Vector3D(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1);
 
+        // Adding the random unit sphere direction to the reflection normal to get a random reflected direction
         Vector3D diffuseReflectionDirection = Vector3D.subtract(Vector3D.add(diffuseOrigin, diffuseOffset), hit.getPosition());
         diffuseReflectionDirection.clamp(1);
 
@@ -115,6 +118,7 @@ public class Ray {
         // Slightly randomizing reflection based on fuzziness
         Vector3D offsetVector = new Vector3D(Math.random() * entity.getFuzziness() / 4, Math.random() * entity.getFuzziness() / 4, Math.random() * entity.getFuzziness() / 4);
         
+        // Calculates the reflection vector based on incident direction
         return Vector3D.add(Vector3D.subtract(hit.getIncidentDirection(), Vector3D.multiply(hit.getNormal(), 2 * hit.getIncidentDirection().dot(hit.getNormal()))), offsetVector);
     }
 }

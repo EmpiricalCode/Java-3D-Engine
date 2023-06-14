@@ -111,12 +111,14 @@ public class RenderPanel extends JPanel implements Runnable {
         camVectorLeft.clamp(1);
         camVectorUp.clamp(1);
 
-        //
+        // Top left position of the virtual screen
         topLeft = Vector3D.add(camPosition, camDirection);
         topLeft.add(Vector3D.multiply(camVectorLeft, 5));
         topLeft.add(Vector3D.multiply(camVectorUp, 5));
 
         // Calculating the color for each pixel
+        // renderDimensions is essentially how many pixels exist on the height-wise/length-wise dimensions 
+        // of both the virtual screen and real JFrame
         for (int i = 0; i < renderDimensions; i++) {
             for (int j = 0; j < renderDimensions; j++) {
 
@@ -125,8 +127,10 @@ public class RenderPanel extends JPanel implements Runnable {
                     return;
                 }
 
-                // Moving the current vector to the right
-                // This is the vector where the ray will point to
+                // Calculating currentVector
+                // This is the vector the ray will point to from the camera origin
+                // Calculated based on how many pixels the render currently is from the top and from the left of the virtual screen
+                // CurrentVector is essentually the position of the current pixel on the virtual 3d screen
                 currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * Camera.CAMERA_SCREEN_HORIZONTAL_SIZE/(renderDimensions)));
                 currentVector.add(Vector3D.multiply(camVectorUp, -i * Camera.CAMERA_SCREEN_VERTICAL_SIZE/(renderDimensions)));
 
@@ -154,7 +158,7 @@ public class RenderPanel extends JPanel implements Runnable {
         }
 
         // Anti-aliasing
-        // Both the x and y axis is doubled, meaning that there are actually 4 pixels rendered for every actual pixel on the display screen
+        // For anti-aliasing the x and y axis is doubled, meaning that there are actually 4 pixels rendered for every actual pixel on the display screen
         // an average of these 4 pixels is taken in order to smooth out the render
         // An equivalent would be to keep the x and y dimensions constant, and instead shoot 4 rays out of each pixel and taking a similar average.
         // Anti-aliasing is different from the 100 ray samples already taken for each pixel, because the 100 sample rays are shot in the exact same direction
@@ -167,12 +171,16 @@ public class RenderPanel extends JPanel implements Runnable {
                 }
 
                 if (this.antiAliasing) {
+
+                    // Taking an average 4 four pixels for each pixel if anti-aliasing is set to true
                     if (j % 2 == 1 && i % 2 == 1) {
                         colorMatrix[j/2][i/2][0] = (renderMatrix[j][i][0] + renderMatrix[j][i-1][0] + renderMatrix[j-1][i][0] + renderMatrix[j-1][i-1][0]) / 4;
                         colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
                         colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
                     }
                 } else {
+
+                    // If anti-aliasing is false, just copy the colors over
                     colorMatrix[j][i][0] = renderMatrix[j][i][0];
                     colorMatrix[j][i][1] = renderMatrix[j][i][1];
                     colorMatrix[j][i][2] = renderMatrix[j][i][2];
@@ -181,7 +189,7 @@ public class RenderPanel extends JPanel implements Runnable {
         }
 
         // Gamma correcting the colors to achieve a more comfortable brightness
-        // Essentially converting colors to between 0-1 and takign their square root to brighten them
+        // Essentially converting colors to between 0-1 and raising them to the power of (1/gamma) to brighten them
         for (int i = 0; i < this.dimensions; i++) {
             for (int j = 0; j < this.dimensions; j++) {
 
@@ -197,7 +205,7 @@ public class RenderPanel extends JPanel implements Runnable {
         }
             
         this.isRendering = false;
-        repaint();
+        this.repaint();
     }
 
     // Draws each pixel in the pixel matrix onto the panel
@@ -206,6 +214,7 @@ public class RenderPanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
 
+        // Filling the window with pixels
         for (int r = 0; r < dimensions; r++) {
             for (int c = 0; c < dimensions; c++) {
                 g.setColor(new Color(colorMatrix[r][c][0], colorMatrix[r][c][1], colorMatrix[r][c][2]));

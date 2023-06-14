@@ -55,9 +55,10 @@ public class Sphere extends Entity {
 
             perpendicularDistance = Math.sqrt(Math.pow(distanceVector.getMagnitude(), 2) - Math.pow(dotProduct, 2));
 
-            // Checking if the ray actually hit the sphere
+            // Checking if the ray actually hit the sphere by checking the ray's perpendicular distance to the center of the sphere
             if (perpendicularDistance <= this.radius) {
 
+                // Calculating the position where the ray intersects with the sphere
                 hitDistancePrime = Math.sqrt(Math.pow(this.radius, 2) - Math.pow(perpendicularDistance, 2));
                 hitDistance = Math.sqrt(Math.pow(distanceVector.getMagnitude(), 2) - Math.pow(perpendicularDistance, 2)) - hitDistancePrime;
                 hitPosition = Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), hitDistance));

@@ -11,6 +11,8 @@ package Core.Utility;
 
 public class Camera {
 
+    // The camera consists of an origin, and a virtual "screen"
+    // This screen is CAMERA_SCREEN_DISTANCE away from the origin, and is CAMERA_SCREEN_VERTICAL_SIZE by CAMERA_SCREEN_HORIZONTAL_SIZE large.
     public static final double CAMERA_SCREEN_DISTANCE = 5;
     public static final double CAMERA_SCREEN_VERTICAL_SIZE = 10;
     public static final double CAMERA_SCREEN_HORIZONTAL_SIZE = 10;
