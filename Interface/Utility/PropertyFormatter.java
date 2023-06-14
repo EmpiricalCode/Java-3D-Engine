@@ -21,6 +21,7 @@ public class PropertyFormatter {
             return null;
         }
 
+        // Formatting the string to ", a, b, c"
         for (String element : decomposed) {
             element = element.replaceAll(" ", "");
 
@@ -31,12 +32,14 @@ public class PropertyFormatter {
             ret += ", " + Double.parseDouble(element);
         }
 
+        // Removes first two characters
         return ret.substring(2);
     }
 
     // Formats the color property field text
     public static String formatColor(String fieldText) {
 
+        // Reusing formatPosition method
         String formattedTripleDouble = PropertyFormatter.formatPosition(fieldText);
         String decomposed[];
         String ret = "";

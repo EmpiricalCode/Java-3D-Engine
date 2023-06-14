@@ -32,6 +32,7 @@ public class ComboBoxHelper {
 
         comboBox.setUI(new DropDownMenuUI());
 
+        // Iterating through all the combobox's components
         for (int i = 0; i < comboBox.getComponentCount(); i++) {
 
             comboBoxComponent = comboBox.getComponent(i);
@@ -42,6 +43,7 @@ public class ComboBoxHelper {
             }
         }
 
+        // Setting up the combobox
         comboBox.setPreferredSize(new Dimension(175, 35));
         comboBox.setFont(FontLoader.loadFont("montserrat_medium", 15));
         comboBox.setBackground(MainWindow.BACKGROUND_COLOR);

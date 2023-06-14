@@ -28,7 +28,7 @@ public class PropertiesPanel extends PropertyPanel {
     private MainWindow mainWindow;
     private Entity entity;
 
-    // Creates a new property panel
+    // Creates a new properties panel
     public PropertiesPanel(MainWindow mainWindow, int width) {
         super("Properties", width, PropertiesPanel.BASE_HEIGHT, PropertiesPanel.BASE_HEIGHT);
 

@@ -57,7 +57,7 @@ public class ObjectsPanel extends JPanel {
     private Environment environment;
     private MainWindow mainWindow;
     
-    // Creates a new ObjectPanel object
+    // Creates a new objects panel
     public ObjectsPanel(MainWindow mainWindow, int width, int height, Environment environment) {
         super();
 

@@ -23,7 +23,7 @@ public class RenderWindow extends Window {
 
     private RenderPanel renderPanel;
     
-    // Main constructor
+    // Creates a new render window
     public RenderWindow(MainWindow mainWindow, Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
 
         // Setting up the window

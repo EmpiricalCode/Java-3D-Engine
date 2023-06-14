@@ -27,7 +27,7 @@ public abstract class Entity {
     private double depth;
     private double height;
 
-    // Main constructor
+    // Creates a new Entity
     public Entity(EntityType entityType, Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
 
         this.position = position;

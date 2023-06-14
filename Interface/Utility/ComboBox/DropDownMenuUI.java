@@ -20,6 +20,7 @@ import javax.swing.plaf.metal.MetalComboBoxUI;
 public class DropDownMenuUI extends MetalComboBoxUI {
     
     // This empty override is necessary to help remove any unwanted borders or other unwanted artifacts
+    // (essentially disables the super function)
     @Override 
     public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {}
 

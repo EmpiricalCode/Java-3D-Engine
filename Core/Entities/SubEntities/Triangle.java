@@ -52,7 +52,9 @@ public class Triangle extends Entity {
         double dot = -point1.dot(normal);
         double length = -(normal.dot(ray.getOrigin()) + dot) / normal.dot(ray.getDirection());
 
+        // making sure ray and triangle are not parallel
         if (length > 0 && normal.dot(ray.getDirection()) != 0) {
+
             hit = new RayHit(Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), length)), normal, ray.getDirection());
             hitPosition = hit.getPosition(); 
 
@@ -64,8 +66,10 @@ public class Triangle extends Entity {
             c2Dot = normal.dot(Vector3D.cross(edge2, c2));
             c3Dot = normal.dot(Vector3D.cross(edge3, c3));
 
+            // Checking if hit is within triangle
             if ((c1Dot >= 0 && c2Dot >= 0 && c3Dot >= 0) || (c1Dot <= 0 && c2Dot <= 0 && c3Dot <= 0)) {
 
+                // Avoiding "shadow acne" - reflection collides with the entity again over a very small distance due to floating-point errors
                 if (Vector3D.subtract(hitPosition, ray.getOrigin()).getMagnitude() >= 0.001) {
                     return hit;
                 }

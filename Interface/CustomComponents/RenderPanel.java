@@ -36,7 +36,7 @@ public class RenderPanel extends JPanel implements Runnable {
     private int pixelSamples;
     private int rayDepth;
 
-    // Main constructor
+    // Creates a new render panel
     public RenderPanel(MainWindow mainWindow, Environment environment, int quality, boolean antiAliasing, double gammaCorrection, int pixelSamples, int rayDepth) {
 
         this.isRendering = false;
@@ -111,10 +111,12 @@ public class RenderPanel extends JPanel implements Runnable {
         camVectorLeft.clamp(1);
         camVectorUp.clamp(1);
 
+        //
         topLeft = Vector3D.add(camPosition, camDirection);
         topLeft.add(Vector3D.multiply(camVectorLeft, 5));
         topLeft.add(Vector3D.multiply(camVectorUp, 5));
 
+        // Calculating the color for each pixel
         for (int i = 0; i < renderDimensions; i++) {
             for (int j = 0; j < renderDimensions; j++) {
 
@@ -123,6 +125,8 @@ public class RenderPanel extends JPanel implements Runnable {
                     return;
                 }
 
+                // Moving the current vector to the right
+                // This is the vector where the ray will point to
                 currentVector = Vector3D.add(topLeft, Vector3D.multiply(camVectorLeft, -j * Camera.CAMERA_SCREEN_HORIZONTAL_SIZE/(renderDimensions)));
                 currentVector.add(Vector3D.multiply(camVectorUp, -i * Camera.CAMERA_SCREEN_VERTICAL_SIZE/(renderDimensions)));
 
@@ -131,6 +135,7 @@ public class RenderPanel extends JPanel implements Runnable {
 
                 finalColor = new ColorRGB(0, 0, 0);
 
+                // Shooting many rays out of a single pixel and taking the average
                 for (int p = 0; p < this.pixelSamples; p++) {
                     sampleRay = new Ray(camPosition, Vector3D.subtract(currentVector, camPosition), environment);
                     rayColor = sampleRay.getColor(this.rayDepth);

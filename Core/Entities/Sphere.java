@@ -21,7 +21,7 @@ public class Sphere extends Entity {
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
     private double radius;
 
-    // Main constructor
+    // Creates a Sphere entity
     public Sphere(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double radius) {
 
         // Sphere does not actually use the width, depth, height properties internally
@@ -50,26 +50,26 @@ public class Sphere extends Entity {
         Vector3D distanceVector = Vector3D.subtract(this.getPosition(), ray.getOrigin());
         double dotProduct = distanceVector.dot(ray.getDirection());
 
+        // Making sure the ray is pointing towards the sphere, and not in the opposite direction (which would still register a hit)
         if (dotProduct >= 0) {
 
             perpendicularDistance = Math.sqrt(Math.pow(distanceVector.getMagnitude(), 2) - Math.pow(dotProduct, 2));
 
+            // Checking if the ray actually hit the sphere
             if (perpendicularDistance <= this.radius) {
 
                 hitDistancePrime = Math.sqrt(Math.pow(this.radius, 2) - Math.pow(perpendicularDistance, 2));
                 hitDistance = Math.sqrt(Math.pow(distanceVector.getMagnitude(), 2) - Math.pow(perpendicularDistance, 2)) - hitDistancePrime;
                 hitPosition = Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), hitDistance));
 
+                // Avoiding "shadow acne" - reflection collides with the entity again over a very small distance due to floating-point errors
                 if (Vector3D.subtract(hitPosition, ray.getOrigin()).getMagnitude() >= 0.001) {
                     return new RayHit(hitPosition, this.getNormal(ray, hitPosition), ray.getDirection());
                 } 
             }
-            
-            return null;
-            
-        } else {
-            return null;
-        }
+        } 
+
+        return null;
     }
 
     // Returns the properties of a sphere

@@ -62,7 +62,7 @@ public class MainWindow extends Window {
 
     private Environment environment;
     
-    // Main constructor
+    // Creates a new main window
     public MainWindow()  {
 
         // Setting up the window

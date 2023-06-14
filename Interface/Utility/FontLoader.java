@@ -17,12 +17,13 @@ import java.nio.file.Paths;
 
 public class FontLoader {
     
+    // Returns a Font object given a font name and size
     public static Font loadFont(String name, int size) { 
 
         String homeDir = System.getProperty("user.dir");
 
-        try (InputStream is = new BufferedInputStream(
-            Files.newInputStream(Paths.get(homeDir + "/Assets/Fonts/" + name + ".ttf")))) {
+        // Loading the font
+        try (InputStream is = new BufferedInputStream(Files.newInputStream(Paths.get(homeDir + "/Assets/Fonts/" + name + ".ttf")))) {
             return Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(Font.PLAIN, size);
         } catch (Exception e) {
             e.printStackTrace();

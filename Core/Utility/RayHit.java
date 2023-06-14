@@ -15,7 +15,7 @@ public class RayHit {
     private Vector3D normal;
     private Vector3D incidentDirection;
 
-    // Main constructor
+    // Creates a new RayHit object
     public RayHit(Vector3D position, Vector3D normal, Vector3D incidentDirection) {
         this.position = position;
         this.normal = normal;

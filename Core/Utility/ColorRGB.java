@@ -15,7 +15,7 @@ public class ColorRGB {
     private int g;
     private int b;
     
-    // Main constructor
+    // Creates a new ColorRGB object
     public ColorRGB(int r, int g, int b) {
         this.r = r;
         this.g = g;

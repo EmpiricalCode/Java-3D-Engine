@@ -53,6 +53,7 @@ public class RenderSettingsPanel extends PropertyPanel {
     private RoundedButton cancelRenderButton;
     private JLabel progressLabel;
     
+    // Creates a new render settings panel
     public RenderSettingsPanel(MainWindow mainWindow, int width, int height) {
         super("Render Settings", width, 800, 90);
 

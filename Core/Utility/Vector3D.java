@@ -18,7 +18,7 @@ public class Vector3D {
     private double y;
     private double z;
     
-    // Main constructor
+    // Creates a new Vector3D object
     public Vector3D(double x, double y, double z) {
         this.x = x;
         this.y = y;

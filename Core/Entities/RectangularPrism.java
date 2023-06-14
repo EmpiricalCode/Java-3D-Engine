@@ -21,8 +21,7 @@ public class RectangularPrism extends MeshEntity {
     public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.WIDTH, PropertyType.DEPTH, PropertyType.HEIGHT};
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
 
-    // TODO: Make all constructor comments more detailed
-    // Main constructor
+    // Creates a Rectangular Prism entity
     public RectangularPrism(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
         super(EntityType.RECTANGULAR_PRISM, position, color, fuzziness, reflectionType, width, depth, height);
     }
@@ -79,6 +78,8 @@ public class RectangularPrism extends MeshEntity {
         RayHit hit;
         RayHit nearestHit = null;
 
+        // Iterating through each triangle and getting their respective hit points
+        // Whichever triangle has the closest hitpoint will be used
         for (Triangle triangle : this.getMesh()) {
 
             if (triangle != null) {

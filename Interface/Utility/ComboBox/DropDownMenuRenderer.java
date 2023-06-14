@@ -18,7 +18,7 @@ public class DropDownMenuRenderer extends JLabel implements ListCellRenderer<Str
 
     public static final Color HIGHLIGHT_COLOR = new Color(100, 100, 100);
 
-    // Creates a new DropDownMenuREnderer
+    // Creates a new DropDownMenuRenderer
     public DropDownMenuRenderer() {
         this.setOpaque(true);
         this.setHorizontalAlignment(LEFT);
@@ -30,9 +30,11 @@ public class DropDownMenuRenderer extends JLabel implements ListCellRenderer<Str
     public Component getListCellRendererComponent(JList<? extends String> list, String value, int index, boolean isSelected, boolean cellHasFocus)
     {
  
+        // Setting selection colors
         list.setSelectionBackground(MainWindow.BACKGROUND_COLOR);
         list.setSelectionForeground(Color.WHITE);
 
+        // Setting selected/unselected colors
         if (isSelected) {
             this.setBackground(DropDownMenuRenderer.HIGHLIGHT_COLOR);
         } else {

@@ -17,10 +17,12 @@ public enum EntityType {
 
     private String name;
 
+    // Creates a new EntityType
     EntityType(String name) {
         this.name = name;
     }
 
+    // Returns the entity's name
     public String getName() {
         return this.name;
     }

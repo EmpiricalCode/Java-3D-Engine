@@ -15,10 +15,12 @@ public enum ReflectionType {
 
     private String name;
 
+    // Creates a new ReflectionType
     ReflectionType(String name) {
         this.name = name;
     }
 
+    // Gets the reflection type's name
     public String getName() {
         return this.name;
     }

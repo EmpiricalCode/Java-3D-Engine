@@ -52,8 +52,10 @@ public class Ray {
         ColorRGB returnColor;
         ColorRGB outgoingColor;
 
+        // If depth is 0, finish tracing
         if (depth > 0) {
             
+            // Getting all entities and their respectives hits with this ray
             for (Entity entity : this.environment.getEntities()) {
 
                 hit = entity.getHit(this);
@@ -65,21 +67,25 @@ public class Ray {
                 }
             }
 
+            // Checking if a hit is made
             if (minDistance >= 0) {
                 
                 returnColor = new ColorRGB(0, 0, 0);
               
+                // Getting the reflection direction based on refelction type
                 if (nearestHitEntity.getReflectiontype() == ReflectionType.DIFFUSE) {
                     reflectionDirection = Ray.getDiffuseReflection(nearestHit);
                 } else {
                     reflectionDirection = Ray.getSpecularReflection(nearestHit, nearestHitEntity);
                 }
                 
+                // Calculating the return color as an accumulation of recursive getColor function calls
                 outgoingColor = (new Ray(nearestHit.getPosition(), reflectionDirection, environment)).getColor(depth-1);
                 returnColor = ColorRGB.add(returnColor, ColorRGB.multiply(new ColorRGB(outgoingColor.getR() * nearestHitEntity.getColor().getR() / 255, outgoingColor.getG() * nearestHitEntity.getColor().getG() / 255, outgoingColor.getB() * nearestHitEntity.getColor().getB() / 255), 0.5));
-
                 
                 return returnColor;
+
+            // If a ray is shot off into the environment, return an ambient color
             } else {
                 return Environment.getAmbientColor(this.direction);
             }
@@ -89,7 +95,10 @@ public class Ray {
         }
     }
 
+    // Returns a diffuse reflection direction 
+    // (random reflection)
     public static Vector3D getDiffuseReflection(RayHit hit) {
+        
         Vector3D diffuseOrigin = Vector3D.add(hit.getPosition(), hit.getNormal());
         Vector3D diffuseOffset = new Vector3D(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1);
 
@@ -99,7 +108,11 @@ public class Ray {
         return diffuseReflectionDirection;
     }
 
+    // Returns a specular reflection direction
+    // (proper reflection)
     public static Vector3D getSpecularReflection(RayHit hit, Entity entity) {
+
+        // Slightly randomizing reflection based on fuzziness
         Vector3D offsetVector = new Vector3D(Math.random() * entity.getFuzziness() / 4, Math.random() * entity.getFuzziness() / 4, Math.random() * entity.getFuzziness() / 4);
         
         return Vector3D.add(Vector3D.subtract(hit.getIncidentDirection(), Vector3D.multiply(hit.getNormal(), 2 * hit.getIncidentDirection().dot(hit.getNormal()))), offsetVector);

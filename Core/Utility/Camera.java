@@ -18,7 +18,7 @@ public class Camera {
     private Vector3D origin;
     private Vector3D direction;
     
-    // Main constructor
+    // Creates a new Camera
     public Camera(Vector3D origin, Vector3D destination) {
         this.origin = origin;
         this.direction = Vector3D.subtract(destination, origin);

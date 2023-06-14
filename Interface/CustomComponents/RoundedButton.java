@@ -27,6 +27,7 @@ public class RoundedButton extends JButton {
     private Color mouseEnteredColor;
     private Color mouseExitedColor;
 
+    // Creates a new rounded button
     public RoundedButton(int radius, String text, Color mouseExitedColor, Color mouseEnteredColor, boolean hollow) {
         super(text);
 
@@ -68,6 +69,7 @@ public class RoundedButton extends JButton {
         this.mouseIn = mouseIn;
     }
 
+    // Paints the button
     @Override   
     public void paintComponent(Graphics g) {
 
@@ -78,10 +80,12 @@ public class RoundedButton extends JButton {
 
         g2D.setColor(this.mouseExitedColor);
             
+        // Hover color
         if (this.mouseIn) {
             g2D.setColor(this.mouseEnteredColor);
         }
 
+        // Drawing for hollow and non-hollow buttons
         if (this.hollow) {
 
             this.setForeground(mouseExitedColor);

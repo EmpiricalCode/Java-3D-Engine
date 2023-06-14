@@ -19,6 +19,7 @@ public abstract class MeshEntity extends Entity {
 
     private Triangle[] mesh;
     
+    // Creates a new MeshEntity
     public MeshEntity(EntityType entityType, Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
         super(entityType, position, color, fuzziness, reflectionType, width, depth, height);
 
@@ -38,7 +39,8 @@ public abstract class MeshEntity extends Entity {
     // Sets up the mesh for the entity
     public abstract void setupMesh();
     
-    // The meshed entity must update its mesh when these properties are changed
+    // The meshed entity must update its mesh when these properties are changed, so some of the
+    // setter methods are overriden to account for this
     @Override
     public void setWidth(double width) {
         super.setWidth(width);
