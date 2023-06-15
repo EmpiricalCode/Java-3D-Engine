@@ -39,6 +39,17 @@ public class RenderSettingsPanel extends PropertyPanel {
 
     public static final Font BUTTON_FONT = FontLoader.loadFont("montserrat_medium", 17);
 
+    public static final Color RENDER_BUTTON_NORMAL = new Color(100, 150, 100);
+    public static final Color RENDER_BUTTON_HOVER = new Color(130, 180, 130);
+
+    public static final Color PREVIEW_BUTTON_NORMAL = new Color(170, 160, 50);
+    public static final Color PREVIEW_BUTTON_HOVER = new Color(200, 190, 90);
+
+    public static final Color CANCEL_BUTTON_NORMAL = new Color(200, 100, 100);
+    public static final Color CANCEL_BUTTON_HOVER = new Color(230, 130, 130);
+
+    public static final Color GRAYED_OUT = new Color(100, 100, 100);
+
     // Render settings and their default values
     private int quality = 8;
     private int pixelSamples = 100;
@@ -69,7 +80,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         this.buttonArea.setBackground(MainWindow.BACKGROUND_COLOR);
         this.buttonArea.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
-        this.previewButton = new RoundedButton(15, "Preview", new Color(170, 160, 50), new Color(200, 190, 90), true);
+        this.previewButton = new RoundedButton(15, "Preview", RenderSettingsPanel.PREVIEW_BUTTON_NORMAL, RenderSettingsPanel.PREVIEW_BUTTON_HOVER, true);
         this.previewButton.setBorder(new EmptyBorder(8, 24, 8, 24));
         this.previewButton.setFont(RenderSettingsPanel.BUTTON_FONT);
 
@@ -81,11 +92,16 @@ public class RenderSettingsPanel extends PropertyPanel {
 
                 if (previewButton.mouseIn() && !mainWindow.isRendering()) {
                     mainWindow.startPreview();
+                    grayOutRenderButtons();
+
+                    // Resetting the color for the cancel render button
+                    cancelRenderButton.setMouseEnteredColor(RenderSettingsPanel.CANCEL_BUTTON_HOVER);
+                    cancelRenderButton.setMouseExitedColor(RenderSettingsPanel.CANCEL_BUTTON_NORMAL);
                 }
             }
         });
 
-        this.renderButton = new RoundedButton(15, "Render", new Color(100, 150, 100), new Color(130, 180, 130), false);
+        this.renderButton = new RoundedButton(15, "Render", RenderSettingsPanel.RENDER_BUTTON_NORMAL, RenderSettingsPanel.RENDER_BUTTON_HOVER, false);
         this.renderButton.setForeground(Color.WHITE);
         this.renderButton.setBorder(new EmptyBorder(8, 28, 8, 28));
         this.renderButton.setFont(RenderSettingsPanel.BUTTON_FONT);
@@ -98,11 +114,16 @@ public class RenderSettingsPanel extends PropertyPanel {
 
                 if (renderButton.mouseIn() && !mainWindow.isRendering()) {
                     mainWindow.startRender();
+                    grayOutRenderButtons();
+
+                    // Resetting the color for the cancel render button
+                    cancelRenderButton.setMouseEnteredColor(RenderSettingsPanel.CANCEL_BUTTON_HOVER);
+                    cancelRenderButton.setMouseExitedColor(RenderSettingsPanel.CANCEL_BUTTON_NORMAL);
                 }
             }
         });
 
-        this.cancelRenderButton = new RoundedButton(15, "Cancel Render", new Color(200, 100, 100), new Color(230, 130, 130), true);
+        this.cancelRenderButton = new RoundedButton(15, "Cancel Render", RenderSettingsPanel.GRAYED_OUT, RenderSettingsPanel.GRAYED_OUT, true);
         this.cancelRenderButton.setBorder(new EmptyBorder(8, 62, 8, 62));
         this.cancelRenderButton.setFont(RenderSettingsPanel.BUTTON_FONT);
 
@@ -114,13 +135,17 @@ public class RenderSettingsPanel extends PropertyPanel {
                 
                 if (cancelRenderButton.mouseIn()) {
                     mainWindow.cancelRender();
+
+                    // Graying out the cancel render button
+                    cancelRenderButton.setMouseEnteredColor(RenderSettingsPanel.GRAYED_OUT);
+                    cancelRenderButton.setMouseExitedColor(RenderSettingsPanel.GRAYED_OUT);
                 }
             }
         });
 
         this.progressLabel = new JLabel("");
         this.progressLabel.setFont(FontLoader.loadFont("montserrat_medium", 17));
-        this.progressLabel.setForeground(Color.RED);
+        this.progressLabel.setForeground(Color.GREEN);
         this.progressLabel.setVisible(false);
 
         this.add(buttonArea);
@@ -128,6 +153,24 @@ public class RenderSettingsPanel extends PropertyPanel {
         this.buttonArea.add(this.renderButton);
         this.buttonArea.add(this.cancelRenderButton);
         this.buttonArea.add(this.progressLabel);
+    }
+
+    // Resets the button colors
+    private void resetRenderButtons() {
+        this.renderButton.setMouseEnteredColor(RenderSettingsPanel.RENDER_BUTTON_HOVER);
+        this.renderButton.setMouseExitedColor(RenderSettingsPanel.RENDER_BUTTON_NORMAL);
+
+        this.previewButton.setMouseEnteredColor(RenderSettingsPanel.PREVIEW_BUTTON_HOVER);
+        this.previewButton.setMouseExitedColor(RenderSettingsPanel.PREVIEW_BUTTON_NORMAL);
+    }
+    
+    // Grays out the buttons
+    private void grayOutRenderButtons() {
+        this.renderButton.setMouseEnteredColor(RenderSettingsPanel.GRAYED_OUT);
+        this.renderButton.setMouseExitedColor(RenderSettingsPanel.GRAYED_OUT);
+
+        this.previewButton.setMouseEnteredColor(RenderSettingsPanel.GRAYED_OUT);
+        this.previewButton.setMouseExitedColor(RenderSettingsPanel.GRAYED_OUT);
     }
 
     // Updates the render progress label
@@ -140,11 +183,23 @@ public class RenderSettingsPanel extends PropertyPanel {
                 this.progressLabel.setVisible(true);
             }
 
+            if (100 - percent < 0.0001) {
+                // Resetting button colors
+                this.resetRenderButtons();    
+            }
+
             // Updating progerss label text
             this.progressLabel.setText("Render Progress: " + percent + " %");
 
         } else {
             this.progressLabel.setVisible(false);
+
+            // Resetting button colors
+            this.resetRenderButtons();
+
+            // Graying out the cancel render button
+            cancelRenderButton.setMouseEnteredColor(RenderSettingsPanel.GRAYED_OUT);
+            cancelRenderButton.setMouseExitedColor(RenderSettingsPanel.GRAYED_OUT);
         }
     }
 

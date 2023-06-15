@@ -56,7 +56,17 @@ public class RoundedButton extends JButton {
                 setMouseIn(false);
             }
         });
+    }
 
+    // Sets the mouse entered color
+    public void setMouseEnteredColor(Color color) {
+        this.mouseEnteredColor = color;
+    }
+
+    // Sets the mouse exited color
+    public void setMouseExitedColor(Color color) {
+        this.mouseExitedColor = color;
+        this.repaint();
     }
 
     // Returns if the mouse is in the button
