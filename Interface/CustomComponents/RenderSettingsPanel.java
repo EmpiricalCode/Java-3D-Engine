@@ -7,9 +7,6 @@
 //
 ///////////////////////
 
-// TODO: make render update label diff color
-// TODO: make render/preview gray out when render is happening
-
 package Interface.CustomComponents;
 
 import java.awt.Color;
