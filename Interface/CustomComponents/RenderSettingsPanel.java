@@ -66,6 +66,8 @@ public class RenderSettingsPanel extends PropertyPanel {
     private RoundedButton renderButton;
     private RoundedButton cancelRenderButton;
     private JLabel progressLabel;
+    private JPanel bottomContainer;
+    private RoundedButton helpButton;
     
     // Creates a new render settings panel
     public RenderSettingsPanel(MainWindow mainWindow, int width, int height) {
@@ -76,7 +78,7 @@ public class RenderSettingsPanel extends PropertyPanel {
 
         // Creating the button panel
         this.buttonArea = new JPanel();
-        this.buttonArea.setPreferredSize(new Dimension(width, 460));
+        this.buttonArea.setPreferredSize(new Dimension(width, 300));
         this.buttonArea.setBackground(MainWindow.BACKGROUND_COLOR);
         this.buttonArea.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
@@ -143,16 +145,45 @@ public class RenderSettingsPanel extends PropertyPanel {
             }
         });
 
+        // Setting up progress label
         this.progressLabel = new JLabel("");
         this.progressLabel.setFont(FontLoader.loadFont("montserrat_medium", 17));
         this.progressLabel.setForeground(Color.GREEN);
         this.progressLabel.setVisible(false);
 
+        // Setting up bottom container
+        this.bottomContainer = new JPanel(new FlowLayout(FlowLayout.RIGHT, 21, 0));
+        this.bottomContainer.setPreferredSize(new Dimension(width, 47));
+        this.bottomContainer.setBackground(MainWindow.BACKGROUND_COLOR);
+
+        // Setting up help button
+        this.helpButton = new RoundedButton(30, "?", new Color(200, 200, 200), new Color(255, 255, 255), true);
+        this.helpButton.setBorder(new EmptyBorder(3, 10, 3, 9));
+        this.helpButton.setFont(FontLoader.loadFont("montserrat_medium", 18));
+
+        // Opening the help window when the help button is pressed
+        this.helpButton.addMouseListener(new MouseAdapter() {
+            
+            @Override
+            public void mouseReleased(MouseEvent event) {
+                
+                if (helpButton.mouseIn()) {
+                    
+                    System.out.println("fard");
+                    // Spawning a help window
+                    mainWindow.spawnHelpWindow();
+                }
+            }
+        });
+
+        // Adding JComponents
         this.add(buttonArea);
         this.buttonArea.add(this.previewButton);
         this.buttonArea.add(this.renderButton);
         this.buttonArea.add(this.cancelRenderButton);
         this.buttonArea.add(this.progressLabel);
+        this.add(this.bottomContainer);
+        this.bottomContainer.add(this.helpButton);
     }
 
     // Resets the button colors

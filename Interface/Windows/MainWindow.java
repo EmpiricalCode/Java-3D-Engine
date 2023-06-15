@@ -13,6 +13,7 @@ package Interface.Windows;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
@@ -53,6 +54,7 @@ public class MainWindow extends Window {
     public static final String WINDOW_TITLE = "MoonRays";
 
     private RenderWindow renderWindow = null;
+    private HelpWindow helpWindow = null;
 
     private ObjectsPanel objectsPanel;
     private JPanel objectInfoContainer;
@@ -102,13 +104,35 @@ public class MainWindow extends Window {
 
         this.renderSettingsPanel.loadProperties();
     }
+    
+    // Spawns a help window
+    public void spawnHelpWindow() {
+        
+        // Closing old help window
+        if (this.helpWindow != null) {
+            this.helpWindow.requestFocus();
+            
+        } else {
+
+            this.helpWindow = new HelpWindow();
+
+            // Setting helpWindow to null when the window is closed
+            this.helpWindow.addWindowListener(new WindowAdapter() {
+                
+                @Override
+                public void windowClosing(WindowEvent event) {
+                    setHelpWindowNull();
+                }
+            });
+        }
+    }
 
     // Starts the render
     public void startRender() {
 
         // Closing the old render window
         if (this.renderWindow != null) {
-            this.renderWindow.dispatchEvent(new WindowEvent(renderWindow, WindowEvent.WINDOW_CLOSING));
+            this.renderWindow.dispatchEvent(new WindowEvent(this.renderWindow, WindowEvent.WINDOW_CLOSING));
         }
 
         this.environment.setCamera(new Camera(this.renderSettingsPanel.getCameraPosition(), this.renderSettingsPanel.getCameraLookAt()));
@@ -166,5 +190,10 @@ public class MainWindow extends Window {
     public void removeProperties() {
         this.propertiesPanel.removeProperties();
         this.materialsPanel.removeProperties();
+    }
+
+    // Sets the help window to hull
+    private void setHelpWindowNull() {
+        this.helpWindow = null;
     }
 }
