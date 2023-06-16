@@ -166,7 +166,6 @@ public class RenderSettingsPanel extends PropertyPanel {
                 
                 if (helpButton.mouseIn()) {
                     
-                    System.out.println("fard");
                     // Spawning a help window
                     mainWindow.spawnHelpWindow();
                 }
