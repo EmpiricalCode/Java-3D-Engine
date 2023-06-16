@@ -21,7 +21,8 @@ public class HelpWindow extends Window {
         "What is Camera Position?",
         "What is Camera Look At?",
         "What is Anti Aliasing?",
-        "What is Diffuse and Specular reflection?"
+        "What is Diffuse and Specular reflection?",
+        "How does the coordinate system work?"
     };
 
     public static String[] HELP_MESSAGES = {
@@ -32,7 +33,8 @@ public class HelpWindow extends Window {
         "The 3D position of the camera within the environment.",
         "The 3D position where the camera looks towards. Try creating an object that is at this position.",
         "If set to true, the render will be much smoother, but take longer.",
-        "Diffuse reflection produces a rough object, specular reflection produces a reflective object."
+        "Diffuse reflection produces a rough object, specular reflection produces a reflective object.",
+        "Position is in the format (X, Y, Z). Z is height, and X and Y are planar coordinates (2D)"
     };
 
     private JLabel title;
