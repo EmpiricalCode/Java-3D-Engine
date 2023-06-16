@@ -82,17 +82,16 @@ public class RectangularPrism extends MeshEntity {
         // Whichever triangle has the closest hitpoint will be used
         for (Triangle triangle : this.getMesh()) {
 
-            if (triangle != null) {
-                hit = triangle.getHit(ray);
+            hit = triangle.getHit(ray);
 
-                if (hit != null ) {
+            if (hit != null ) {
 
-                    dist = ray.getOrigin().getDistance(hit.getPosition());
+                dist = ray.getOrigin().getDistance(hit.getPosition());
 
-                    if (dist < minDist || minDist < 0) {
-                        minDist = dist;
-                        nearestHit = hit;
-                    }
+                // If the distance is below minDist or minDist has not been set, update the nearest hit
+                if (dist < minDist || minDist < 0) {
+                    minDist = dist;
+                    nearestHit = hit;
                 }
             }
         }

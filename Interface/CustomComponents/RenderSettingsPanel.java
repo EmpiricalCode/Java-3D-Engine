@@ -79,6 +79,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         this.buttonArea.setBackground(MainWindow.BACKGROUND_COLOR);
         this.buttonArea.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
+        // Setting up the preview button
         this.previewButton = new RoundedButton(15, "Preview", RenderSettingsPanel.PREVIEW_BUTTON_NORMAL, RenderSettingsPanel.PREVIEW_BUTTON_HOVER, true);
         this.previewButton.setBorder(new EmptyBorder(8, 24, 8, 24));
         this.previewButton.setFont(RenderSettingsPanel.BUTTON_FONT);
@@ -100,6 +101,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             }
         });
 
+        // Setting up the render button
         this.renderButton = new RoundedButton(15, "Render", RenderSettingsPanel.RENDER_BUTTON_NORMAL, RenderSettingsPanel.RENDER_BUTTON_HOVER, false);
         this.renderButton.setForeground(Color.WHITE);
         this.renderButton.setBorder(new EmptyBorder(8, 28, 8, 28));
@@ -122,6 +124,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             }
         });
 
+        // Setting up the cancel render button
         this.cancelRenderButton = new RoundedButton(15, "Cancel Render", RenderSettingsPanel.GRAYED_OUT, RenderSettingsPanel.GRAYED_OUT, true);
         this.cancelRenderButton.setBorder(new EmptyBorder(8, 62, 8, 62));
         this.cancelRenderButton.setFont(RenderSettingsPanel.BUTTON_FONT);
@@ -182,7 +185,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         this.bottomContainer.add(this.helpButton);
     }
 
-    // Resets the button colors
+    // Resets the render button colors
     private void resetRenderButtons() {
         this.renderButton.setMouseEnteredColor(RenderSettingsPanel.RENDER_BUTTON_HOVER);
         this.renderButton.setMouseExitedColor(RenderSettingsPanel.RENDER_BUTTON_NORMAL);
@@ -191,7 +194,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         this.previewButton.setMouseExitedColor(RenderSettingsPanel.PREVIEW_BUTTON_NORMAL);
     }
     
-    // Grays out the buttons
+    // Grays out the render buttons
     private void grayOutRenderButtons() {
         this.renderButton.setMouseEnteredColor(RenderSettingsPanel.GRAYED_OUT);
         this.renderButton.setMouseExitedColor(RenderSettingsPanel.GRAYED_OUT);
@@ -203,6 +206,7 @@ public class RenderSettingsPanel extends PropertyPanel {
     // Updates the render progress label
     public void updateRenderProgress(double percent) {
 
+        // Making sure there is not an ongoing render
         if (mainWindow.isRendering()) {
             
             // Making the progress label visible
@@ -210,8 +214,8 @@ public class RenderSettingsPanel extends PropertyPanel {
                 this.progressLabel.setVisible(true);
             }
 
+            // If the render is finished, reset render button colors
             if (100 - percent < 0.0001) {
-                // Resetting button colors
                 this.resetRenderButtons();    
             }
 
@@ -221,7 +225,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         } else {
             this.progressLabel.setVisible(false);
 
-            // Resetting button colors
+            // Resetting render button colors
             this.resetRenderButtons();
 
             // Graying out the cancel render button

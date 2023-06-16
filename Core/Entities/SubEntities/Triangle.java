@@ -8,7 +8,6 @@
 ///////////////////////
 
 package Core.Entities.SubEntities;
-//TODO: Make imports * wherever possible
 import Core.Structures.Entity;
 import Core.Utility.*;
 import Core.Utility.Enum.*;
@@ -55,9 +54,11 @@ public class Triangle extends Entity {
         // making sure ray and triangle are not parallel
         if (length > 0 && normal.dot(ray.getDirection()) != 0) {
 
+            // Creating a RayHit and getting its positions
             hit = new RayHit(Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), length)), normal, ray.getDirection());
             hitPosition = hit.getPosition(); 
 
+            // Temporary calculation variables
             c1 = Vector3D.subtract(hitPosition, point1);
             c2 = Vector3D.subtract(hitPosition, point2);
             c3 = Vector3D.subtract(hitPosition, point3);

@@ -109,6 +109,7 @@ public abstract class Entity {
     // Sets the color of the object
     public void setColor(ColorRGB color) {
 
+        // A minimum value for R, G, B color values is set
         // This is necessary because the lighting model has an edge case issue with objects that strictly reflect one channel of color
         this.color = new ColorRGB(Math.max(color.getR(), Entity.MIN_COLOR_VALUE), Math.max(color.getG(), Entity.MIN_COLOR_VALUE), Math.max(color.getB(), Entity.MIN_COLOR_VALUE));;
     }

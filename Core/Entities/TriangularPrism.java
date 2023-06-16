@@ -81,6 +81,7 @@ public class TriangularPrism extends MeshEntity {
 
                 dist = ray.getOrigin().getDistance(hit.getPosition());
 
+                // If the distance is below minDist or minDist has not been set, update the nearest hit
                 if (dist < minDist || minDist < 0) {
                     minDist = dist;
                     nearestHit = hit;

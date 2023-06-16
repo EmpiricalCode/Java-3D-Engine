@@ -56,6 +56,7 @@ public class PropertyComboBoxEventHandler implements ItemListener {
         }
     }
 
+    // When the JComboBox registers an itemStateChanged event, handle the property change
     @Override
     public void itemStateChanged(ItemEvent event) {
 

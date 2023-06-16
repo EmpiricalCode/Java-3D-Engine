@@ -100,6 +100,7 @@ public class Ray {
     // (random reflection)
     public static Vector3D getDiffuseReflection(RayHit hit) {
         
+        // Origin of diffuse reflection
         Vector3D diffuseOrigin = Vector3D.add(hit.getPosition(), hit.getNormal());
         // Random unit sphere
         Vector3D diffuseOffset = new Vector3D(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1);

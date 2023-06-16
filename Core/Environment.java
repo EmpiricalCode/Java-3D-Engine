@@ -50,6 +50,7 @@ public class Environment {
         this.entities.remove(index);
     }
 
+    // Sets the camera of the environment
     public void setCamera(Camera camera) {
         this.camera = camera;
     }

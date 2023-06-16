@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 
 public class Window extends JFrame {
     
-    // Main constructor
+    // Creates a new Window
     public Window(String title, LayoutManager layout, int width, int height) {
 
         // Setting up window 

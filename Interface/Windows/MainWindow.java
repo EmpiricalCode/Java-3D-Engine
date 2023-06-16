@@ -71,7 +71,6 @@ public class MainWindow extends Window {
         super(MainWindow.WINDOW_TITLE, new BorderLayout(), MainWindow.WIDTH, MainWindow.HEIGHT);
 
         // Adding elements
-        // TODO: Make all of these final variables
         this.materialsPanel = new MaterialsPanel(this, MainWindow.SECOND_SECTION_WIDTH);
         this.propertiesPanel = new PropertiesPanel(this, MainWindow.SECOND_SECTION_WIDTH);
 
@@ -135,6 +134,7 @@ public class MainWindow extends Window {
             this.renderWindow.dispatchEvent(new WindowEvent(this.renderWindow, WindowEvent.WINDOW_CLOSING));
         }
 
+        // Setting up environment and prompting the render to start
         this.environment.setCamera(new Camera(this.renderSettingsPanel.getCameraPosition(), this.renderSettingsPanel.getCameraLookAt()));
         this.renderWindow = new RenderWindow(this, this.environment, this.renderSettingsPanel.getQuality(), this.renderSettingsPanel.getAntiAliasing(), this.renderSettingsPanel.getGamma(), this.renderSettingsPanel.getPixelSamples(), this.renderSettingsPanel.getRayDepth());
         (new Thread(this.renderWindow.getRenderPanel())).start();
@@ -148,6 +148,7 @@ public class MainWindow extends Window {
             this.renderWindow.dispatchEvent(new WindowEvent(renderWindow, WindowEvent.WINDOW_CLOSING));
         }
 
+        // Setting up the environment with preset parameters and prompting the render to start
         this.environment.setCamera(new Camera(this.renderSettingsPanel.getCameraPosition(), this.renderSettingsPanel.getCameraLookAt()));
         this.renderWindow = new RenderWindow(this, this.environment, MainWindow.PREVIEW_QUALITY, MainWindow.PREVIEW_ANTI_ALIASING, this.renderSettingsPanel.getGamma(), MainWindow.PREVIEW_PIXEL_SAMPLES, MainWindow.PREVIEW_RAY_DEPTH);
         (new Thread(this.renderWindow.getRenderPanel())).start();

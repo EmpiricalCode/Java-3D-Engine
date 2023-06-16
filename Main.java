@@ -7,8 +7,6 @@
 //
 ///////////////////////
 
-// TODO: maybe remove protected methods
-
 import Interface.Windows.MainWindow;
 
 public class Main {

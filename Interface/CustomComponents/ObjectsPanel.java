@@ -170,7 +170,7 @@ public class ObjectsPanel extends JPanel {
                         objectPanel.setPreferredSize(new Dimension((int) objectPanel.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT + 2));
 
                         // Creating a delete button
-                        ObjectsPanel.createDeleteButton(objectPanel, objectsArea, environment, mainWindow);
+                        ObjectsPanel.createRemoveButton(objectPanel, objectsArea, environment, mainWindow);
 
                         // Loading the properties for that object
                         mainWindow.loadProperties(environment.getEntities().get(index)); 
@@ -245,7 +245,7 @@ public class ObjectsPanel extends JPanel {
 
                 objectPanel.setBorder(ObjectsPanel.SELECTED_OBJECT_BORDER);
                 objectPanel.setPreferredSize(new Dimension((int) objectPanel.getPreferredSize().getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT + 2));
-                ObjectsPanel.createDeleteButton(objectPanel, this.objectsArea, this.environment, this.mainWindow);
+                ObjectsPanel.createRemoveButton(objectPanel, this.objectsArea, this.environment, this.mainWindow);
 
                 mainWindow.loadProperties(newSphere);
             }
@@ -272,7 +272,7 @@ public class ObjectsPanel extends JPanel {
 
     // Creates a delete button for an object component
     // and handles all its relevant behavior
-    private static void createDeleteButton(JPanel objectComponent, JPanel objectsArea, Environment environment, MainWindow mainWindow) {
+    private static void createRemoveButton(JPanel objectComponent, JPanel objectsArea, Environment environment, MainWindow mainWindow) {
 
         RoundedButton removeButton = new RoundedButton(15, "Remove", new Color(200, 100, 100), new Color(220, 120, 120), false);
 
@@ -280,6 +280,9 @@ public class ObjectsPanel extends JPanel {
         removeButton.setForeground(Color.WHITE);
         removeButton.setBorder(new EmptyBorder(2, 10, 2, 10));
 
+        // When the removeButton registers a mouse released event while the cursor is
+        // within the button and a render is not ongoing, remove the selected entity
+        // (mouseReleased will not fire if the mouse is held, moved into the button, and released)
         removeButton.addMouseListener(new MouseAdapter() {
             
             @Override

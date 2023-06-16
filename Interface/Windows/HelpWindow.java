@@ -1,3 +1,12 @@
+///////////////////////
+//
+// Filename: HelpWindow.java
+// Author: Daniel Long
+// Course: ICS4U1
+// Description: The HelpWindow is a JFrame that contains answers to FAQ regarding the program.
+//
+///////////////////////
+
 package Interface.Windows;
 
 import java.awt.Color;

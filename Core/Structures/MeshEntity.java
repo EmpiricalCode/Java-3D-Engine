@@ -41,24 +41,28 @@ public abstract class MeshEntity extends Entity {
     
     // The meshed entity must update its mesh when these properties are changed, so some of the
     // setter methods are overriden to account for this
+    // Sets the width
     @Override
     public void setWidth(double width) {
         super.setWidth(width);
         this.setupMesh();
     }
 
+    // Sets the depth
     @Override
     public void setDepth(double depth) {
         super.setDepth(depth);
         this.setupMesh();
     }
 
+    // Sets the height
     @Override
     public void setHeight(double width) {
         super.setHeight(width);
         this.setupMesh();
     }
 
+    // Sets the position
     @Override
     public void setPosition(Vector3D position) {
         super.setPosition(position);

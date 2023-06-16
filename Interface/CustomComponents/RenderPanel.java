@@ -7,8 +7,6 @@
 //
 ///////////////////////
 
-// TODO: Make closing render window stop render
-
 package Interface.CustomComponents;
 
 import java.awt.*;
@@ -170,6 +168,7 @@ public class RenderPanel extends JPanel implements Runnable {
                     return;
                 }
 
+                // Checking if anti-aliasing should be carried out or not
                 if (this.antiAliasing) {
 
                     // Taking an average 4 four pixels for each pixel if anti-aliasing is set to true
@@ -178,6 +177,7 @@ public class RenderPanel extends JPanel implements Runnable {
                         colorMatrix[j/2][i/2][1] = (renderMatrix[j][i][1] + renderMatrix[j][i-1][1] + renderMatrix[j-1][i][1] + renderMatrix[j-1][i-1][1]) / 4;
                         colorMatrix[j/2][i/2][2] = (renderMatrix[j][i][2] + renderMatrix[j][i-1][2] + renderMatrix[j-1][i][2] + renderMatrix[j-1][i-1][2]) / 4;
                     }
+                    
                 } else {
 
                     // If anti-aliasing is false, just copy the colors over
