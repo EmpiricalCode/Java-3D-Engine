@@ -100,6 +100,7 @@ public class MainWindow extends Window {
         this.add(this.objectInfoContainer, BorderLayout.CENTER);
         this.add(this.objectsPanel, BorderLayout.WEST);
     
+        this.pack();
         this.setVisible(true);
 
         this.renderSettingsPanel.loadProperties();

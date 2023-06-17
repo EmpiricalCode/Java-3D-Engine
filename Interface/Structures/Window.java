@@ -9,6 +9,7 @@
 
 package Interface.Structures;
 
+import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.io.File;
 
@@ -26,7 +27,7 @@ public class Window extends JFrame {
         // setVisible is not called here because the individual windows must add their JComponents first before setting visible
         // in order to avoid issues where components do not show until the window is resized.
         this.setLayout(layout);
-        this.setSize(width, height);
+        this.setPreferredSize(new Dimension(width, height));
 
         // Setting the app icon
         try {
