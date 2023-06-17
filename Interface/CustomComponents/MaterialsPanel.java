@@ -24,7 +24,7 @@ public class MaterialsPanel extends PropertyPanel {
     private MainWindow mainWindow;
     private Entity entity;
     
-    // Creates a new materials panel
+    // Creates a new materials property panel
     public MaterialsPanel(MainWindow mainWindow, int width) {
         super("Materials", width, MainWindow.HEIGHT, 110);
 

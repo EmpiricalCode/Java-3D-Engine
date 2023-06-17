@@ -64,7 +64,6 @@ public class ObjectsPanel extends JPanel {
         this.environment = environment;
         this.mainWindow = mainWindow;
 
-        // Add various widths and height to static final variables
         this.setPreferredSize(new Dimension(width, height));
         this.setLayout(new FlowLayout(0, 0, 0));
 
@@ -96,12 +95,14 @@ public class ObjectsPanel extends JPanel {
             }
         });
 
+        // Creating objects area
         this.objectsArea = new JPanel();
         this.objectsArea.setPreferredSize(new Dimension(width, height - addObjectsArea.getHeight()));
         this.objectsArea.setLayout(new FlowLayout(0, 0, 0));
         this.objectsArea.setBorder(new MatteBorder(1, 0, 0, 0, MainWindow.BORDER_COLOR));
         this.objectsArea.setBackground(MainWindow.BACKGROUND_COLOR);
 
+        // Adding JComponents
         this.addObjectsArea.add(this.objectsTitle);
         this.addObjectsArea.add(this.addObjectButton);
         this.add(this.addObjectsArea);
@@ -123,15 +124,15 @@ public class ObjectsPanel extends JPanel {
             // By default, a sphere is added
             this.environment.addEntity(newSphere);
 
-            // Object components are JPanels that act as the interface between an actual environment Entity and the user
-            // Object components can be selected to change various properties in the Materials and Properties panels
+            // Setting up the object panel
+            // Object panels represent entities in the environment
             objectPanel.setBorder(ObjectsPanel.UNSELECTED_OBJECT_BORDER);
             objectPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
             objectPanel.setBackground(MainWindow.BACKGROUND_COLOR);
             objectPanel.setPreferredSize(new Dimension(this.getWidth(), ObjectsPanel.OBJECT_CONTAINER_HEIGHT));
             objectPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-            // When the object component is selected, select that object
+            // When the object panel is selected, select that object
             objectPanel.addMouseListener(new MouseAdapter() {
                 
                 @Override
@@ -178,7 +179,7 @@ public class ObjectsPanel extends JPanel {
                 }
             });
 
-            // When a object-type drop-down menu registers an item state change, change its corresponding icon and update the environment's entities accordingly
+            // When a drop-down menu that changes object types registers an item state change, change its corresponding icon and update the environment's entities accordingly
             objectTypeSelector.addItemListener(new ItemListener() {
 
                 @Override
@@ -204,6 +205,7 @@ public class ObjectsPanel extends JPanel {
 
                         iconPanel = (IconPanel) objectPanel.getComponent(0);
                         
+                        // Changing the entity
                         if (event.getItem().equals(EntityType.RECTANGULAR_PRISM.getName())) {
 
                             iconPanel.changeEntityType(EntityType.RECTANGULAR_PRISM);
@@ -256,7 +258,7 @@ public class ObjectsPanel extends JPanel {
     }
 
     // Finds the index of a component within its parent container by comparing references
-    // This method should never return one, since a component should always be able to be found within its parent container
+    // This method should never return -1, since a component should always be able to be found within its parent container
     private static int findComponentIndex(JComponent component) {
 
         for (int i = 0; i < component.getParent().getComponentCount(); i++) {

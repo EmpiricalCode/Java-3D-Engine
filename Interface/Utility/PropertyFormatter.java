@@ -10,6 +10,8 @@
 package Interface.Utility;
 
 public class PropertyFormatter {
+    
+    // All these methods return null when a property is set in an invalid way
 
     // Formats the position property field text
     public static String formatPosition(String fieldText) {
@@ -43,11 +45,12 @@ public class PropertyFormatter {
         String formattedTripleDouble = PropertyFormatter.formatPosition(fieldText);
         String decomposed[];
         String ret = "";
-
+        
         if (formattedTripleDouble != null) {
 
             decomposed = formattedTripleDouble.split(", ");
-            
+
+            // Casting doubles to ints
             for (String element : decomposed) {
                 ret += ", " + Math.min(255, Math.max(0, (int) Double.parseDouble(element)));
             }

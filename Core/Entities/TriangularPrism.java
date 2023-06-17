@@ -21,7 +21,7 @@ public class TriangularPrism extends MeshEntity {
     public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.WIDTH, PropertyType.DEPTH, PropertyType.HEIGHT};
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
 
-    // Creates a new TriangularPrism
+    // Creates a new TriangularPrism entity
     public TriangularPrism(Vector3D position, ColorRGB color, double fuzziness, ReflectionType reflectionType, double width, double depth, double height) {
         super(EntityType.TRIANGULAR_PRISM, position, color, fuzziness, reflectionType, width, depth, height);
     }

@@ -26,7 +26,7 @@ public class RectangularPrism extends MeshEntity {
         super(EntityType.RECTANGULAR_PRISM, position, color, fuzziness, reflectionType, width, depth, height);
     }
 
-    // Sets up mesh
+    // Sets up mesh based on position, width, depth, and height
     public void setupMesh() {
 
         Vector3D position = this.getPosition();

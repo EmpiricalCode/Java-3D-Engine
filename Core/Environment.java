@@ -24,7 +24,7 @@ public class Environment {
 
     private Camera camera;
 
-    // Creates a new environment
+    // Creates a new Environment object
     public Environment(Camera camera) {
         this.camera = camera;
         this.entities = new ArrayList<Entity>();

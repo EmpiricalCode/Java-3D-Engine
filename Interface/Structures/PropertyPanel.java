@@ -56,7 +56,7 @@ public abstract class PropertyPanel extends JPanel {
         this.propertiesArea.setLayout(new FlowLayout(0, 0, 0));
         this.propertiesArea.setBackground(MainWindow.BACKGROUND_COLOR);
 
-        // Adding componentst
+        // Adding components
         this.titleArea.add(this.title);
         this.titleArea.add(this.subtitle);
         this.add(this.titleArea);

@@ -29,7 +29,6 @@ public class RenderWindow extends Window {
         // Setting up the window
         super(RenderWindow.WINDOW_TITLE, new FlowLayout(FlowLayout.LEFT, 0, 0), 512, 512);
 
-        // Resizing the window to account for the insets (the content must be 512px by 512px, not the window itself)
         this.setResizable(false);
 
         // Creating render panel

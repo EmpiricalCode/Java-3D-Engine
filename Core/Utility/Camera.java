@@ -20,7 +20,7 @@ public class Camera {
     private Vector3D origin;
     private Vector3D direction;
     
-    // Creates a new Camera
+    // Creates a new Camera object
     public Camera(Vector3D origin, Vector3D destination) {
         this.origin = origin;
         this.direction = Vector3D.subtract(destination, origin);
@@ -34,7 +34,7 @@ public class Camera {
         return this.origin;
     }
 
-    // Getter method for destination
+    // Getter method for direction
     public Vector3D getDirection() {
         return this.direction;
     }

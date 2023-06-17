@@ -26,7 +26,7 @@ public class IconPanel extends JPanel {
     private EntityType entityType;
     private BufferedImage icon;
 
-    // Creates a new IconPanel Object
+    // Creates a new IconPanel object
     public IconPanel(EntityType entityType) {
 
         this.entityType = entityType;

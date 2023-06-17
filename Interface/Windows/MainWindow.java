@@ -70,6 +70,9 @@ public class MainWindow extends Window {
         // Setting up the window
         super(MainWindow.WINDOW_TITLE, new BorderLayout(), MainWindow.WIDTH, MainWindow.HEIGHT);
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+
         // Adding elements
         this.materialsPanel = new MaterialsPanel(this, MainWindow.SECOND_SECTION_WIDTH);
         this.propertiesPanel = new PropertiesPanel(this, MainWindow.SECOND_SECTION_WIDTH);
@@ -96,9 +99,7 @@ public class MainWindow extends Window {
         this.add(this.renderSettingsPanel, BorderLayout.EAST);
         this.add(this.objectInfoContainer, BorderLayout.CENTER);
         this.add(this.objectsPanel, BorderLayout.WEST);
-
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+    
         this.setVisible(true);
 
         this.renderSettingsPanel.loadProperties();

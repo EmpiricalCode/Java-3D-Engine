@@ -50,7 +50,7 @@ public class Sphere extends Entity {
         Vector3D distanceVector = Vector3D.subtract(this.getPosition(), ray.getOrigin());
         double dotProduct = distanceVector.dot(ray.getDirection());
 
-        // Making sure the ray is pointing towards the sphere, and not in the opposite direction (which would still register a hit)
+        // Making sure the ray is pointing towards the sphere, and not in the opposite direction (which would still register a hit, since a ray is infinitely long)
         if (dotProduct >= 0) {
 
             perpendicularDistance = Math.sqrt(Math.pow(distanceVector.getMagnitude(), 2) - Math.pow(dotProduct, 2));

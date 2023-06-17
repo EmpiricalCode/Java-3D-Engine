@@ -75,7 +75,7 @@ public class RenderSettingsPanel extends PropertyPanel {
 
         // Creating the button panel
         this.buttonArea = new JPanel();
-        this.buttonArea.setPreferredSize(new Dimension(width, 300));
+        this.buttonArea.setPreferredSize(new Dimension(width, 285));
         this.buttonArea.setBackground(MainWindow.BACKGROUND_COLOR);
         this.buttonArea.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
@@ -90,7 +90,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             @Override
             public void mouseReleased(MouseEvent event) {
 
-                if (previewButton.mouseIn() && !mainWindow.isRendering()) {
+                if (previewButton.mouseIn() && !mainWindow.isRendering() && event.getButton() == MouseEvent.BUTTON1) {
                     mainWindow.startPreview();
                     grayOutRenderButtons();
 
@@ -113,7 +113,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             @Override
             public void mouseReleased(MouseEvent event) {
 
-                if (renderButton.mouseIn() && !mainWindow.isRendering()) {
+                if (renderButton.mouseIn() && !mainWindow.isRendering() && event.getButton() == MouseEvent.BUTTON1) {
                     mainWindow.startRender();
                     grayOutRenderButtons();
 
@@ -135,7 +135,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             @Override
             public void mouseReleased(MouseEvent event) {
                 
-                if (cancelRenderButton.mouseIn()) {
+                if (cancelRenderButton.mouseIn() && event.getButton() == MouseEvent.BUTTON1) {
                     mainWindow.cancelRender();
 
                     // Graying out the cancel render button
@@ -153,7 +153,7 @@ public class RenderSettingsPanel extends PropertyPanel {
 
         // Setting up bottom container
         this.bottomContainer = new JPanel(new FlowLayout(FlowLayout.RIGHT, 21, 0));
-        this.bottomContainer.setPreferredSize(new Dimension(width, 47));
+        this.bottomContainer.setPreferredSize(new Dimension(width, 45));
         this.bottomContainer.setBackground(MainWindow.BACKGROUND_COLOR);
 
         // Setting up help button
@@ -167,7 +167,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             @Override
             public void mouseReleased(MouseEvent event) {
                 
-                if (helpButton.mouseIn()) {
+                if (helpButton.mouseIn() && event.getButton() == MouseEvent.BUTTON1) {
                     
                     // Spawning a help window
                     mainWindow.spawnHelpWindow();
@@ -261,7 +261,7 @@ public class RenderSettingsPanel extends PropertyPanel {
         }
 
         // Every focus listener is implemented seperately. Even if they were all grouped under the same focus listener to reduce repeated code, it would
-        // then be inefficient to then figure out which kind of property is being changed (without a custom class handling focusListener, where property type could be passed in)
+        // then be inefficient to then figure out which kind of property is being changed (without a custom focus listener class, where property type could be passed in)
 
         // A custom focus listener class was used for entity text field properties (PropertyTextFieldEventHandler) because different entities have varying properties.
         // However, for render settings, all the properties are immediately known, and so it is simpler to manually set up listeners for them all
@@ -276,6 +276,7 @@ public class RenderSettingsPanel extends PropertyPanel {
                 String modifiedFieldText = PropertyFormatter.formatQuality(qualityComponent.getText());
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(quality - 6), modifiedFieldText, qualityComponent, mainWindow.isRendering());
 
+                // Set property if entered text is valid
                 if (modifiedFieldText != null && !mainWindow.isRendering()) {
                     setQuality(Integer.valueOf(modifiedFieldText) + 6);
                 }
@@ -291,6 +292,7 @@ public class RenderSettingsPanel extends PropertyPanel {
                 String modifiedFieldText = PropertyFormatter.formatPixelSamples(pixelSamplesComponent.getText());
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(pixelSamples), modifiedFieldText, pixelSamplesComponent, mainWindow.isRendering());
 
+                // Set property if entered text is valid
                 if (modifiedFieldText != null && !mainWindow.isRendering()) {
                     setPixelSamples(Integer.valueOf(modifiedFieldText));
                 }
@@ -307,6 +309,7 @@ public class RenderSettingsPanel extends PropertyPanel {
                 String modifiedFieldText = PropertyFormatter.formatPixelSamples(rayDepthComponent.getText());
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(rayDepth), modifiedFieldText, rayDepthComponent, mainWindow.isRendering());
 
+                // Set property if entered text is valid
                 if (modifiedFieldText != null && !mainWindow.isRendering()) {
                     setRayDepth(Integer.valueOf(modifiedFieldText));
                 }
@@ -319,6 +322,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             @Override
             public void focusLost(FocusEvent event) {
                 
+                // Set property if entered text is valid
                 String modifiedFieldText = PropertyFormatter.formatGamma(gammaComponent.getText());
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(gammaCorrection), modifiedFieldText, gammaComponent, mainWindow.isRendering());
 
@@ -346,6 +350,8 @@ public class RenderSettingsPanel extends PropertyPanel {
                     // Reset camera position if it equals to the camera look at position, otherwise set the new camera position
                     if (newPos.toString().equals(cameraLookAt.toString())) {
                         modifiedFieldText = null;
+
+                    // Set property if entered text is valid
                     } else if (!mainWindow.isRendering()) {
                         setCameraPosition(newPos);
                     }
@@ -373,6 +379,8 @@ public class RenderSettingsPanel extends PropertyPanel {
                     // Reset camera look at position if it equals to the camera position, otherwise set the new camera look at position
                     if (newPos.toString().equals(cameraPosition.toString())) {
                         modifiedFieldText = null;
+
+                    // Set property if entered text is valid
                     } else if (!mainWindow.isRendering()) {
                         setCameraLookAt(newPos);
                     }

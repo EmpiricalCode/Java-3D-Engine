@@ -28,7 +28,7 @@ public class PropertyElementLoader {
     public static final String[] REFLECTION_TYPE_OPTIONS = {ReflectionType.DIFFUSE.getName(), ReflectionType.SPECULAR.getName()};
     public static final String[] ANTI_ALIASING_OPTIONS = {"True", "False"};
 
-    // Creates a list element and returns the field component (textfield, etc)
+    // Creates a list element and returns the property field component (JTextField, JComboBox)
     public static JComponent loadListElement(JPanel listArea, PropertyType property) {
 
         JLabel fieldNameComponent;

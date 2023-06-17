@@ -51,10 +51,10 @@ public class Triangle extends Entity {
         double dot = -point1.dot(normal);
         double length = -(normal.dot(ray.getOrigin()) + dot) / normal.dot(ray.getDirection());
 
-        // making sure ray and triangle are not parallel
+        // making sure the ray and triangle are not parallel
         if (length > 0 && normal.dot(ray.getDirection()) != 0) {
 
-            // Creating a RayHit and getting its positions
+            // Creating a RayHit and getting its hit position
             hit = new RayHit(Vector3D.add(ray.getOrigin(), Vector3D.multiply(ray.getDirection(), length)), normal, ray.getDirection());
             hitPosition = hit.getPosition(); 
 

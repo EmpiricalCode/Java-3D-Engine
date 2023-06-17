@@ -29,7 +29,7 @@ public class PropertyTextFieldEventHandler implements FocusListener {
     private JTextField textField;
     private MainWindow mainWindow;
 
-    // Creates a new PropertyTextFieldEventHandler
+    // Creates a new PropertyTextFieldEventHandler object
     public PropertyTextFieldEventHandler(MainWindow mainWindow, Entity entity, PropertyType propertyType, JTextField textField) {
         this.entity = entity;
         this.propertyType = propertyType;
