@@ -3,7 +3,7 @@
 // Filename: Main.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: Creates a new main window. This program is a minimalist ray tracing playground, allowing users to add objects, modify their properties, and render scenes.
+// Description: Creates the main window. This program is a minimalist ray tracing playground, allowing users to add objects, modify their properties, and render scenes.
 //
 ///////////////////////
 

@@ -10,6 +10,7 @@
 package Core.Utility.Enum;
 
 public enum ReflectionType {
+    
     SPECULAR("Specular"),
     DIFFUSE("Diffuse");
 

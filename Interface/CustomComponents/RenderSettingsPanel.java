@@ -3,7 +3,7 @@
 // Filename: RenderSettingsPanel.java
 // Author: Daniel Long
 // Course: ICS4U1
-// Description: A class that handles the creation and user interactions of the render settings panel. This panel allows users to modify camera/lighting/etc settings.
+// Description: A class that handles the creation and user interactions of the render settings panel. This panel allows users to modify camera/lighting/etc settings, as well as open the help window.
 //
 ///////////////////////
 
