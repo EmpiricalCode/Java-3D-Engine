@@ -72,6 +72,7 @@ public class RenderSettingsPanel extends PropertyPanel {
 
         this.mainWindow = mainWindow;
         this.getPropertiesArea().setPreferredSize(new Dimension(width, 340));
+        this.setBackground(MainWindow.BACKGROUND_COLOR);
 
         // Creating the button panel
         this.buttonArea = new JPanel();
