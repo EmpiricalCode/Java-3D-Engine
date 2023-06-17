@@ -44,6 +44,13 @@ public class IconPanel extends JPanel {
         this.loadIcon();
     }
 
+    // Drawing the relevant icon
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(icon, 5, 2, this);
+    }
+
     // Loads the current icon based on entityType
     private void loadIcon() {
         
@@ -55,12 +62,5 @@ public class IconPanel extends JPanel {
 
         this.revalidate();
         this.repaint();
-    }
-
-    // Drawing the relevant icon
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(icon, 5, 2, this);
     }
 }

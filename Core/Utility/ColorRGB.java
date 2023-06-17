@@ -37,6 +37,11 @@ public class ColorRGB {
         return this.b;
     }
 
+    // Returns the color as a string
+    public String toString() {
+        return this.r + ", " + this.g + ", " + this.b;
+    }
+
     // Subtracts two colors
     public static ColorRGB subtract(ColorRGB a, ColorRGB b) {
         return new ColorRGB(a.getR() - b.getR(), a.getG() - b.getG(), a.getB() - b.getB());
@@ -50,10 +55,5 @@ public class ColorRGB {
     // Multiplies each of the color's values by a scalar
     public static ColorRGB multiply(ColorRGB a, double scalar) {
         return new ColorRGB((int) (a.getR() * scalar), (int) (a.getG() * scalar), (int) (a.getB() * scalar));
-    }
-
-    // Returns the color as a string
-    public String toString() {
-        return this.r + ", " + this.g + ", " + this.b;
     }
 }

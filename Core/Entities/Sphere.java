@@ -19,6 +19,7 @@ public class Sphere extends Entity {
     
     public static final PropertyType[] PROPERTIES = {PropertyType.POSITION, PropertyType.RADIUS};
     public static final PropertyType[] MATERIAL_PROPERTIES = {PropertyType.REFLECTION_TYPE, PropertyType.COLOR, PropertyType.FUZZINESS};
+    
     private double radius;
 
     // Creates a Sphere entity
