@@ -109,6 +109,7 @@ public class Ray {
 
         // Adding the random unit sphere direction to the reflection normal to get a random reflected direction
         Vector3D diffuseReflectionDirection = Vector3D.subtract(Vector3D.add(diffuseOrigin, diffuseOffset), hit.getPosition());
+        
         diffuseReflectionDirection.clamp(1);
 
         return diffuseReflectionDirection;

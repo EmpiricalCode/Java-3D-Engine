@@ -91,6 +91,6 @@ public class HelpWindow extends Window {
 
         // These two lines of code are necessary to align the content to the top
         this.constraints.weighty = 1;
-        add(new JLabel(), this.constraints);
+        this.add(new JLabel(), this.constraints);
     }
 }

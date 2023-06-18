@@ -275,6 +275,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             public void focusLost(FocusEvent event) {
                 
                 String modifiedFieldText = PropertyFormatter.formatQuality(qualityComponent.getText());
+
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(quality - 6), modifiedFieldText, qualityComponent, mainWindow.isRendering());
 
                 // Set property if entered text is valid
@@ -291,6 +292,7 @@ public class RenderSettingsPanel extends PropertyPanel {
             public void focusLost(FocusEvent event) {
                 
                 String modifiedFieldText = PropertyFormatter.formatPixelSamples(pixelSamplesComponent.getText());
+
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(pixelSamples), modifiedFieldText, pixelSamplesComponent, mainWindow.isRendering());
 
                 // Set property if entered text is valid
@@ -308,6 +310,7 @@ public class RenderSettingsPanel extends PropertyPanel {
                 
                 // Ray depth uses the same property formatting as pixel samples
                 String modifiedFieldText = PropertyFormatter.formatPixelSamples(rayDepthComponent.getText());
+
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(rayDepth), modifiedFieldText, rayDepthComponent, mainWindow.isRendering());
 
                 // Set property if entered text is valid
@@ -325,6 +328,7 @@ public class RenderSettingsPanel extends PropertyPanel {
                 
                 // Set property if entered text is valid
                 String modifiedFieldText = PropertyFormatter.formatGamma(gammaComponent.getText());
+                
                 PropertyTextFieldEventHandler.setProperty(String.valueOf(gammaCorrection), modifiedFieldText, gammaComponent, mainWindow.isRendering());
 
                 if (modifiedFieldText != null && !mainWindow.isRendering()) {
