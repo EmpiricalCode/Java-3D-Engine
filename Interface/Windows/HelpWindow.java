@@ -35,7 +35,7 @@ public class HelpWindow extends Window {
     };
 
     public static String[] HELP_MESSAGES = {
-        "A number between 1 and 3. the higher the number, the higher the render resolution.",
+        "A number between 1 and 3. The higher the number, the higher the render resolution.",
         "The number of rays shot per pixels. The higher the pixel samples, the less grainy diffuse objects are.",
         "The amount of times a ray bounces within the environment.",
         "The higher the gamma, the brighter the environment will appear. Gamma is capped between 1 and 3.",
@@ -43,7 +43,7 @@ public class HelpWindow extends Window {
         "The 3D position where the camera looks towards. Try creating an object that is at this position.",
         "If set to true, the render will be much smoother, but take longer.",
         "Diffuse reflection produces a rough object, specular reflection produces a reflective object.",
-        "Position is in the format (X, Y, Z). Z is height, and X and Y are planar coordinates (2D)"
+        "Position is in the format (X, Y, Z). Z is height, and X and Y are planar coordinates (2D)."
     };
 
     private JLabel title;
