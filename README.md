@@ -1,2 +1,2 @@
 ## Example Render
-![render1](/"Example Renders"/render1.png)
+![render1](/Example%20Renders/render1.png)
